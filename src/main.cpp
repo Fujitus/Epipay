@@ -30,6 +30,6 @@ int	main()
       return (0);
     }
     ui.clear();
-    std::this_thread::sleep_for(std::chrono::milliseconds(2));
+    std::this_thread::sleep_for(std::chrono::milliseconds(4));
   }
 }
