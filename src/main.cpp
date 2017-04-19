@@ -1,0 +1,35 @@
+//
+// main.cpp for Epipay in /home/costa_d/Documents/Epipay/main.cpp/
+//
+// Made by Arnaud Costa
+// Login   <costa_d@epitech.net>
+//
+// Started on mar. avr. 18 10:07:05 2017 Arnaud Costa
+// Last update mar. avr. 18 10:07:05 2017 Arnaud Costa
+//
+
+#include <chrono>
+#include <thread>
+#include "ui.hh"
+
+int	main()
+{
+  UI	ui;
+
+  if (ui.loadFiles() == -1)
+    return (-1);
+  ui.open();
+  while (ui.window.isOpen())
+  {
+    ui.printKeypad();
+    ui.printText(10, 10, "HelloWorld", 64);
+    ui.display();
+    if (ui.getEvent().type == sf::Event::Closed)
+    {
+      ui.close();
+      return (0);
+    }
+    ui.clear();
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+  }
+}

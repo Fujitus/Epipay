@@ -1,0 +1,1 @@
+/usr/bin/c++   -g   CMakeFiles/Epipay.dir/src/keypad.cpp.o CMakeFiles/Epipay.dir/src/main.cpp.o CMakeFiles/Epipay.dir/src/ui.cpp.o  -o Epipay 
