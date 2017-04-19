@@ -5,7 +5,7 @@
 ## Login   <costa_d@epitech.net>
 ## 
 ## Started on  Sun Jan 15 01:56:26 2017 Arnaud Costa
-## Last update Sun Apr  9 19:40:16 2017 Arnaud Costa
+## Last update Wed Apr 19 11:44:22 2017 Arnaud Costa
 ##
 
 CC			        = g++
@@ -14,7 +14,7 @@ RM			        = rm -f
 
 MK			        = mkdir
 
-CPPFLAGS		    = -Iinclude -std=c++11 -lsfml-graphics -lsfml-window -lsfml-system -g
+CPPFLAGS		    = -Iinclude -std=c++11 -lsfml-graphics -lsfml-window -lsfml-system
 
 SRCDIR			    = src/
 

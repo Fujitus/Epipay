@@ -24,12 +24,12 @@ int	main()
     ui.printKeypad();
     ui.printText(10, 10, "HelloWorld", 64);
     ui.display();
-    if (ui.getEvent().type == sf::Event::Closed)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     {
       ui.close();
       return (0);
     }
     ui.clear();
-    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+    std::this_thread::sleep_for(std::chrono::milliseconds(2));
   }
 }
