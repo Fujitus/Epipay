@@ -21,7 +21,6 @@
 class	Keypad
 {
   std::vector<Key>	pad;
-  sf::Texture   	texture;
  public:
   Keypad();
   ~Keypad();
