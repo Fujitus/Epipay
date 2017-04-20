@@ -37,16 +37,16 @@ Key 	Keypad::creatKey(std::size_t x, std::size_t y, const char c,
 
 void 	Keypad::creatKeypad()
 {
-  this->pad.push_back(this->creatKey(10, 10, '1', 10, 10));
-  this->pad.push_back(this->creatKey(20, 10, '2', 10, 10));
-  this->pad.push_back(this->creatKey(30, 10, '3', 10, 10));
-  this->pad.push_back(this->creatKey(10, 20, '4', 10, 10));
-  this->pad.push_back(this->creatKey(20, 20, '5', 10, 10));
-  this->pad.push_back(this->creatKey(30, 20, '6', 10, 10));
-  this->pad.push_back(this->creatKey(10, 30, '7', 10, 10));
-  this->pad.push_back(this->creatKey(20, 30, '8', 10, 10));
-  this->pad.push_back(this->creatKey(30, 30, '9', 10, 10));
-  this->pad.push_back(this->creatKey(20, 40, '0', 10, 10));
+  this->pad.push_back(this->creatKey(10, 10, '1', 64, 64));
+  this->pad.push_back(this->creatKey(74, 10, '2', 64, 64));
+  this->pad.push_back(this->creatKey(138, 10, '3', 64, 64));
+  this->pad.push_back(this->creatKey(10, 74, '4', 64, 64));
+  this->pad.push_back(this->creatKey(74, 74, '5', 64, 64));
+  this->pad.push_back(this->creatKey(138, 74, '6', 64, 64));
+  this->pad.push_back(this->creatKey(10, 138, '7', 64, 64));
+  this->pad.push_back(this->creatKey(74, 138, '8', 64, 64));
+  this->pad.push_back(this->creatKey(138, 138, '9', 64, 64));
+  this->pad.push_back(this->creatKey(74, 202, '0', 64, 64));
 }
 
 std::vector<Key>	Keypad::getKeypad() const

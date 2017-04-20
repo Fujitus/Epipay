@@ -79,8 +79,6 @@ void 		UI::printKeypad()
   std::vector<Key>		tmpPad = this->keypad.getKeypad();
   std::vector<Key>::iterator	it = tmpPad.end() - 1;
 
-  //std::cout << "Size keypad = " << this->keypad.getKeypad().size() << std::endl;
-  //this->printText(100, 100, keypad.getKeypad()[1].sprite, 67);
   while (it >= tmpPad.begin())
   {
     if (this->printKey(*it) == -1)
@@ -94,10 +92,11 @@ int		UI::printKey(const Key tmp)
   sf::Sprite    		sprite;
   sf::Texture   		texture;
 
-  if (!texture.loadFromFile((tmp.sprite.c_str()), sf::IntRect(0, 0, 10, 10)))
+  if (!texture.loadFromFile((tmp.sprite.c_str()), sf::IntRect(0, 0, 64, 64)))
     return (-1);
   sprite.setTexture(texture);
   sprite.setPosition(tmp.pos.x, tmp.pos.y);
   this->window.draw(sprite);
+  this->printText(tmp.pos.x + 22, tmp.pos.y + 2, tmp.c, 45);
   return (0);
 }
