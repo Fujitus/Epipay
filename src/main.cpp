@@ -24,7 +24,7 @@ int	main()
     ui.printElemList();
     ui.printKeypad();
     ui.printDefaultText(10, 10, "Epipay", 20);
-    ui.printText(400, 50, ui.getPrice(), 92);
+    ui.printText(490, 50, ui.getPrice(), 92);
     ui.isClickable(ui.getClickPos());
     ui.display();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))

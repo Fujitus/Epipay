@@ -25,6 +25,7 @@ class 	UI
   sf::Font      	defaultFont;
   Keypad		keypad;
   std::vector<Elem>	elemList;
+  std::stringstream	ss;
   std::map<std::string, sf::Texture> textureList;
   float 		price;
  public:

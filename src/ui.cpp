@@ -15,6 +15,7 @@ UI::UI()
 {
   this->creatElemList();
   this->price = 0.0;
+  this->ss << "0.0";
 }
 
 UI::~UI()
@@ -73,7 +74,7 @@ void 		UI::printText(std::size_t x, std::size_t y,
   sf::Text entity;
 
   entity.setFont(this->priceFont);
-  entity.setPosition(x, y);
+  entity.setPosition(x - (text.length() * 38), y);
   entity.setString(text);
   entity.setCharacterSize(size);
   entity.setColor(sf::Color::Green);
@@ -228,6 +229,7 @@ void 	UI::isClickable(Position mouse)
     {
       std::cout << "Click on " << (*it).c << std::endl;
       this->printKey(*it, (*it).hover);
+      this->ss << (*it).c;
     }
     ++it;
   }
@@ -235,9 +237,8 @@ void 	UI::isClickable(Position mouse)
 
 std::string	UI::getPrice() const
 {
-  std::stringstream	ss;
   std::string		s;
-  ss << this->price;
-  ss >> s;
+
+  s = ss.str();
   return (s);
 };
