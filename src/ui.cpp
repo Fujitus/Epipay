@@ -221,7 +221,9 @@ void 	UI::isClickable(Position mouse)
 {
   std::vector<Key> tmpKey = this->keypad.getKeypad();
   std::vector<Key>::iterator it = tmpKey.begin();
-
+//
+//  if (this->ss.str() == "0.0")
+//    ss.str("");
   while (it != tmpKey.end())
   {
     if (mouse.y >= (*it).pos.y && mouse.y <= (*it).pos.y + (*it).size.lenth &&
