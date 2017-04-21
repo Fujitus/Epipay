@@ -128,7 +128,7 @@ int		UI::printKey(const Key tmp)
   sprite.setTexture(texture);
   sprite.setPosition(tmp.pos.x, tmp.pos.y);
   this->window.draw(sprite);
-  this->printDefaultText(tmp.pos.x + 35, tmp.pos.y + 20, tmp.c, 45);
+  this->printDefaultText(tmp.pos.x + 40, tmp.pos.y + 17, tmp.c, 45);
   return (0);
 }
 
