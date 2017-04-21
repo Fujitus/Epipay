@@ -24,13 +24,14 @@ int	main()
     ui.printElemList();
     ui.printKeypad();
     ui.printDefaultText(10, 10, "Epipay", 20);
+    ui.isClickable(ui.getClickPos());
     ui.display();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     {
       ui.close();
       return (0);
     }
+    std::this_thread::sleep_for(std::chrono::milliseconds(5));
     ui.clear();
-    std::this_thread::sleep_for(std::chrono::milliseconds(4));
   }
 }

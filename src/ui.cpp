@@ -45,8 +45,7 @@ void	UI::clear()
   this->window.clear(sf::Color::White);
 }
 
-sf::Event	UI::getEvent()
-{
+sf::Event	UI::getEvent() {
   sf::Event	event;
 
   while (window.pollEvent(event))
@@ -132,6 +131,28 @@ int		UI::printKey(const Key tmp)
   return (0);
 }
 
+int		UI::printKey(const Key tmp, std::string hover)
+{
+  sf::Sprite    		sprite;
+  sf::Texture   		texture;
+  std::map<std::string, sf::Texture>::iterator it;
+
+  it = this->textureList.find(hover);
+  if (it == this->textureList.end())
+  {
+    if (!texture.loadFromFile((hover.c_str()), sf::IntRect(0, 0, tmp.size.lenth, tmp.size.height)))
+      return (-1);
+    this->textureList[hover] = texture;
+  }
+  else
+    texture = (*it).second;
+  sprite.setTexture(texture);
+  sprite.setPosition(tmp.pos.x, tmp.pos.y);
+  this->window.draw(sprite);
+  this->printDefaultText(tmp.pos.x + 35, tmp.pos.y + 20, tmp.c, 45);
+  return (0);
+}
+
 void 		UI::printElemList()
 {
   std::vector<Elem>::iterator	it = this->elemList.begin();
@@ -175,4 +196,38 @@ void 	UI::creatElemList()
   this->elemList.push_back(this->creatElem(0, 0, 800, 47, "./img/header.jpg"));
   this->elemList.push_back(this->creatElem(15, 70, 477, 92, "./img/priceRec.png"));
   this->elemList.push_back(this->creatElem(15, 185, 475, 178, "./img/billRec.png"));
+}
+
+Position	UI::getClickPos()
+{
+  sf::Event e = this->getEvent();
+  Position	pos;
+
+  if (e.type == sf::Event::MouseButtonPressed)
+  {
+    if (e.mouseButton.button == sf::Mouse::Left)
+    {
+      std::cout << "mouse x: " << e.mouseButton.x << std::endl;
+      std::cout << "mouse y: " << e.mouseButton.y << std::endl;
+      pos.x = e.mouseButton.x;
+      pos.y = e.mouseButton.y;
+    }
+  }
+  return (pos);
+}
+
+void 	UI::isClickable(Position mouse)
+{
+  std::vector<Key> tmpKey = this->keypad.getKeypad();
+  std::vector<Key>::iterator it = tmpKey.begin();
+
+  while (it != tmpKey.end())
+  {
+    if (mouse.y >= (*it).pos.y && mouse.y <= (*it).pos.y + (*it).size.lenth &&
+     	mouse.x >= (*it).pos.x && mouse.x <= (*it).pos.x + (*it).size.height)
+    {
+      this->printKey(*it, (*it).hover);
+    }
+    ++it;
+  }
 }

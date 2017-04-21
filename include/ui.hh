@@ -17,6 +17,7 @@
 # include <SFML/Window.hpp>
 # include <SFML/Graphics.hpp>
 # include "keypad.hh"
+# include "TileType.hh"
 
 class 	UI
 {
@@ -41,11 +42,13 @@ class 	UI
   sf::Event	getEvent();
   void 		printKeypad();
   int		printKey(const	Key);
+  int		printKey(const	Key, std::string);
   int		printElem(const	Elem);
   void 		printElemList();
   void 		creatElemList();
   Elem 		creatElem(std::size_t x, std::size_t y, std::size_t l, std::size_t h, std::string imgPath);
-
+  Position	getClickPos();
+  void 		isClickable(Position);
 };
 
 #endif /* EPIPAY_UI_HH */
