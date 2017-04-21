@@ -23,7 +23,7 @@ int	main()
   {
     ui.printElemList();
     ui.printKeypad();
-    //ui.printText(500, 10, "HelloSAM", 64);
+    ui.printDefaultText(10, 10, "Epipay", 20);
     ui.display();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     {
