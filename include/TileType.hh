@@ -17,13 +17,26 @@ struct 	Position
   std::size_t 	y;
 };
 
+struct 	Size
+{
+  std::size_t 	lenth;
+  std::size_t 	height;
+};
+
 struct 	Key
 {
   std::string	c;
-  std::size_t 	lenth;
-  std::size_t 	height;
-  Position	pos;
   std::string	sprite;
+  std::string	hover;
+  Position	pos;
+  Size		size;
+};
+
+struct Elem
+{
+  std::string	sprite;
+  Position	pos;
+  Size		size;
 };
 
 #endif //EPIPAY_TILETYPE_HH

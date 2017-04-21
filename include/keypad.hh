@@ -25,7 +25,7 @@ class	Keypad
   Keypad();
   ~Keypad();
   void	creatKeypad();
-  Key 	creatKey(std::size_t, std::size_t, const char, std::size_t, std::size_t);
+  Key 	creatKey(std::size_t, std::size_t, const char, std::size_t, std::size_t, std::string, std::string hoverPath);
   std::vector<Key> getKeypad() const;
 };
 

@@ -21,8 +21,9 @@ int	main()
   ui.open();
   while (ui.window.isOpen())
   {
+    ui.printElemList();
     ui.printKeypad();
-    ui.printText(500, 10, "HelloSAM", 64);
+    //ui.printText(500, 10, "HelloSAM", 64);
     ui.display();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     {

@@ -12,7 +12,10 @@
 #include "ui.hh"
 
 UI::UI()
-{}
+{
+  this->creatElemList();
+  this->price = 0.0;
+}
 
 UI::~UI()
 {}
@@ -23,7 +26,7 @@ void	UI::open()
 
   this->window.create(sf::VideoMode(800, 480), "EpiPay");
   rectangle.setSize(sf::Vector2f(800, 480));
-  rectangle.setFillColor(sf::Color(150,150,150));
+  rectangle.setFillColor(sf::Color::White);
   this->window.draw(rectangle);
 }
 
@@ -39,7 +42,7 @@ void	UI::display()
 
 void	UI::clear()
 {
-  this->window.clear();
+  this->window.clear(sf::Color::White);
 }
 
 sf::Event	UI::getEvent()
@@ -52,11 +55,16 @@ sf::Event	UI::getEvent()
 
 int		UI::loadFiles()
 {
-  if (!this->font.loadFromFile("./font/default.ttf"))
+  if (!this->priceFont.loadFromFile("./font/price.ttf"))
     {
-      std::cerr << "[ ERROR ] can't open font"<< std::endl;
+      std::cerr << "[ ERROR ] can't open price font"<< std::endl;
       return (-1);
     }
+  if (!this->defaultFont.loadFromFile("./font/default.ttf"))
+  {
+    std::cerr << "[ ERROR ] can't open default font"<< std::endl;
+    return (-1);
+  }
   return (0);
 }
 
@@ -65,7 +73,7 @@ void 		UI::printText(std::size_t x, std::size_t y,
 {
   sf::Text entity;
 
-  entity.setFont(this->font);
+  entity.setFont(this->priceFont);
   entity.setPosition(x, y);
   entity.setString(text);
   entity.setCharacterSize(size);
@@ -73,6 +81,21 @@ void 		UI::printText(std::size_t x, std::size_t y,
   entity.setStyle(sf::Text::Regular);
   window.draw(entity);
 }
+
+void 		UI::printDefaultText(std::size_t x, std::size_t y,
+				  const std::string text, std::size_t size)
+{
+  sf::Text entity;
+
+  entity.setFont(this->defaultFont);
+  entity.setPosition(x, y);
+  entity.setString(text);
+  entity.setCharacterSize(size);
+  entity.setColor(sf::Color::Black);
+  entity.setStyle(sf::Text::Regular);
+  window.draw(entity);
+}
+
 
 void 		UI::printKeypad()
 {
@@ -82,7 +105,7 @@ void 		UI::printKeypad()
   while (it >= tmpPad.begin())
   {
     if (this->printKey(*it) == -1)
-      exit(84);
+      return ;
     --it;
   }
 }
@@ -91,12 +114,65 @@ int		UI::printKey(const Key tmp)
 {
   sf::Sprite    		sprite;
   sf::Texture   		texture;
+  std::map<std::string, sf::Texture>::iterator it;
 
-  if (!texture.loadFromFile((tmp.sprite.c_str()), sf::IntRect(0, 0, 64, 64)))
+  it = this->textureList.find(tmp.sprite);
+  if (it == this->textureList.end())
+  {
+    if (!texture.loadFromFile((tmp.sprite.c_str()), sf::IntRect(0, 0, tmp.size.lenth, tmp.size.height)))
+      return (-1);
+    this->textureList[tmp.sprite] = texture;
+  }
+  else
+    texture = (*it).second;
+  sprite.setTexture(texture);
+  sprite.setPosition(tmp.pos.x, tmp.pos.y);
+  this->window.draw(sprite);
+  this->printDefaultText(tmp.pos.x + 35, tmp.pos.y + 20, tmp.c, 45);
+  return (0);
+}
+
+void 		UI::printElemList()
+{
+  std::vector<Elem>::iterator	it = this->elemList.begin();
+
+  while (it != this->elemList.end())
+  {
+    if (this->printElem(*it) == -1)
+      return ;
+    ++it;
+  }
+}
+
+int		UI::printElem(const Elem tmp)
+{
+  sf::Sprite    		sprite;
+  sf::Texture   		texture;
+
+  if (!texture.loadFromFile((tmp.sprite.c_str()), sf::IntRect(0, 0, tmp.size.lenth, tmp.size.height)))
     return (-1);
   sprite.setTexture(texture);
   sprite.setPosition(tmp.pos.x, tmp.pos.y);
   this->window.draw(sprite);
-  this->printText(tmp.pos.x + 22, tmp.pos.y + 2, tmp.c, 45);
   return (0);
+}
+
+Elem 	UI::creatElem(std::size_t x, std::size_t y, std::size_t l,
+			  std::size_t h, std::string imgPath)
+{
+  Elem	e;
+
+  e.pos.x = x;
+  e.pos.y = y;
+  e.size.height = h;
+  e.size.lenth = l;
+  e.sprite = imgPath;
+  return (e);
+}
+
+void 	UI::creatElemList()
+{
+  this->elemList.push_back(this->creatElem(0, 0, 800, 47, "./img/header.jpg"));
+  this->elemList.push_back(this->creatElem(15, 70, 477, 92, "./img/priceRec.png"));
+  this->elemList.push_back(this->creatElem(15, 185, 475, 178, "./img/billRec.png"));
 }
