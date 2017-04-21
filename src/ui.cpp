@@ -207,6 +207,8 @@ Position	UI::getClickPos()
   {
     if (e.mouseButton.button == sf::Mouse::Left)
     {
+      std::cout << e.mouseButton.x << std::endl;
+      std::cout << e.mouseButton.y << std::endl;
       pos.x = e.mouseButton.x;
       pos.y = e.mouseButton.y;
     }
