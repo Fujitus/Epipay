@@ -207,8 +207,6 @@ Position	UI::getClickPos()
   {
     if (e.mouseButton.button == sf::Mouse::Left)
     {
-      std::cout << "mouse x: " << e.mouseButton.x << std::endl;
-      std::cout << "mouse y: " << e.mouseButton.y << std::endl;
       pos.x = e.mouseButton.x;
       pos.y = e.mouseButton.y;
     }
@@ -226,8 +224,18 @@ void 	UI::isClickable(Position mouse)
     if (mouse.y >= (*it).pos.y && mouse.y <= (*it).pos.y + (*it).size.lenth &&
      	mouse.x >= (*it).pos.x && mouse.x <= (*it).pos.x + (*it).size.height)
     {
+      std::cout << "Click on " << (*it).c << std::endl;
       this->printKey(*it, (*it).hover);
     }
     ++it;
   }
 }
+
+std::string	UI::getPrice() const
+{
+  std::stringstream	ss;
+  std::string		s;
+  ss << this->price;
+  ss >> s;
+  return (s);
+};

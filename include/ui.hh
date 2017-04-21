@@ -26,7 +26,6 @@ class 	UI
   Keypad		keypad;
   std::vector<Elem>	elemList;
   std::map<std::string, sf::Texture> textureList;
-  std::stringstream	ss;
   float 		price;
  public:
   UI();
@@ -49,6 +48,7 @@ class 	UI
   Elem 		creatElem(std::size_t x, std::size_t y, std::size_t l, std::size_t h, std::string imgPath);
   Position	getClickPos();
   void 		isClickable(Position);
+  std::string	getPrice() const;
 };
 
 #endif /* EPIPAY_UI_HH */
