@@ -27,7 +27,7 @@ void	UI::open()
 
   this->window.create(sf::VideoMode(800, 480), "EpiPay");
   rectangle.setSize(sf::Vector2f(800, 480));
-  rectangle.setFillColor(sf::Color::White);
+  rectangle.setFillColor(const sf::Color::White);
   this->window.draw(rectangle);
 }
 
@@ -77,7 +77,7 @@ void 		UI::printText(std::size_t x, std::size_t y,
   entity.setPosition(x - (text.length() * 38), y);
   entity.setString(text);
   entity.setCharacterSize(size);
-  entity.setColor(sf::Color::Green);
+  entity.setColor(const sf::Color::Green);
   entity.setStyle(sf::Text::Regular);
   window.draw(entity);
 }
@@ -91,7 +91,7 @@ void 		UI::printDefaultText(std::size_t x, std::size_t y,
   entity.setPosition(x, y);
   entity.setString(text);
   entity.setCharacterSize(size);
-  entity.setColor(sf::Color::Black);
+  entity.setColor(const sf::Color::Black);
   entity.setStyle(sf::Text::Regular);
   window.draw(entity);
 }
