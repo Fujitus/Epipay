@@ -29,12 +29,13 @@ class 	UI
   std::stringstream	ss;
   std::map<std::string, sf::Texture> textureList;
   sf::RenderWindow	window;
+  int 			clean;
   float 		price;
  public:
   UI();
   ~UI();
   void		open();
-  void		close();
+  void		closewin();
   void		display();
   void		clear();
   int		loadFiles();
@@ -53,6 +54,7 @@ class 	UI
   void 		isClickable(Position);
   std::string	getPrice() const;
   void 		clock();
+  void		ip();
 };
 
 #endif /* EPIPAY_UI_HH */

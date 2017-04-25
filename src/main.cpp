@@ -26,13 +26,14 @@ int	main()
     ui.printPrice(470, 72, ui.getPrice(), 64);
     ui.clock();
     ui.isClickable(ui.getClickPos());
+    ui.ip();
     ui.display();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     {
-      ui.close();
+      ui.closewin();
       return (0);
     }
-    std::this_thread::sleep_for(std::chrono::milliseconds(5));
+    sf::milliseconds(5);
     ui.clear();
   }
 }

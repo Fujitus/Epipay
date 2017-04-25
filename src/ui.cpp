@@ -9,12 +9,14 @@
 //
 
 #include "ui.hh"
+#include "net.hpp"
 
 UI::UI()
 {
   this->creatElemList();
   this->price = 0.0;
   this->ss << "0.0";
+  this->clean = 0;
 }
 
 UI::~UI()
@@ -22,15 +24,10 @@ UI::~UI()
 
 void	UI::open()
 {
-  //sf::RectangleShape    rectangle(sf::Vector2f(800, 480));
-
   this->window.create(sf::VideoMode(800, 480), "EpiPay");
-  //rectangle.setSize(sf::Vector2f(800, 480));
-  //rectangle.setFillColor(sf::Color::White);
-  //this->window.draw(rectangle);
 }
 
-void	UI::close()
+void	UI::closewin()
 {
   this->window.close();
 }
@@ -42,7 +39,7 @@ void	UI::display()
 
 void	UI::clear()
 {
-  this->window.clear(/*sf::Color::White*/);
+  this->window.clear();
 }
 
 sf::Event	UI::getEvent() {
@@ -73,7 +70,7 @@ void 		UI::printPrice(std::size_t x, std::size_t y,
   sf::Text entity;
 
   entity.setFont(this->priceFont);
-  std::cout << text.length() << std::endl;
+  //std::cout << "Text len " << text.length() << std::endl;
   entity.setPosition(x - (text.length() * 31), y);
   entity.setString(text);
   entity.setCharacterSize(size);
@@ -242,6 +239,11 @@ void 	UI::isClickable(Position mouse)
     if (mouse.y >= (*it).pos.y && mouse.y <= (*it).pos.y + (*it).size.lenth &&
      	mouse.x >= (*it).pos.x && mouse.x <= (*it).pos.x + (*it).size.height)
     {
+      if (this->clean == 0)
+      {
+	this->ss.str("");
+	this->clean = 1;
+      }
       std::cout << "Click on " << (*it).c << std::endl;
       this->printKey(*it, (*it).hover);
       this->ss << (*it).c;
@@ -267,7 +269,24 @@ void 	UI::clock()
   time (&rawtime);
   timeinfo = localtime(&rawtime);
 
-  strftime(buffer,sizeof(buffer),"%d-%m-%Y\n     %I:%M",timeinfo);
+  strftime(buffer,sizeof(buffer),"%d-%m-%Y\n    %I:%M",timeinfo);
   std::string str(buffer);
   this->printDefaultText(350, 5, str, 20, sf::Color::White);
+}
+
+void	UI::ip()
+{
+  int fd;
+  struct ifreq ifr;
+
+  fd = socket(AF_INET, SOCK_DGRAM, 0);
+  ifr.ifr_addr.sa_family = AF_INET;
+  strncpy(ifr.ifr_name, "wlo1", IFNAMSIZ-1);
+  ioctl(fd, SIOCGIFADDR, &ifr);
+  close(fd);
+  std::string str(inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr));
+  if (str != "0.0.0.0")
+    this->printElem(this->creatElem(750, 15, 31, 25,"./img/wifi.png"));
+  else
+    this->printElem(this->creatElem(760, 35, 31, 25,"./img/wifi_no.png"));
 }
