@@ -19,12 +19,12 @@ int	main()
   if (ui.loadFiles() == -1)
     return (-1);
   ui.open();
-  while (ui.window.isOpen())
+  while (42)
   {
     ui.printElemList();
     ui.printKeypad();
-    ui.printDefaultText(10, 10, "Epipay", 20);
-    ui.printText(490, 50, ui.getPrice(), 92);
+    ui.printPrice(470, 72, ui.getPrice(), 64);
+    ui.clock();
     ui.isClickable(ui.getClickPos());
     ui.display();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))

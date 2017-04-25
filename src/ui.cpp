@@ -8,7 +8,6 @@
 // Last update mar. avr. 18 10:08:39 2017 Arnaud Costa
 //
 
-#include <sstream>
 #include "ui.hh"
 
 UI::UI()
@@ -23,12 +22,12 @@ UI::~UI()
 
 void	UI::open()
 {
-  sf::RectangleShape    rectangle(sf::Vector2f(800, 480));
+  //sf::RectangleShape    rectangle(sf::Vector2f(800, 480));
 
   this->window.create(sf::VideoMode(800, 480), "EpiPay");
-  rectangle.setSize(sf::Vector2f(800, 480));
-  rectangle.setFillColor(const sf::Color::White);
-  this->window.draw(rectangle);
+  //rectangle.setSize(sf::Vector2f(800, 480));
+  //rectangle.setFillColor(sf::Color::White);
+  //this->window.draw(rectangle);
 }
 
 void	UI::close()
@@ -43,7 +42,7 @@ void	UI::display()
 
 void	UI::clear()
 {
-  this->window.clear(sf::Color::White);
+  this->window.clear(/*sf::Color::White*/);
 }
 
 sf::Event	UI::getEvent() {
@@ -68,16 +67,17 @@ int		UI::loadFiles()
   return (0);
 }
 
-void 		UI::printText(std::size_t x, std::size_t y,
+void 		UI::printPrice(std::size_t x, std::size_t y,
 				  const std::string text, std::size_t size)
 {
   sf::Text entity;
 
   entity.setFont(this->priceFont);
-  entity.setPosition(x - (text.length() * 38), y);
+  std::cout << text.length() << std::endl;
+  entity.setPosition(x - (text.length() * 31), y);
   entity.setString(text);
   entity.setCharacterSize(size);
-  entity.setColor(const sf::Color::Green);
+  entity.setColor(sf::Color::White);
   entity.setStyle(sf::Text::Regular);
   window.draw(entity);
 }
@@ -91,11 +91,25 @@ void 		UI::printDefaultText(std::size_t x, std::size_t y,
   entity.setPosition(x, y);
   entity.setString(text);
   entity.setCharacterSize(size);
-  entity.setColor(const sf::Color::Black);
+  entity.setColor(sf::Color::Black);
   entity.setStyle(sf::Text::Regular);
   window.draw(entity);
 }
 
+
+void 		UI::printDefaultText(std::size_t x, std::size_t y,
+					 const std::string text, std::size_t size, sf::Color color)
+{
+  sf::Text entity;
+
+  entity.setFont(this->defaultFont);
+  entity.setPosition(x, y);
+  entity.setString(text);
+  entity.setCharacterSize(size);
+  entity.setColor(color);
+  entity.setStyle(sf::Text::Regular);
+  window.draw(entity);
+}
 
 void 		UI::printKeypad()
 {
@@ -128,7 +142,7 @@ int		UI::printKey(const Key tmp)
   sprite.setTexture(texture);
   sprite.setPosition(tmp.pos.x, tmp.pos.y);
   this->window.draw(sprite);
-  this->printDefaultText(tmp.pos.x + 40, tmp.pos.y + 17, tmp.c, 45);
+  this->printDefaultText(tmp.pos.x + 25, tmp.pos.y + 3, tmp.c, 45);
   return (0);
 }
 
@@ -150,7 +164,7 @@ int		UI::printKey(const Key tmp, std::string hover)
   sprite.setTexture(texture);
   sprite.setPosition(tmp.pos.x, tmp.pos.y);
   this->window.draw(sprite);
-  this->printDefaultText(tmp.pos.x + 35, tmp.pos.y + 20, tmp.c, 45);
+  this->printDefaultText(tmp.pos.x + 25, tmp.pos.y + 3, tmp.c, 45);
   return (0);
 }
 
@@ -194,9 +208,10 @@ Elem 	UI::creatElem(std::size_t x, std::size_t y, std::size_t l,
 
 void 	UI::creatElemList()
 {
-  this->elemList.push_back(this->creatElem(0, 0, 800, 47, "./img/header.jpg"));
-  this->elemList.push_back(this->creatElem(15, 70, 477, 92, "./img/priceRec.png"));
-  this->elemList.push_back(this->creatElem(15, 185, 475, 178, "./img/billRec.png"));
+  this->elemList.push_back(this->creatElem(0, 0, 800, 480, "./img/background.png"));
+  this->elemList.push_back(this->creatElem(10, 10, 101, 35, "./img/logo_epipay.png"));
+  this->elemList.push_back(this->creatElem(20, 90, 477, 92, "./img/priceRec.png"));
+  this->elemList.push_back(this->creatElem(20, 165, 475, 178, "./img/billRec.png"));
 }
 
 Position	UI::getClickPos()
@@ -221,9 +236,7 @@ void 	UI::isClickable(Position mouse)
 {
   std::vector<Key> tmpKey = this->keypad.getKeypad();
   std::vector<Key>::iterator it = tmpKey.begin();
-//
-//  if (this->ss.str() == "0.0")
-//    ss.str("");
+
   while (it != tmpKey.end())
   {
     if (mouse.y >= (*it).pos.y && mouse.y <= (*it).pos.y + (*it).size.lenth &&
@@ -244,3 +257,17 @@ std::string	UI::getPrice() const
   s = ss.str();
   return (s);
 };
+
+void 	UI::clock()
+{
+  time_t 	rawtime;
+  struct tm 	*timeinfo;
+  char 		buffer[80];
+
+  time (&rawtime);
+  timeinfo = localtime(&rawtime);
+
+  strftime(buffer,sizeof(buffer),"%d-%m-%Y\n     %I:%M",timeinfo);
+  std::string str(buffer);
+  this->printDefaultText(350, 5, str, 20, sf::Color::White);
+}

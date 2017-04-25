@@ -16,6 +16,7 @@
 # include <sstream>
 # include <SFML/Window.hpp>
 # include <SFML/Graphics.hpp>
+# include <ctime>
 # include "keypad.hh"
 # include "TileType.hh"
 
@@ -27,18 +28,19 @@ class 	UI
   std::vector<Elem>	elemList;
   std::stringstream	ss;
   std::map<std::string, sf::Texture> textureList;
+  sf::RenderWindow	window;
   float 		price;
  public:
   UI();
   ~UI();
-  sf::RenderWindow	window;
   void		open();
   void		close();
   void		display();
   void		clear();
   int		loadFiles();
-  void		printText(std::size_t, std::size_t, const std::string, std::size_t);
+  void		printPrice(std::size_t, std::size_t, const std::string, std::size_t);
   void		printDefaultText(std::size_t, std::size_t, const std::string, std::size_t);
+  void		printDefaultText(std::size_t, std::size_t, const std::string, std::size_t, sf::Color);
   sf::Event	getEvent();
   void 		printKeypad();
   int		printKey(const	Key);
@@ -50,6 +52,7 @@ class 	UI
   Position	getClickPos();
   void 		isClickable(Position);
   std::string	getPrice() const;
+  void 		clock();
 };
 
 #endif /* EPIPAY_UI_HH */

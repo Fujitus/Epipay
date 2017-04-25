@@ -37,24 +37,24 @@ Key 	Keypad::creatKey(std::size_t x, std::size_t y, const char c,
 
 void 	Keypad::creatKeypad()
 {
-  std::size_t 	x = 500;
+  std::size_t 	x = 550;
   std::size_t 	y;
   short 	c = '1';
 
-  while (x < (282 + 500))
+  while (x < (183 + 550))
   {
-    y = 70;
-    while (y < 70 + 282)
+    y = 90;
+    while (y < 110 + 183)
     {
-      this->pad.push_back(this->creatKey(x, y, c, 94, 94,"./img/kyClassic.jpg", "./img/kyHover.jpg"));
-      y += 94;
+      this->pad.push_back(this->creatKey(x, y, c, 61, 61,"./img/kyClassic.png", "./img/kyHover.png"));
+      y += 61 + 10;
       c++;
     }
-    x += 94;
+    x += 61 + 10;
   }
-  this->pad.push_back(this->creatKey(x - 282, y, '.', 94, 94, "./img/kyClassic.jpg", "./img/kyHover.jpg"));
-  this->pad.push_back(this->creatKey(x - 188, y, '0', 94, 94, "./img/kyClassic.jpg", "./img/kyHover.jpg"));
-  this->pad.push_back(this->creatKey(x - 94, y, ';', 94, 94, "./img/kyClassic.jpg", "./img/kyHover.jpg"));
+  this->pad.push_back(this->creatKey(x - 213, y, '.', 61, 61, "./img/kyClassic.png", "./img/kyHover.png"));
+  this->pad.push_back(this->creatKey(x - 142, y, '0', 61, 61, "./img/kyClassic.png", "./img/kyHover.png"));
+  this->pad.push_back(this->creatKey(x - 72, y, ';', 61, 61, "./img/kyClassic.png", "./img/kyHover.png"));
 }
 
 std::vector<Key>	Keypad::getKeypad() const
