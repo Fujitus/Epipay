@@ -5,7 +5,7 @@
 ## Login   <costa_d@epitech.net>
 ## 
 ## Started on  Sun Jan 15 01:56:26 2017 Arnaud Costa
-## Last update Fri Apr 21 15:40:39 2017 Arnaud Costa
+## Last update Wed Apr 26 17:35:53 2017 Arnaud Costa
 ##
 
 CC			        = g++
@@ -14,7 +14,7 @@ RM			        = rm -f
 
 MK			        = mkdir
 
-CPPFLAGS		    = -Iinclude -std=c++11 -lsfml-graphics -lsfml-window -lsfml-system
+CPPFLAGS		    = -Iinclude -std=c++11 -lsfml-graphics -lsfml-window -lsfml-system -g
 
 SRCDIR			    = src/
 
@@ -24,6 +24,7 @@ NAME		        = epipay
 
 SRCS                = main.cpp  \
                       ui.cpp    \
+                      Key.cpp   \
                       keypad.cpp
 
 OBJS			    = $(addprefix $(OBJDIR), $(SRCS:.cpp=.o))

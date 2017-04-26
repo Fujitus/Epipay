@@ -23,11 +23,12 @@ struct 	Size
   std::size_t 	height;
 };
 
-struct 	Key
+struct 	Button
 {
   std::string	c;
   std::string	sprite;
   std::string	hover;
+  std::size_t 	fontSize;
   Position	pos;
   Size		size;
 };

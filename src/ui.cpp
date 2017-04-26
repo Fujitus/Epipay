@@ -13,9 +13,8 @@
 
 UI::UI()
 {
-  this->creatElemList();
-  this->price = 0.0;
-  this->ss << "0.0";
+  this->creatUiList();
+  this->price = "0.0";
   this->clean = 0;
 }
 
@@ -42,11 +41,14 @@ void	UI::clear()
   this->window.clear();
 }
 
-sf::Event	UI::getEvent() {
+sf::Event	UI::getEvent()
+{
   sf::Event	event;
 
   while (window.pollEvent(event))
+  {
     return (event);
+  }
 }
 
 int		UI::loadFiles()
@@ -108,20 +110,19 @@ void 		UI::printDefaultText(std::size_t x, std::size_t y,
   window.draw(entity);
 }
 
-void 		UI::printKeypad()
+void 		UI::printButtonList(std::vector<Button> tmpList)
 {
-  std::vector<Key>		tmpPad = this->keypad.getKeypad();
-  std::vector<Key>::iterator	it = tmpPad.end() - 1;
+  std::vector<Button>::iterator	it = tmpList.end() - 1;
 
-  while (it >= tmpPad.begin())
+  while (it >= tmpList.begin())
   {
-    if (this->printKey(*it) == -1)
+    if (this->printButton(*it) == -1)
       return ;
     --it;
   }
 }
 
-int		UI::printKey(const Key tmp)
+int		UI::printButton(const Button tmp)
 {
   sf::Sprite    		sprite;
   sf::Texture   		texture;
@@ -143,7 +144,7 @@ int		UI::printKey(const Key tmp)
   return (0);
 }
 
-int		UI::printKey(const Key tmp, std::string hover)
+int		UI::printButton(const Button tmp, std::string hover)
 {
   sf::Sprite    		sprite;
   sf::Texture   		texture;
@@ -165,19 +166,19 @@ int		UI::printKey(const Key tmp, std::string hover)
   return (0);
 }
 
-void 		UI::printElemList()
+void 		UI::printUi()
 {
-  std::vector<Elem>::iterator	it = this->elemList.begin();
+  std::vector<Elem>::iterator	it = this->UiList.begin();
 
-  while (it != this->elemList.end())
+  while (it != this->UiList.end())
   {
-    if (this->printElem(*it) == -1)
+    if (this->printUiElem(*it) == -1)
       return ;
     ++it;
   }
 }
 
-int		UI::printElem(const Elem tmp)
+int		UI::printUiElem(const Elem tmp)
 {
   sf::Sprite    		sprite;
   sf::Texture   		texture;
@@ -203,12 +204,12 @@ Elem 	UI::creatElem(std::size_t x, std::size_t y, std::size_t l,
   return (e);
 }
 
-void 	UI::creatElemList()
+void 	UI::creatUiList()
 {
-  this->elemList.push_back(this->creatElem(0, 0, 800, 480, "./img/background.png"));
-  this->elemList.push_back(this->creatElem(10, 10, 101, 35, "./img/logo_epipay.png"));
-  this->elemList.push_back(this->creatElem(20, 90, 477, 92, "./img/priceRec.png"));
-  this->elemList.push_back(this->creatElem(20, 165, 475, 178, "./img/billRec.png"));
+  this->UiList.push_back(this->creatElem(0, 0, 800, 480, "./img/background.png"));
+  this->UiList.push_back(this->creatElem(10, 10, 101, 35, "./img/logo_epipay.png"));
+  this->UiList.push_back(this->creatElem(20, 90, 477, 92, "./img/priceRec.png"));
+  this->UiList.push_back(this->creatElem(20, 165, 475, 178, "./img/billRec.png"));
 }
 
 Position	UI::getClickPos()
@@ -226,27 +227,34 @@ Position	UI::getClickPos()
       pos.y = e.mouseButton.y;
     }
   }
+  else
+  {
+    pos.x = 0;
+    pos.y = 0;
+  }
   return (pos);
 }
 
-void 	UI::isClickable(Position mouse)
+void 	UI::isClickable(Position mouse, std::vector<Button> tmpButton)
 {
-  std::vector<Key> tmpKey = this->keypad.getKeypad();
-  std::vector<Key>::iterator it = tmpKey.begin();
+  std::vector<Button>::iterator it = tmpButton.begin();
 
-  while (it != tmpKey.end())
+  while (it != tmpButton.end())
   {
     if (mouse.y >= (*it).pos.y && mouse.y <= (*it).pos.y + (*it).size.lenth &&
      	mouse.x >= (*it).pos.x && mouse.x <= (*it).pos.x + (*it).size.height)
     {
       if (this->clean == 0)
       {
-	this->ss.str("");
+	this->price.clear();
 	this->clean = 1;
       }
+      if ((*it).c == "<-")
+        this->price.pop_back();
+      else
+        this->price += (*it).c;
       std::cout << "Click on " << (*it).c << std::endl;
-      this->printKey(*it, (*it).hover);
-      this->ss << (*it).c;
+      this->printButton(*it, (*it).hover);
     }
     ++it;
   }
@@ -254,10 +262,7 @@ void 	UI::isClickable(Position mouse)
 
 std::string	UI::getPrice() const
 {
-  std::string		s;
-
-  s = ss.str();
-  return (s);
+  return (this->price);
 };
 
 void 	UI::clock()
@@ -286,7 +291,7 @@ void	UI::ip()
   close(fd);
   std::string str(inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr));
   if (str != "0.0.0.0")
-    this->printElem(this->creatElem(750, 15, 31, 25,"./img/wifi.png"));
+    this->printUiElem(this->creatElem(750, 15, 31, 25,"./img/wifi.png"));
   else
-    this->printElem(this->creatElem(760, 35, 31, 25,"./img/wifi_no.png"));
+    this->printUiElem(this->creatElem(760, 35, 31, 25,"./img/wifi_no.png"));
 }

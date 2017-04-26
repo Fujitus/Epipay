@@ -92,6 +92,9 @@
 		<Unit filename="/home/costa_d/Documents/projet_perso/Epipay/include/keypad.hh">
 			<Option target="Epipay"/>
 		</Unit>
+		<Unit filename="/home/costa_d/Documents/projet_perso/Epipay/include/net.hpp">
+			<Option target="Epipay"/>
+		</Unit>
 		<Unit filename="/home/costa_d/Documents/projet_perso/Epipay/include/ui.hh">
 			<Option target="Epipay"/>
 		</Unit>

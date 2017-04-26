@@ -24,13 +24,11 @@ class 	UI
 {
   sf::Font      	priceFont;
   sf::Font      	defaultFont;
-  Keypad		keypad;
-  std::vector<Elem>	elemList;
-  std::stringstream	ss;
+  std::vector<Elem>	UiList;
   std::map<std::string, sf::Texture> textureList;
   sf::RenderWindow	window;
   int 			clean;
-  float 		price;
+  std::string		price;
  public:
   UI();
   ~UI();
@@ -43,15 +41,15 @@ class 	UI
   void		printDefaultText(std::size_t, std::size_t, const std::string, std::size_t);
   void		printDefaultText(std::size_t, std::size_t, const std::string, std::size_t, sf::Color);
   sf::Event	getEvent();
-  void 		printKeypad();
-  int		printKey(const	Key);
-  int		printKey(const	Key, std::string);
-  int		printElem(const	Elem);
-  void 		printElemList();
-  void 		creatElemList();
+  void 		printButtonList(std::vector<Button>);
+  int		printButton(const	Button);
+  int		printButton(const	Button, std::string);
+  int		printUiElem(const	Elem);
+  void 		printUi();
+  void 		creatUiList();
   Elem 		creatElem(std::size_t x, std::size_t y, std::size_t l, std::size_t h, std::string imgPath);
   Position	getClickPos();
-  void 		isClickable(Position);
+  void 		isClickable(Position, std::vector<Button>);
   std::string	getPrice() const;
   void 		clock();
   void		ip();

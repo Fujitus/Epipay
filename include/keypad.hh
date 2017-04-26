@@ -11,23 +11,18 @@
 #ifndef EPIPAY_KEYPAD_HH
 #define EPIPAY_KEYPAD_HH
 
-#include <vector>
-#include <cstddef>
-#include <string>
-#include <iostream>
-#include <SFML/Graphics/Texture.hpp>
-#include "TileType.hh"
+//#include <SFML/Graphics/Texture.hpp>
+#include "Key.hpp"
+//#include "TileType.hh"
 
-class	Keypad
+class	Keypad : public Key
 {
-  std::vector<Key>	pad;
+  std::vector<Button>	pad;
  public:
   Keypad();
   ~Keypad();
   void	creatKeypad();
-  Key 	creatKey(std::size_t, std::size_t, const char, std::size_t, std::size_t, std::string, std::string hoverPath);
-  Key 	creatKey(std::size_t, std::size_t, std::string, std::size_t, std::size_t, std::string, std::string hoverPath);
-  std::vector<Key> getKeypad() const;
+  std::vector<Button> getKeypad() const;
 };
 
 #endif /* EPIPAY_KEYPAD_HH */

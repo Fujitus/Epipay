@@ -14,18 +14,20 @@
 
 int	main()
 {
-  UI	ui;
+  UI      ui;
+  Keypad  keypad;
+
 
   if (ui.loadFiles() == -1)
     return (-1);
   ui.open();
   while (42)
   {
-    ui.printElemList();
-    ui.printKeypad();
+    ui.printUi();
+    ui.printButtonList(keypad.getKeypad());
     ui.printPrice(470, 72, ui.getPrice(), 64);
     ui.clock();
-    ui.isClickable(ui.getClickPos());
+    ui.isClickable(ui.getClickPos(), keypad.getKeypad());
     ui.ip();
     ui.display();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
