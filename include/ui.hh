@@ -17,7 +17,6 @@
 # include <SFML/Window.hpp>
 # include <SFML/Graphics.hpp>
 # include <ctime>
-# include "keypad.hh"
 # include "TileType.hh"
 
 class 	UI

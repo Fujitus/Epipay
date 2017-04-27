@@ -17,7 +17,7 @@ Key::~Key()
 {}
 
 Button 	Key::creatKey(std::size_t x, std::size_t y, const char c,
-			    std::size_t l, std::size_t h, std::string imgPath, std::string hoverPath)
+			    std::size_t l, std::size_t h, std::string imgPath, std::string hoverPath, std::size_t fontSize)
 {
   Button	k;
 
@@ -28,11 +28,12 @@ Button 	Key::creatKey(std::size_t x, std::size_t y, const char c,
   k.size.lenth = l;
   k.sprite = imgPath;
   k.hover = hoverPath;
+  k.fontSize = fontSize;
   return (k);
 }
 
 Button 	Key::creatKey(std::size_t x, std::size_t y, std::string c,
-			    std::size_t l, std::size_t h, std::string imgPath, std::string hoverPath)
+			    std::size_t l, std::size_t h, std::string imgPath, std::string hoverPath, std::size_t fontSize)
 {
   Button	k;
 
@@ -43,5 +44,9 @@ Button 	Key::creatKey(std::size_t x, std::size_t y, std::string c,
   k.size.lenth = l;
   k.sprite = imgPath;
   k.hover = hoverPath;
+  k.fontSize = fontSize;
   return (k);
 }
+
+void			Key::creatKeypad()
+{}

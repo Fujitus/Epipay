@@ -140,7 +140,7 @@ int		UI::printButton(const Button tmp)
   sprite.setTexture(texture);
   sprite.setPosition(tmp.pos.x, tmp.pos.y);
   this->window.draw(sprite);
-  this->printDefaultText(tmp.pos.x + 25, tmp.pos.y + 3, tmp.c, 45);
+  this->printDefaultText(tmp.pos.x + 25, tmp.pos.y + 3, tmp.c, tmp.fontSize);
   return (0);
 }
 
@@ -162,7 +162,7 @@ int		UI::printButton(const Button tmp, std::string hover)
   sprite.setTexture(texture);
   sprite.setPosition(tmp.pos.x, tmp.pos.y);
   this->window.draw(sprite);
-  this->printDefaultText(tmp.pos.x + 25, tmp.pos.y + 3, tmp.c, 45);
+  this->printDefaultText(tmp.pos.x + 25, tmp.pos.y + 3, tmp.c, tmp.fontSize);
   return (0);
 }
 

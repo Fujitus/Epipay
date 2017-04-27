@@ -11,12 +11,14 @@
 #include <chrono>
 #include <thread>
 #include "ui.hh"
+#include "keypad.hh"
+#include "ActionButton.hpp"
 
 int	main()
 {
-  UI      ui;
-  Keypad  keypad;
-
+  UI            ui;
+  Keypad        keypad;
+  ActionButton  actionButton;
 
   if (ui.loadFiles() == -1)
     return (-1);
@@ -25,6 +27,7 @@ int	main()
   {
     ui.printUi();
     ui.printButtonList(keypad.getKeypad());
+    ui.printButtonList(actionButton.getKeypad());
     ui.printPrice(470, 72, ui.getPrice(), 64);
     ui.clock();
     ui.isClickable(ui.getClickPos(), keypad.getKeypad());

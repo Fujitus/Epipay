@@ -14,12 +14,13 @@
 #include "IKey.hpp"
 
 class Key : public IKey
-{
+{;
  public:
   Key();
   ~Key();
-  Button 	creatKey(std::size_t, std::size_t, const char, std::size_t, std::size_t, std::string, std::string hoverPath);
-  Button 	creatKey(std::size_t, std::size_t, std::string, std::size_t, std::size_t, std::string, std::string hoverPath);
+  virtual Button 		creatKey(std::size_t, std::size_t, const char, std::size_t, std::size_t, std::string, std::string, std::size_t);
+  virtual Button 		creatKey(std::size_t, std::size_t, std::string, std::size_t, std::size_t, std::string, std::string, std::size_t);
+  virtual void			creatKeypad();
 };
 
 

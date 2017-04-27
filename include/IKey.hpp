@@ -21,10 +21,11 @@ class IKey
 {
  public:
   virtual 	~IKey() {}
-  virtual Button	creatKey(std::size_t x, std::size_t y, const char c,
-			      std::size_t l, std::size_t h, std::string imgPath, std::string hoverPath) = 0;
-  virtual Button	creatKey(std::size_t x, std::size_t y, std::string c,
-			      std::size_t l, std::size_t h, std::string imgPath, std::string hoverPath) = 0;
+  virtual Button		creatKey(std::size_t x, std::size_t y, const char c,
+			      		std::size_t l, std::size_t h, std::string imgPath, std::string hoverPath, std::size_t) = 0;
+  virtual Button		creatKey(std::size_t x, std::size_t y, std::string c,
+			      		std::size_t l, std::size_t h, std::string imgPath, std::string hoverPath, std::size_t) = 0;
+  virtual void			creatKeypad() = 0;
 };
 
 #endif //EPIPAY_IBUTTON_HPP

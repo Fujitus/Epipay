@@ -11,9 +11,7 @@
 #ifndef EPIPAY_KEYPAD_HH
 #define EPIPAY_KEYPAD_HH
 
-//#include <SFML/Graphics/Texture.hpp>
 #include "Key.hpp"
-//#include "TileType.hh"
 
 class	Keypad : public Key
 {

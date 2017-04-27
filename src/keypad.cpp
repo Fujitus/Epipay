@@ -29,15 +29,15 @@ void 	Keypad::creatKeypad()
     y = 90;
     while (y < 110 + 183)
     {
-      this->pad.push_back(this->creatKey(x, y, c, 61, 61,"./img/kyClassic.png", "./img/kyHover.png"));
+      this->pad.push_back(this->creatKey(x, y, c, 61, 61,"./img/kyClassic.png", "./img/kyHover.png", 45));
       y += 61 + 10;
       c++;
     }
     x += 61 + 10;
   }
-  this->pad.push_back(this->creatKey(x - 213, y, '.', 61, 61, "./img/kyClassic.png", "./img/kyHover.png"));
-  this->pad.push_back(this->creatKey(x - 142, y, '0', 61, 61, "./img/kyClassic.png", "./img/kyHover.png"));
-  this->pad.push_back(this->creatKey(x - 72, y, "<-", 61, 61, "./img/kyClassic.png", "./img/kyHover.png"));
+  this->pad.push_back(this->creatKey(x - 213, y, '.', 61, 61, "./img/kyClassic.png", "./img/kyHover.png", 45));
+  this->pad.push_back(this->creatKey(x - 142, y, '0', 61, 61, "./img/kyClassic.png", "./img/kyHover.png", 45));
+  this->pad.push_back(this->creatKey(x - 72, y, "<-", 61, 61, "./img/kyClassic.png", "./img/kyHover.png", 25));
 }
 
 std::vector<Button>	Keypad::getKeypad() const
