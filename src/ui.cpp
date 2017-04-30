@@ -40,16 +40,14 @@ void	UI::clear()
 {
   this->window.clear();
 }
-
-sf::Event	UI::getEvent()
-{
-  sf::Event	event;
-
-  while (window.pollEvent(event))
-  {
-    return (event);
-  }
-}
+//
+//sf::Event	UI::getEvent()
+//{
+//  sf::Event	event;
+//
+//  while (window.pollEvent(event)){}
+//  return (event);
+//}
 
 int		UI::loadFiles()
 {
@@ -140,7 +138,7 @@ int		UI::printButton(const Button tmp)
   sprite.setTexture(texture);
   sprite.setPosition(tmp.pos.x, tmp.pos.y);
   this->window.draw(sprite);
-  this->printDefaultText(tmp.pos.x + 25, tmp.pos.y + 3, tmp.c, tmp.fontSize);
+  this->printDefaultText(tmp.pos.x, tmp.pos.y, tmp.c, tmp.fontSize);
   return (0);
 }
 
@@ -162,7 +160,7 @@ int		UI::printButton(const Button tmp, std::string hover)
   sprite.setTexture(texture);
   sprite.setPosition(tmp.pos.x, tmp.pos.y);
   this->window.draw(sprite);
-  this->printDefaultText(tmp.pos.x + 25, tmp.pos.y + 3, tmp.c, tmp.fontSize);
+  this->printDefaultText(tmp.pos.x, tmp.pos.y, tmp.c, tmp.fontSize);
   return (0);
 }
 
@@ -212,17 +210,17 @@ void 	UI::creatUiList()
   this->UiList.push_back(this->creatElem(20, 165, 475, 178, "./img/billRec.png"));
 }
 
-Position	UI::getClickPos()
+Position	UI::getClickPos(sf::Event e)
 {
-  sf::Event e = this->getEvent();
+  //sf::Event e = this->getEvent();
   Position	pos;
 
   if (e.type == sf::Event::MouseButtonPressed)
   {
     if (e.mouseButton.button == sf::Mouse::Left)
     {
-      std::cout << e.mouseButton.x << std::endl;
-      std::cout << e.mouseButton.y << std::endl;
+      std::cout << "x = " << e.mouseButton.x << std::endl;
+      std::cout << "y = " << e.mouseButton.y << std::endl;
       pos.x = e.mouseButton.x;
       pos.y = e.mouseButton.y;
     }
@@ -244,17 +242,19 @@ void 	UI::isClickable(Position mouse, std::vector<Button> tmpButton)
     if (mouse.y >= (*it).pos.y && mouse.y <= (*it).pos.y + (*it).size.lenth &&
      	mouse.x >= (*it).pos.x && mouse.x <= (*it).pos.x + (*it).size.height)
     {
-      if (this->clean == 0)
-      {
-	this->price.clear();
-	this->clean = 1;
-      }
-      if ((*it).c == "<-")
-        this->price.pop_back();
-      else
-        this->price += (*it).c;
+//      if ((*it).c == "Pay")
+//	this->pay();
+//      if (this->clean == 0)
+//      {
+//	this->price.clear();
+//	this->clean = 1;
+//      }
+//      if ((*it).c == "<-")
+//        this->price.pop_back();
+//      else
+//        this->price += (*it).c;
       std::cout << "Click on " << (*it).c << std::endl;
-      this->printButton(*it, (*it).hover);
+      //this->printButton(*it, (*it).hover);
     }
     ++it;
   }
@@ -294,4 +294,9 @@ void	UI::ip()
     this->printUiElem(this->creatElem(750, 15, 31, 25,"./img/wifi.png"));
   else
     this->printUiElem(this->creatElem(760, 35, 31, 25,"./img/wifi_no.png"));
+}
+
+void	UI::pay()
+{
+  std::cout << "Pay func" <<std::endl;
 }

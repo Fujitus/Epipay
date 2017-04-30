@@ -25,10 +25,10 @@ class 	UI
   sf::Font      	defaultFont;
   std::vector<Elem>	UiList;
   std::map<std::string, sf::Texture> textureList;
-  sf::RenderWindow	window;
   int 			clean;
   std::string		price;
  public:
+    sf::RenderWindow	window;
   UI();
   ~UI();
   void		open();
@@ -39,7 +39,7 @@ class 	UI
   void		printPrice(std::size_t, std::size_t, const std::string, std::size_t);
   void		printDefaultText(std::size_t, std::size_t, const std::string, std::size_t);
   void		printDefaultText(std::size_t, std::size_t, const std::string, std::size_t, sf::Color);
-  sf::Event	getEvent();
+  //sf::Event	getEvent();
   void 		printButtonList(std::vector<Button>);
   int		printButton(const	Button);
   int		printButton(const	Button, std::string);
@@ -47,11 +47,12 @@ class 	UI
   void 		printUi();
   void 		creatUiList();
   Elem 		creatElem(std::size_t x, std::size_t y, std::size_t l, std::size_t h, std::string imgPath);
-  Position	getClickPos();
+  Position	getClickPos(sf::Event);
   void 		isClickable(Position, std::vector<Button>);
   std::string	getPrice() const;
   void 		clock();
   void		ip();
+  void 		pay();
 };
 
 #endif /* EPIPAY_UI_HH */
