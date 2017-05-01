@@ -33,3 +33,4 @@ obj/*.obj
 *.idea
 
 cmake-build-debug
+API/node_modules
