@@ -14,7 +14,7 @@ RM			        = rm -f
 
 MK			        = mkdir
 
-CPPFLAGS		    = -Iinclude -std=c++11 -lsfml-graphics -lsfml-window -lsfml-system -g
+CPPFLAGS		    = -Iinclude -std=c++11 -lsfml-graphics -lsfml-window -lsfml-system
 
 SRCDIR			    = src/
 
