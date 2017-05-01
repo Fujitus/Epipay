@@ -9,7 +9,7 @@
   "dependencies":{
     "express":"*",
     "body-parser":"*",
-    "mongoose":"*"
+    "mongoose":"*",
   },
   "author": "arnaud.costa@epitech.eu",
   "license": "ISC"

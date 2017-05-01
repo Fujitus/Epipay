@@ -1,3 +1,10 @@
+//
+// app.js for Epipay in /home/costa_d/Documents/Epipay/API/
+//
+// Made by Arnaud Costa
+// Login   <costa_d@epitech.net>
+//
+
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
@@ -7,116 +14,142 @@ var mongoose = require('mongoose');
 app.use(bodyParser.json());
 
 //Include models
-Genres = require('./models/genres');
-Books = require('./models/books');
+Stock = require('./models/stocks');
+People = require('./models/people');
 
 // Connect to MongooseDB
 mongoose.connect('mongodb://epipay:epipay@ds127341.mlab.com:27341/epipay');
 var db = mongoose.connection;
 
-// get / func
+// Get '/' func
 app.get('/', function(req, res){
-  res.send('Welcome Please use /ap/books or /api/genres');
+  res.send('Welcome Please use /ap/people or /api/stock');
 });
 
-// Get Genre
-app.get('/api/genres', function(req, res){
-  Genres.getGenres(function(err, genres){
+/*
+// ----------------------------------------------------------------------------
+// ############################# - Stock rules - #############################
+// -----------------------------------------------------------------------------
+*/
+
+// Get Stock
+app.get('/api/stock', function(req, res){
+  Stock.getStock(function(err, stock){
     if (err){
       throw err;
     }
-  res.json(genres);
+  res.json(stock);
   });
 });
 
-// Post Genre
-app.post('/api/genres', function(req, res){
-  var genre = req.body;
-  Genres.addGenres(genre, function(err, genre){
+// Get Stock by Id
+app.get('/api/stock/:_id', function(req, res){
+  Stock.getStockById(req.params._id, function(err, stock){
     if (err){
       throw err;
     }
-  res.json(genre);
+  res.json(stock);
   });
 });
 
-// Put genre
-app.put('/api/genres/:_id', function(req, res){
+// Post Stock
+app.post('/api/stock', function(req, res){
+  var stock = req.body;
+  Stock.addStock(stock, function(err, stock){
+    if (err){
+        res.status(416).send("[API - Error] stock Shema not correct");
+        console.log("[API - Error] stock Shema not correct");
+      //throw err;
+    }
+  res.json(stock);
+  });
+});
+
+// Put Stock
+app.put('/api/stock/:_id', function(req, res){
   var id = req.params._id;
-  var genre = req.body;
-  Genres.updateGenres(id, genre, {}, function(err, genre){
+  var stock = req.body;
+  Stock.updateStock(id, stock, {}, function(err, stock){
     if (err){
       throw err;
     }
-  res.json(genre);
+  res.json(stock);
   });
 });
 
-// Delet Genres
-app.delete('/api/genres/:_id', function(req, res){
+// Delet Stock
+app.delete('/api/stock/:_id', function(req, res){
   var id = req.params._id;
-  Genres.removeGenres(id, function(err, genre){
+  Stock.removeStock(id, function(err, stock){
     if (err){
       throw err;
     }
-  res.json(genre);
+  res.json(stock);
   });
 });
 
-// Get Book
-app.get('/api/books', function(req, res){
-  Books.getBooks(function(err, books){
+/*
+// ----------------------------------------------------------------------------
+// ############################# - People rules - #############################
+// -----------------------------------------------------------------------------
+*/
+
+// Get People
+app.get('/api/people', function(req, res){
+  People.getPeople(function(err, people){
     if (err){
       throw err;
     }
-  res.json(books);
+  res.json(people);
   });
 });
 
-// Get Book by Id
-app.get('/api/books/:_id', function(req, res){
-  Books.getBooksById(req.params._id, function(err, book){
+// Get People by Id
+app.get('/api/people/:_id', function(req, res){
+  People.getPeopleById(req.params._id, function(err, people){
     if (err){
       throw err;
     }
-  res.json(book);
+  res.json(people);
   });
 });
 
-// Post Books
-app.post('/api/books', function(req, res){
-  var book = req.body;
-  Books.addBooks(book, function(err, book){
+// Post People
+app.post('/api/people', function(req, res){
+  var people = req.body;
+  People.addPeople(people, function(err, people){
     if (err){
-      throw err;
+      res.status(416).send("[API - Error] people Shema not correct");
+      console.log("[API - Error] people Shema not correct");
+      //throw err;
     }
-  res.json(book);
+  res.json(people);
   });
 });
 
-// Put Books
-app.put('/api/books/:_id', function(req, res){
+// Put People by id
+app.put('/api/people/:_id', function(req, res){
   var id = req.params._id;
-  var book = req.body;
-  Books.updateBooks(id, book, {}, function(err, book){
+  var people = req.body;
+  People.updatePeople(id, people, {}, function(err, people){
     if (err){
       throw err;
     }
-  res.json(book);
+  res.json(people);
   });
 });
 
-// Delet Books
-app.delete('/api/books/:_id', function(req, res){
+// Delet People
+app.delete('/api/people/:_id', function(req, res){
   var id = req.params._id;
-  Books.removeBooks(id, function(err, book){
+  People.removePeople(id, function(err, people){
     if (err){
       throw err;
     }
-  res.json(book);
+  res.json(people);
   });
 });
 
-// listen func
+// Listen func
 app.listen(3042);
-console.log('API Working and Running on port 3042');
+console.log('Epipay - API Working and Running on port 3042');
