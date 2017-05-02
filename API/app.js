@@ -19,11 +19,10 @@ People = require('./models/people');
 
 // Connect to MongooseDB
 mongoose.connect('mongodb://epipay:epipay@ds127341.mlab.com:27341/epipay');
-var db = mongoose.connection;
 
 // Get '/' func
 app.get('/', function(req, res){
-  res.send('Welcome Please use /ap/people or /api/stock');
+  res.send('Welcome Please use /ap/people - /api/stock - /api/log');
 });
 
 /*
@@ -59,7 +58,6 @@ app.post('/api/stock', function(req, res){
     if (err){
         res.status(416).send("[API - Error] stock Shema not correct");
         console.log("[API - Error] stock Shema not correct");
-      //throw err;
     }
   res.json(stock);
   });
@@ -121,7 +119,6 @@ app.post('/api/people', function(req, res){
     if (err){
       res.status(416).send("[API - Error] people Shema not correct");
       console.log("[API - Error] people Shema not correct");
-      //throw err;
     }
   res.json(people);
   });
@@ -147,6 +144,22 @@ app.delete('/api/people/:_id', function(req, res){
       throw err;
     }
   res.json(people);
+  });
+});
+
+/*
+// ----------------------------------------------------------------------------
+// ############################# - Log rules - #############################
+// -----------------------------------------------------------------------------
+*/
+
+// Get Operation
+app.get('/api/log', function(req, res){
+  Log.getLog(function(err, log){
+    if (err){
+      throw err;
+    }
+  res.json(log);
   });
 });
 

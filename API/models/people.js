@@ -1,5 +1,5 @@
 //
-// people.js for Epipay in /home/costa_d/Documents/Epipay/API/models                                                                                                        
+// people.js for Epipay in /home/costa_d/Documents/Epipay/API/models
 //
 // Made by Arnaud Costa
 // Login   <costa_d@epitech.net>
