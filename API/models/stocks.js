@@ -7,6 +7,9 @@
 
 var mongoose = require('mongoose');
 
+//Include models
+Log = require('./log');
+
 //Stock Shema
 var stockSchema = mongoose.Schema({
     name:{
@@ -37,17 +40,20 @@ var stockSchema = mongoose.Schema({
     consumed_total:
     {
       type: Number,
-      default: 0
+      default: 0,
+      required: true
     },
     consumed:
     {
       type: Number,
-      default: 0
+      default: 0,
+      required: true
     },
     consumed_reset:
     {
       type: Number,
-      default: 0
+      default: 0,
+      required: true
     },
     img_url:
     {
@@ -78,7 +84,13 @@ module.exports.getStockById = function(id, callback){
 
 //Add Stock
 module.exports.addStock = function(stock, callback){
+  var updateStock = {
+    action_name: "Add " + stock.name,
+    type: "STOCK",
+    nombre: stock.consumed
+  };
   Stock.create(stock, callback);
+  Log.addLog(updateStock);
 }
 
 //Update Stock
@@ -94,13 +106,30 @@ module.exports.updateStock = function(id, stock, option, callback){
     consumed: stock.consumed,
     consumed_reset: stock.consumed_reset,
     consumed_total: stock.consumed_total,
-    last_refill: stock.last_refill,
+    last_refill: Date.now(),
+  };
+  var updateStock = {
+    action_name: "Update " + stock.name,
+    type: "RESTOCK",
+    nombre: stock.consumed
   };
   Stock.findOneAndUpdate(query, update, option, callback);
+  Log.addLog(updateStock);
 }
 
-//Delet Genre
-module.exports.removeGenres = function(id, callback){
+//Delet Stock
+module.exports.removeStock = function(id, callback){
   var query = {_id: id};
-  Stock.remove(query, callback);
+  /*
+      TODO
+      find a way to get the name
+  */
+  console.log(id);
+  var updateStock = {
+    action_name: "Remove " + id,
+    type: "DELSTOCK",
+    nombre: 0
+  };
+  Stock.remove(query, callback)
+  Log.addLog(updateStock);
 }
