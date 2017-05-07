@@ -13,9 +13,10 @@
 
 enum class TileType : uint16_t
 {
-  KEYPAD = 0,
-  BUTTON = 1,
-  NONE = 2
+  NONE = 0,
+  KEYPAD = 1,
+  BUTTON = 2,
+  EXIT = 3
 };
 
 struct 	Position
@@ -26,8 +27,8 @@ struct 	Position
 
 struct 	Size
 {
-  std::size_t 	lenth;
-  std::size_t 	height;
+  int 	lenth;
+  int 	height;
 };
 
 struct 	Button

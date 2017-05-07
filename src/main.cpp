@@ -8,8 +8,7 @@
 // Last update mar. avr. 18 10:07:05 2017 Arnaud Costa
 //
 
-#include <chrono>
-#include <thread>
+#include <net.hpp>
 #include "ui.hh"
 #include "keypad.hh"
 #include "ActionButton.hpp"
@@ -26,13 +25,11 @@ int	main()
     return (-1);
   ui.open();
   while (ui.window.isOpen())
-  {
-      ui.printUi();
+    {
+      ui.printUiList(ui.getUiList());
       ui.printButtonList(keypad.getKeypad());
       ui.printButtonList(actionButton.getKeypad());
       ui.printPrice(460, 72, ui.getPrice(), 64);
-      ui.clock();
-      ui.ip();
       while (ui.window.pollEvent(event))
     	{
 	  tmp = ui.isClickable(ui.getClickPos(event), keypad.getKeypad());
@@ -43,6 +40,8 @@ int	main()
 	    std::cout << "{MAIN} click on = " << tmp.c << std::endl;
 	  if (tmp.type == TileType::BUTTON && tmp.c != "Stock Mod" && tmp.c != "Add Card")
 	    ui.actionView(tmp, ui.getPrice());
+	  else if (tmp.type == TileType::BUTTON && tmp.c == "Add Card")
+	    ui.newUser(event);
     	}
     	ui.display();
     	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
@@ -50,7 +49,7 @@ int	main()
 	    ui.closewin();
 	    return (0);
     	}
-    sf::milliseconds(5);
-    ui.clear();
-  }
+      usleep(10);
+      ui.clear();
+    }
 }

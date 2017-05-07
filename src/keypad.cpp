@@ -24,7 +24,7 @@ void 	Keypad::creatKeypad()
   std::size_t 	y = 0;
   short 	c = '1';
 
-  while (x < (183 + 550))
+  while (x < 183 + 550)
   {
     y = 90;
     while (y < 110 + 183)

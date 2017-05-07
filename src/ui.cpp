@@ -14,6 +14,7 @@
 UI::UI()
 {
   this->creatUiList();
+  this->creatSmalUiList();
   this->price = "0.0";
   this->clean = 0;
 }
@@ -62,10 +63,9 @@ void 		UI::printPrice(std::size_t x, std::size_t y,
   sf::Text entity;
 
   entity.setFont(this->priceFont);
-  //std::cout << "Text len " << text.length() << std::endl;
   entity.setPosition(x - (text.length() * 31), y);
   entity.setString(text);
-  entity.setCharacterSize(size);
+  entity.setCharacterSize(static_cast<unsigned int>(size));
   entity.setColor(sf::Color::White);
   entity.setStyle(sf::Text::Regular);
   window.draw(entity);
@@ -79,7 +79,7 @@ void 		UI::printDefaultText(std::size_t x, std::size_t y,
   entity.setFont(this->defaultFont);
   entity.setPosition(x, y);
   entity.setString(text);
-  entity.setCharacterSize(size);
+  entity.setCharacterSize(static_cast<unsigned int>(size));
   entity.setColor(sf::Color::Black);
   entity.setStyle(sf::Text::Regular);
   window.draw(entity);
@@ -94,7 +94,7 @@ void 		UI::printDefaultText(std::size_t x, std::size_t y,
   entity.setFont(this->defaultFont);
   entity.setPosition(x, y);
   entity.setString(text);
-  entity.setCharacterSize(size);
+  entity.setCharacterSize(static_cast<unsigned int>(size));
   entity.setColor(color);
   entity.setStyle(sf::Text::Regular);
   window.draw(entity);
@@ -156,16 +156,18 @@ int		UI::printButton(const Button tmp, std::string hover)
   return (0);
 }
 
-void 		UI::printUi()
+void 		UI::printUiList(std::vector<Elem> List)
 {
-  std::vector<Elem>::iterator	it = this->UiList.begin();
+  std::vector<Elem>::iterator	it = List.begin();
 
-  while (it != this->UiList.end())
+  while (it != List.end())
   {
     if (this->printUiElem(*it) == -1)
       return ;
     ++it;
   }
+  this->clock();
+  this->ip();
 }
 
 int		UI::printUiElem(const Elem tmp)
@@ -188,8 +190,8 @@ Elem 	UI::creatElem(std::size_t x, std::size_t y, std::size_t l,
 
   e.pos.x = x;
   e.pos.y = y;
-  e.size.height = h;
-  e.size.lenth = l;
+  e.size.height = static_cast<int>(h);
+  e.size.lenth = static_cast<int>(l);
   e.sprite = imgPath;
   return (e);
 }
@@ -202,44 +204,40 @@ void 	UI::creatUiList()
   this->UiList.push_back(this->creatElem(20, 165, 475, 178, "./img/billRec.png"));
 }
 
-Position	UI::getClickPos(sf::Event e)
+void 	UI::creatSmalUiList()
 {
-  //sf::Event e = this->getEvent();
-  Position	pos;
+  this->SmalUiList.push_back(this->creatElem(0, 0, 800, 480, "./img/background.png"));
+  this->SmalUiList.push_back(this->creatElem(10, 10, 101, 35, "./img/logo_epipay.png"));
+}
 
+Position	UI::getClickPos(sf::Event e) const
+{
+  Position pos = Position();
+
+
+  pos.x = -1;
+  pos.y = -1;
   if (e.type == sf::Event::MouseButtonPressed)
-  {
-    if (e.mouseButton.button == sf::Mouse::Left)
     {
-//      std::cout << "x = " << e.mouseButton.x << std::endl;
-//      std::cout << "y = " << e.mouseButton.y << std::endl;
-      pos.x = e.mouseButton.x;
-      pos.y = e.mouseButton.y;
+      if (e.mouseButton.button == sf::Mouse::Left)
+        {
+          pos.x = static_cast<std::size_t >(e.mouseButton.x);
+          pos.y = static_cast<std::size_t >(e.mouseButton.y);
+        }
     }
-  }
-  else
-  {
-    pos.x = 0;
-    pos.y = 0;
-  }
   return (pos);
+}
+
+std::vector<Elem> UI::getUiList() const
+{
+  return (this->UiList);
 }
 
 Button 	UI::isClickable(Position mouse, std::vector<Button> tmpButton)
 {
   std::vector<Button>::iterator it = tmpButton.end() - 1;
   Button  k;
-//
-//  k.pos.x = 0;
-//  k.pos.y = 0;
-//  k.c = '0';
-//  k.size.height = 0;
-//  k.size.lenth = 0;
-//  k.sprite = "0";
-//  k.hover = "0";
-//  k.fontSize = 0;
-//  k.textPos.x = 0;
-//  k.textPos.y = 0;
+
   k.type = TileType::NONE;
   while (it >= tmpButton.begin())
   {
@@ -304,7 +302,8 @@ void	UI::ip()
 
 void    UI::actionView(Button button, std::string price)
 {
-  sf::RectangleShape rectangle(sf::Vector2f(300, 150));
+  sf::RectangleShape  rectangle(sf::Vector2f(300, 150));
+  std::size_t         balnce = std::atof(this->price.c_str());
 
   rectangle.setFillColor(sf::Color::White);
   rectangle.setPosition(250, 100);
@@ -321,8 +320,30 @@ void    UI::actionView(Button button, std::string price)
   this->display();
   while (42)
     {
-      std::cout << "Waiting API " << std::atof(this->price.c_str()) << std::endl;
+      std::cout << "Waiting API " << balnce << std::endl;
     }
   this->clear();
+}
+
+void    UI::newUser(sf::Event event)
+{
+  Keyboard	keyboard;
+  Button        tmp;
+
+  this->clear();
+  while (tmp.type != TileType::EXIT)
+    {
+      this->printUiList(this->SmalUiList);
+      this->printButtonList(keyboard.getKeypad());
+      while (this->window.pollEvent(event))
+        {
+          tmp = this->isClickable(this->getClickPos(event), keyboard.getKeypad());
+            if (tmp.type != TileType::NONE)
+              std::cout << "{MAIN} click on = " << tmp.c << std::endl;
+        }
+      this->display();
+      usleep(10);
+      this->clear();
+    }
 }
 

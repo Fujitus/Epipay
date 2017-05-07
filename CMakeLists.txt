@@ -9,4 +9,4 @@ file(GLOB SOURCE_FILES
         "include/*.hh")
 	
 include_directories(include)
-add_executable(Epipay ${SOURCE_FILES})
+add_executable(Epipay ${SOURCE_FILES} src/Keyboard.cpp include/Keyboard.hh)
