@@ -48,11 +48,11 @@ class 	UI
   void 		creatUiList();
   Elem 		creatElem(std::size_t x, std::size_t y, std::size_t l, std::size_t h, std::string imgPath);
   Position	getClickPos(sf::Event);
-  void 		isClickable(Position, std::vector<Button>);
+  Button 	isClickable(Position, std::vector<Button>);
   std::string	getPrice() const;
   void 		clock();
   void		ip();
-  void 		pay();
+  void 		actionView(Button, std::string);
 };
 
 #endif /* EPIPAY_UI_HH */
