@@ -5,10 +5,10 @@
 // Login   <costa_d@epitech.net>
 //
 
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 //People Schema
-var peopleSchema = mongoose.Schema({
+let peopleSchema = mongoose.Schema({
     firstname:{
       type: String,
       required: true
@@ -39,7 +39,7 @@ var peopleSchema = mongoose.Schema({
   versionKey: false
 });
 
-var People = module.exports = mongoose.model('People', peopleSchema);
+let People = module.exports = mongoose.model('People', peopleSchema);
 
 //Get People
 module.exports.getPeople = function(callback, limit){
@@ -58,8 +58,8 @@ module.exports.addPeople = function(people, callback){
 
 //Update People
 module.exports.updatePeople = function(id, people, option, callback){
-  var query = {_id: id};
-  var update = {
+  let query = {_id: id};
+  let update = {
     firstname: people.firstname,
     lastname: people.lastname,
     balance: people.balance,
@@ -72,6 +72,6 @@ module.exports.updatePeople = function(id, people, option, callback){
 
 //Delet People
 module.exports.removePeople = function(id, callback){
-  var query = {_id: id};
+  let query = {_id: id};
   People.remove(query, callback);
 }

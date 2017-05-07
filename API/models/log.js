@@ -5,10 +5,10 @@
 // Login   <costa_d@epitech.net>
 //
 
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 //Log Schema
-var logSchema = mongoose.Schema({
+let logSchema = mongoose.Schema({
     action_name:{
       type: String,
       required: true
@@ -39,7 +39,7 @@ var logSchema = mongoose.Schema({
   versionKey: false
 });
 
-var Log = module.exports = mongoose.model('Log', logSchema);
+let Log = module.exports = mongoose.model('Log', logSchema);
 
 // Get Log
 module.exports.getLog = function(callback, limit){
@@ -53,6 +53,6 @@ module.exports.addLog = function(log){
 
 //Delet Log
 module.exports.removeLog = function(id, callback){
-  var query = {_id: id};
+  let query = {_id: id};
   Log.remove(query, callback);
 }

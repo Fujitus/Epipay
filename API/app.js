@@ -5,10 +5,10 @@
 // Login   <costa_d@epitech.net>
 //
 
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 // init bodyParser
 app.use(bodyParser.json());
@@ -53,7 +53,7 @@ app.get('/api/stock/:_id', function(req, res){
 
 // Post Stock
 app.post('/api/stock', function(req, res){
-  var stock = req.body;
+  let stock = req.body;
   Stock.addStock(stock, function(err, stock){
     if (err){
         res.status(416).send("[API - Error] stock Shema not correct");
@@ -65,8 +65,8 @@ app.post('/api/stock', function(req, res){
 
 // Put Stock
 app.put('/api/stock/:_id', function(req, res){
-  var id = req.params._id;
-  var stock = req.body;
+  let id = req.params._id;
+  let stock = req.body;
   Stock.updateStock(id, stock, {}, function(err, stock){
     if (err){
       throw err;
@@ -77,7 +77,7 @@ app.put('/api/stock/:_id', function(req, res){
 
 // Delet Stock
 app.delete('/api/stock/:_id', function(req, res){
-  var id = req.params._id;
+  let id = req.params._id;
   Stock.removeStock(id, function(err, stock){
     if (err){
       throw err;
@@ -114,7 +114,7 @@ app.get('/api/people/:_id', function(req, res){
 
 // Post People
 app.post('/api/people', function(req, res){
-  var people = req.body;
+  let people = req.body;
   People.addPeople(people, function(err, people){
     if (err){
       res.status(416).send("[API - Error] people Shema not correct");
@@ -126,8 +126,8 @@ app.post('/api/people', function(req, res){
 
 // Put People by id
 app.put('/api/people/:_id', function(req, res){
-  var id = req.params._id;
-  var people = req.body;
+  let id = req.params._id;
+  let people = req.body;
   People.updatePeople(id, people, {}, function(err, people){
     if (err){
       throw err;
@@ -137,9 +137,9 @@ app.put('/api/people/:_id', function(req, res){
 });
 
 // Delet People
-app.delete('/api/people/:_id', function(req, res){
-  var id = req.params._id;
-  People.removePeople(id, function(err, people){
+app.delete('/api/people/:_id', (req, res) => {
+  let id = req.params._id;
+  People.removePeople(id, (err, people) => {
     if (err){
       throw err;
     }
@@ -163,6 +163,9 @@ app.get('/api/log', function(req, res){
   });
 });
 
+app.set("port", 3042);
+
 // Listen func
-app.listen(3042);
-console.log('Epipay - API Working and Running on port 3042');
+const server = app.listen(app.get('port'), () => {
+  console.log('Epipay - API Working and Running on port ' + server.address().port);
+});

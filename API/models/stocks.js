@@ -5,13 +5,13 @@
 // Login   <costa_d@epitech.net>
 //
 
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 //Include models
 Log = require('./log');
 
 //Stock Shema
-var stockSchema = mongoose.Schema({
+let stockSchema = mongoose.Schema({
     name:{
       type: String,
       required: true
@@ -70,7 +70,7 @@ var stockSchema = mongoose.Schema({
   versionKey: false
 });
 
-var Stock = module.exports = mongoose.model('Stock', stockSchema);
+let Stock = module.exports = mongoose.model('Stock', stockSchema);
 
 //Get Stocks
 module.exports.getStock = function(callback, limit){
@@ -84,7 +84,7 @@ module.exports.getStockById = function(id, callback){
 
 //Add Stock
 module.exports.addStock = function(stock, callback){
-  var updateStock = {
+  let updateStock = {
     action_name: "Add " + stock.name,
     type: "STOCK",
     nombre: stock.consumed
@@ -95,8 +95,8 @@ module.exports.addStock = function(stock, callback){
 
 //Update Stock
 module.exports.updateStock = function(id, stock, option, callback){
-  var query = {_id: id};
-  var update = {
+  let query = {_id: id};
+  let update = {
     name: stock.name,
     type: stock.type,
     price: stock.price,
@@ -108,7 +108,7 @@ module.exports.updateStock = function(id, stock, option, callback){
     consumed_total: stock.consumed_total,
     last_refill: Date.now(),
   };
-  var updateStock = {
+  let updateStock = {
     action_name: "Update " + stock.name,
     type: "RESTOCK",
     nombre: stock.consumed
@@ -119,13 +119,13 @@ module.exports.updateStock = function(id, stock, option, callback){
 
 //Delet Stock
 module.exports.removeStock = function(id, callback){
-  var query = {_id: id};
+  let query = {_id: id};
   /*
       TODO
       find a way to get the name
   */
   console.log(id);
-  var updateStock = {
+  let updateStock = {
     action_name: "Remove " + id,
     type: "DELSTOCK",
     nombre: 0

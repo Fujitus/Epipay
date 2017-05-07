@@ -4,12 +4,12 @@
   "description": "Payment API for BDE EPITECH",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+      "start": "node app.js"
   },
   "dependencies":{
     "express":"*",
     "body-parser":"*",
-    "mongoose":"*",
+    "mongoose":"*"
   },
   "author": "arnaud.costa@epitech.eu",
   "license": "ISC"
