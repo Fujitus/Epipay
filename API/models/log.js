@@ -8,7 +8,7 @@
 const mongoose = require('mongoose');
 
 //Log Schema
-let logSchema = mongoose.Schema({
+var logSchema = mongoose.Schema({
     action_name:{
       type: String,
       required: true
@@ -39,7 +39,7 @@ let logSchema = mongoose.Schema({
   versionKey: false
 });
 
-let Log = module.exports = mongoose.model('Log', logSchema);
+var Log = module.exports = mongoose.model('Log', logSchema);
 
 // Get Log
 module.exports.getLog = function(callback, limit){

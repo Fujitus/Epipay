@@ -11,7 +11,7 @@ const mongoose = require('mongoose');
 Log = require('./log');
 
 //Stock Shema
-let stockSchema = mongoose.Schema({
+var stockSchema = mongoose.Schema({
     name:{
       type: String,
       required: true
@@ -70,7 +70,7 @@ let stockSchema = mongoose.Schema({
   versionKey: false
 });
 
-let Stock = module.exports = mongoose.model('Stock', stockSchema);
+var Stock = module.exports = mongoose.model('Stock', stockSchema);
 
 //Get Stocks
 module.exports.getStock = function(callback, limit){

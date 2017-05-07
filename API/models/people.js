@@ -8,7 +8,7 @@
 const mongoose = require('mongoose');
 
 //People Schema
-let peopleSchema = mongoose.Schema({
+var   peopleSchema = mongoose.Schema({
     firstname:{
       type: String,
       required: true
@@ -39,7 +39,7 @@ let peopleSchema = mongoose.Schema({
   versionKey: false
 });
 
-let People = module.exports = mongoose.model('People', peopleSchema);
+var People = module.exports = mongoose.model('People', peopleSchema);
 
 //Get People
 module.exports.getPeople = function(callback, limit){
