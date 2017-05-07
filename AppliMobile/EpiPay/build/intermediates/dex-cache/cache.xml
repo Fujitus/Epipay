@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/home/counil_m/.android/build-cache/aecdec2d5b42c775f0233c0a387b91705def1d37/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="/home/counil_m/AndroidStudioProjects/EpiPay/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_3f6163a9f02274f07b927fcdec75009b8e0cab92/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/counil_m/AndroidStudioProjects/EpiPay/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3b3a2cef253b3b59ad51845b60a3749427cbfbaa">
+        <dex dex="/home/counil_m/AndroidStudioProjects/EpiPay/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_28cbdfdf59ed50e0f8d59dabfc9af6fd5a90dd74/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/counil_m/Android/Sdk/extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.2/constraint-layout-solver-1.0.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="/home/counil_m/AndroidStudioProjects/EpiPay/app/build/intermediates/transforms/dex/debug/folders/1000/10/constraint-layout-solver-1.0.2_5b6823f01dbd9fcbce21331d866453145fa7f105/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/counil_m/AndroidStudioProjects/EpiPay/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
+        <dex dex="/home/counil_m/AndroidStudioProjects/EpiPay/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_dc35fdb25081a22a9693add5d3f04e8c0ecf2b19/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/counil_m/.android/build-cache/056052987318ea9bb3a50f1664d4047c02807d3e/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e03f47f3d1017a093bb3239d4ec47c3447f40744">
+        <dex dex="/home/counil_m/AndroidStudioProjects/EpiPay/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_2e717889c40519bcd0d417d4a1f9bb0b7b81855f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/counil_m/.android/build-cache/908a5766b3b83625c42a0ed711d54d92def6fbda/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="7521486d9bfd2cd9e756e0cf75ed7d97f2ce2d3b">
+        <dex dex="/home/counil_m/AndroidStudioProjects/EpiPay/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_2bd335a0c14a6184c5f01beff68bb21db70daf36/classes.dex" />
+    </item>
+
+</items>
