@@ -40,14 +40,6 @@ void	UI::clear()
 {
   this->window.clear();
 }
-//
-//sf::Event	UI::getEvent()
-//{
-//  sf::Event	event;
-//
-//  while (window.pollEvent(event)){}
-//  return (event);
-//}
 
 int		UI::loadFiles()
 {
@@ -138,7 +130,7 @@ int		UI::printButton(const Button tmp)
   sprite.setTexture(texture);
   sprite.setPosition(tmp.pos.x, tmp.pos.y);
   this->window.draw(sprite);
-  this->printDefaultText(tmp.pos.x, tmp.pos.y, tmp.c, tmp.fontSize);
+  this->printDefaultText(tmp.textPos.x, tmp.textPos.y, tmp.c, tmp.fontSize);
   return (0);
 }
 
@@ -160,7 +152,7 @@ int		UI::printButton(const Button tmp, std::string hover)
   sprite.setTexture(texture);
   sprite.setPosition(tmp.pos.x, tmp.pos.y);
   this->window.draw(sprite);
-  this->printDefaultText(tmp.pos.x, tmp.pos.y, tmp.c, tmp.fontSize);
+  this->printDefaultText(tmp.textPos.x, tmp.textPos.y, tmp.c, tmp.fontSize);
   return (0);
 }
 
@@ -219,8 +211,8 @@ Position	UI::getClickPos(sf::Event e)
   {
     if (e.mouseButton.button == sf::Mouse::Left)
     {
-      std::cout << "x = " << e.mouseButton.x << std::endl;
-      std::cout << "y = " << e.mouseButton.y << std::endl;
+//      std::cout << "x = " << e.mouseButton.x << std::endl;
+//      std::cout << "y = " << e.mouseButton.y << std::endl;
       pos.x = e.mouseButton.x;
       pos.y = e.mouseButton.y;
     }
@@ -233,31 +225,45 @@ Position	UI::getClickPos(sf::Event e)
   return (pos);
 }
 
-void 	UI::isClickable(Position mouse, std::vector<Button> tmpButton)
+Button 	UI::isClickable(Position mouse, std::vector<Button> tmpButton)
 {
-  std::vector<Button>::iterator it = tmpButton.begin();
-
-  while (it != tmpButton.end())
+  std::vector<Button>::iterator it = tmpButton.end() - 1;
+  Button  k;
+//
+//  k.pos.x = 0;
+//  k.pos.y = 0;
+//  k.c = '0';
+//  k.size.height = 0;
+//  k.size.lenth = 0;
+//  k.sprite = "0";
+//  k.hover = "0";
+//  k.fontSize = 0;
+//  k.textPos.x = 0;
+//  k.textPos.y = 0;
+  k.type = TileType::NONE;
+  while (it >= tmpButton.begin())
   {
-    if (mouse.y >= (*it).pos.y && mouse.y <= (*it).pos.y + (*it).size.lenth &&
-     	mouse.x >= (*it).pos.x && mouse.x <= (*it).pos.x + (*it).size.height)
+    if (mouse.y >= (*it).pos.y && mouse.y <= (*it).pos.y + (*it).size.height &&
+     	mouse.x >= (*it).pos.x && mouse.x <= (*it).pos.x + (*it).size.lenth)
     {
-//      if ((*it).c == "Pay")
-//	this->pay();
-//      if (this->clean == 0)
-//      {
-//	this->price.clear();
-//	this->clean = 1;
-//      }
-//      if ((*it).c == "<-")
-//        this->price.pop_back();
-//      else
-//        this->price += (*it).c;
-      std::cout << "Click on " << (*it).c << std::endl;
-      //this->printButton(*it, (*it).hover);
+        if ((*it).type == TileType::KEYPAD)
+          {
+            if (this->clean == 0)
+              {
+                this->price.clear();
+                this->clean = 1;
+              }
+            if ((*it).c == "<-")
+              this->price.pop_back();
+            else
+              this->price += (*it).c;
+          }
+        std::cout << "{CLICK FUNC} Click on " << (*it).c << std::endl;
+        return ((*it));
     }
-    ++it;
+    --it;
   }
+  return (k);
 }
 
 std::string	UI::getPrice() const
@@ -296,7 +302,27 @@ void	UI::ip()
     this->printUiElem(this->creatElem(760, 35, 31, 25,"./img/wifi_no.png"));
 }
 
-void	UI::pay()
+void    UI::actionView(Button button, std::string price)
 {
-  std::cout << "Pay func" <<std::endl;
+  sf::RectangleShape rectangle(sf::Vector2f(300, 150));
+
+  rectangle.setFillColor(sf::Color::White);
+  rectangle.setPosition(250, 100);
+  this->window.draw(rectangle);\
+  this->printDefaultText(378 - button.c.length() * 2, 108, button.c, 25);
+  if (price == "0.0")
+    {
+      this->printDefaultText(320, 138, "Error no price define", 20);
+      this->display();
+      sleep(2);
+      return ;
+    }
+  this->printDefaultText(280, 138, "Waiting API for update acount", 20);
+  this->display();
+  while (42)
+    {
+      std::cout << "Waiting API " << std::atof(this->price.c_str()) << std::endl;
+    }
+  this->clear();
 }
+

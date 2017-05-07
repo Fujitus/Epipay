@@ -18,9 +18,10 @@ class Key : public IKey
  public:
   Key();
   ~Key();
-  virtual Button 		creatKey(std::size_t, std::size_t, const char, std::size_t, std::size_t, std::string, std::string, std::size_t);
-  virtual Button 		creatKey(std::size_t, std::size_t, std::string, std::size_t, std::size_t, std::string, std::string, std::size_t);
-  virtual void			creatKeypad();
+  virtual Button 		creatKey(std::size_t, std::size_t, const char, std::size_t, std::size_t,
+					 std::string, std::string, std::size_t, std::size_t, std::size_t, TileType);
+  virtual Button 		creatKey(std::size_t, std::size_t, std::string, std::size_t, std::size_t,
+					 std::string, std::string, std::size_t, std::size_t, std::size_t, TileType);
 };
 
 

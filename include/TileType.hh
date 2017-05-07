@@ -11,6 +11,13 @@
 #ifndef EPIPAY_TILETYPE_HH
 #define EPIPAY_TILETYPE_HH
 
+enum class TileType : uint16_t
+{
+  KEYPAD = 0,
+  BUTTON = 1,
+  NONE = 2
+};
+
 struct 	Position
 {
   std::size_t 	x;
@@ -30,7 +37,9 @@ struct 	Button
   std::string	hover;
   std::size_t 	fontSize;
   Position	pos;
+  Position	textPos;
   Size		size;
+  TileType 	type;
 };
 
 struct Elem

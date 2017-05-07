@@ -16,8 +16,8 @@ Key::Key()
 Key::~Key()
 {}
 
-Button 	Key::creatKey(std::size_t x, std::size_t y, const char c,
-			    std::size_t l, std::size_t h, std::string imgPath, std::string hoverPath, std::size_t fontSize)
+Button 	Key::creatKey(std::size_t x, std::size_t y, const char c, std::size_t l, std::size_t h, std::string imgPath,
+			    std::string hoverPath, std::size_t fontSize, std::size_t textX, std::size_t textY, TileType type)
 {
   Button	k;
 
@@ -29,11 +29,14 @@ Button 	Key::creatKey(std::size_t x, std::size_t y, const char c,
   k.sprite = imgPath;
   k.hover = hoverPath;
   k.fontSize = fontSize;
+  k.textPos.x = textX;
+  k.textPos.y = textY;
+  k.type = type;
   return (k);
 }
 
-Button 	Key::creatKey(std::size_t x, std::size_t y, std::string c,
-			    std::size_t l, std::size_t h, std::string imgPath, std::string hoverPath, std::size_t fontSize)
+Button 	Key::creatKey(std::size_t x, std::size_t y, std::string c, std::size_t l, std::size_t h, std::string imgPath,
+			    std::string hoverPath, std::size_t fontSize, std::size_t textX, std::size_t textY, TileType type)
 {
   Button	k;
 
@@ -45,8 +48,8 @@ Button 	Key::creatKey(std::size_t x, std::size_t y, std::string c,
   k.sprite = imgPath;
   k.hover = hoverPath;
   k.fontSize = fontSize;
+  k.textPos.x = textX;
+  k.textPos.y = textY;
+  k.type = type;
   return (k);
 }
-
-void			Key::creatKeypad()
-{}

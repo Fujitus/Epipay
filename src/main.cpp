@@ -20,29 +20,36 @@ int	main()
   Keypad        keypad;
   ActionButton  actionButton;
   sf::Event     event;
+  Button	tmp;
 
   if (ui.loadFiles() == -1)
     return (-1);
   ui.open();
   while (ui.window.isOpen())
   {
-    ui.printUi();
-    ui.printButtonList(keypad.getKeypad());
-    ui.printButtonList(actionButton.getKeypad());
-    ui.printPrice(470, 72, ui.getPrice(), 64);
-    ui.clock();
-    while (ui.window.pollEvent(event))
-    {
-      ui.isClickable(ui.getClickPos(event), keypad.getKeypad());
-      ui.isClickable(ui.getClickPos(event), actionButton.getKeypad());
-    }
-    ui.ip();
-    ui.display();
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-    {
-      ui.closewin();
-      return (0);
-    }
+      ui.printUi();
+      ui.printButtonList(keypad.getKeypad());
+      ui.printButtonList(actionButton.getKeypad());
+      ui.printPrice(460, 72, ui.getPrice(), 64);
+      ui.clock();
+      ui.ip();
+      while (ui.window.pollEvent(event))
+    	{
+	  tmp = ui.isClickable(ui.getClickPos(event), keypad.getKeypad());
+	  if (tmp.type != TileType::NONE)
+	    std::cout << "{MAIN} click on = " << tmp.c << std::endl;
+	  tmp = ui.isClickable(ui.getClickPos(event), actionButton.getKeypad());
+	  if (tmp.type != TileType::NONE)
+	    std::cout << "{MAIN} click on = " << tmp.c << std::endl;
+	  if (tmp.type == TileType::BUTTON && tmp.c != "Stock Mod" && tmp.c != "Add Card")
+	    ui.actionView(tmp, ui.getPrice());
+    	}
+    	ui.display();
+    	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+    	{
+	    ui.closewin();
+	    return (0);
+    	}
     sf::milliseconds(5);
     ui.clear();
   }
