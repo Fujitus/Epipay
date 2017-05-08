@@ -260,9 +260,9 @@ Button 	UI::isClickable(Position mouse, std::vector<Button> tmpButton)
                 this->price.clear();
                 this->clean = 1;
               }
-            if ((*it).c == "<-")
+	    else if ((*it).c == "<-" && this->price.length() > 0)
               this->price.pop_back();
-            else
+            else if ((*it).c != "<-")
               {
                 if (isalpha((*it).c[0]))
                   this->price += (*it).c[0] + 32;
