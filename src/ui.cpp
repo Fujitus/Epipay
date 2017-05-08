@@ -8,15 +8,18 @@
 // Last update mar. avr. 18 10:08:39 2017 Arnaud Costa
 //
 
+#include <iomanip>
 #include "ui.hh"
-#include "net.hpp"
+#include "net.hh"
+#include "RegisterUi.hh"
 
-UI::UI()
+UI::UI(char **ae)
 {
   this->creatUiList();
   this->creatSmalUiList();
   this->price = "0.0";
   this->clean = 0;
+  this->env = ae;
 }
 
 UI::~UI()
@@ -40,6 +43,11 @@ void	UI::display()
 void	UI::clear()
 {
   this->window.clear();
+}
+
+void    UI::clearPrice()
+{
+  this->price = "0.0";
 }
 
 int		UI::loadFiles()
@@ -140,6 +148,8 @@ int		UI::printButton(const Button tmp, std::string hover)
   sf::Texture   		texture;
   std::map<std::string, sf::Texture>::iterator it;
 
+  if (hover == "")
+    return (0);
   it = this->textureList.find(hover);
   if (it == this->textureList.end())
   {
@@ -221,8 +231,8 @@ Position	UI::getClickPos(sf::Event e) const
     {
       if (e.mouseButton.button == sf::Mouse::Left)
         {
-          pos.x = static_cast<std::size_t >(e.mouseButton.x);
-          pos.y = static_cast<std::size_t >(e.mouseButton.y);
+          pos.x = e.mouseButton.x;
+          pos.y = e.mouseButton.y;
         }
     }
   return (pos);
@@ -257,6 +267,9 @@ Button 	UI::isClickable(Position mouse, std::vector<Button> tmpButton)
               this->price += (*it).c;
           }
         std::cout << "{CLICK FUNC} Click on " << (*it).c << std::endl;
+        this->printButton(*it, (*it).hover);
+        this->display();
+        usleep(50000);
         return ((*it));
     }
     --it;
@@ -278,9 +291,9 @@ void 	UI::clock()
   time (&rawtime);
   timeinfo = localtime(&rawtime);
 
-  strftime(buffer,sizeof(buffer),"%d-%m-%Y\n    %I:%M",timeinfo);
+  strftime(buffer,sizeof(buffer),"%d-%m-%Y\n     %I:%M",timeinfo);
   std::string str(buffer);
-  this->printDefaultText(350, 5, str, 20, sf::Color::White);
+  this->printDefaultText(350, 5, str, 18, sf::Color::White);
 }
 
 void	UI::ip()
@@ -303,11 +316,11 @@ void	UI::ip()
 void    UI::actionView(Button button, std::string price)
 {
   sf::RectangleShape  rectangle(sf::Vector2f(300, 150));
-  std::size_t         balnce = std::atof(this->price.c_str());
+  double              balnce = std::atof(this->price.c_str());
 
   rectangle.setFillColor(sf::Color::White);
   rectangle.setPosition(250, 100);
-  this->window.draw(rectangle);\
+  this->window.draw(rectangle);
   this->printDefaultText(378 - button.c.length() * 2, 108, button.c, 25);
   if (price == "0.0")
     {
@@ -316,11 +329,12 @@ void    UI::actionView(Button button, std::string price)
       sleep(2);
       return ;
     }
-  this->printDefaultText(280, 138, "Waiting API for update acount", 20);
+  this->printDefaultText(280, 138, "Waiting API for update acount", 18);
   this->display();
+  system("curl");
   while (42)
     {
-      std::cout << "Waiting API " << balnce << std::endl;
+      std::cout << "Waiting API " << std::setprecision(4) << balnce << std::endl;
     }
   this->clear();
 }
@@ -328,22 +342,31 @@ void    UI::actionView(Button button, std::string price)
 void    UI::newUser(sf::Event event)
 {
   Keyboard	keyboard;
+  RegisterUi	registerUi("toto");
   Button        tmp;
 
   this->clear();
-  while (tmp.type != TileType::EXIT)
+  while (42)
     {
       this->printUiList(this->SmalUiList);
       this->printButtonList(keyboard.getKeypad());
+      this->printButtonList(registerUi.getKeypad());
       while (this->window.pollEvent(event))
         {
           tmp = this->isClickable(this->getClickPos(event), keyboard.getKeypad());
             if (tmp.type != TileType::NONE)
               std::cout << "{MAIN} click on = " << tmp.c << std::endl;
+          tmp = this->isClickable(this->getClickPos(event), registerUi.getKeypad());
+          if (tmp.type == TileType::EXIT)
+            {
+              this->clearPrice();
+              return ;
+            }
         }
       this->display();
       usleep(10);
       this->clear();
     }
 }
+
 

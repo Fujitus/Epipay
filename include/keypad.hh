@@ -11,7 +11,7 @@
 #ifndef EPIPAY_KEYPAD_HH
 #define EPIPAY_KEYPAD_HH
 
-#include "Key.hpp"
+#include "Key.hh"
 
 class	Keypad : public Key
 {

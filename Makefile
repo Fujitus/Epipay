@@ -5,7 +5,7 @@
 ## Login   <costa_d@epitech.net>
 ## 
 ## Started on  Sun Jan 15 01:56:26 2017 Arnaud Costa
-## Last update Thu Apr 27 13:21:56 2017 Arnaud Costa
+## Last update Sun May  7 18:21:38 2017 Arnaud Costa
 ##
 
 CC			        = g++
@@ -26,7 +26,9 @@ SRCS                = main.cpp          \
                       ui.cpp            \
                       Key.cpp           \
                       keypad.cpp        \
-                      ActionButton.cpp
+                      ActionButton.cpp  \
+                      Keyboard.cpp      \
+                      RegisterUi.cpp
 
 OBJS			    = $(addprefix $(OBJDIR), $(SRCS:.cpp=.o))
 

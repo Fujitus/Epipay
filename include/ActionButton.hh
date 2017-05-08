@@ -8,10 +8,10 @@
 // Last update jeu. avr. 27 10:58:31 2017 Arnaud Costa
 //
 
-#ifndef EPIPAY_ACTIONBUTTON_HPP
-#define EPIPAY_ACTIONBUTTON_HPP
+#ifndef EPIPAY_ACTIONBUTTON_HH
+#define EPIPAY_ACTIONBUTTON_HH
 
-#include "Key.hpp"
+#include "Key.hh"
 
 class ActionButton : public Key
 {
@@ -24,4 +24,4 @@ class ActionButton : public Key
 };
 
 
-#endif //EPIPAY_ACTIONBUTTON_HPP
+#endif /* EPIPAY_ACTIONBUTTON_HH */

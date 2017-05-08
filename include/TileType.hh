@@ -16,19 +16,20 @@ enum class TileType : uint16_t
   NONE = 0,
   KEYPAD = 1,
   BUTTON = 2,
-  EXIT = 3
+  EXIT = 3,
+  INPUT = 4,
 };
 
 struct 	Position
 {
-  std::size_t 	x;
-  std::size_t 	y;
+  int	 	x;
+  int	 	y;
 };
 
 struct 	Size
 {
-  int 	lenth;
-  int 	height;
+  std::size_t   lenth;
+  std::size_t   height;
 };
 
 struct 	Button
@@ -50,4 +51,4 @@ struct Elem
   Size		size;
 };
 
-#endif //EPIPAY_TILETYPE_HH
+#endif /* EPIPAY_TILETYPE_HH */

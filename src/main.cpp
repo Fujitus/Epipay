@@ -8,14 +8,19 @@
 // Last update mar. avr. 18 10:07:05 2017 Arnaud Costa
 //
 
-#include <net.hpp>
+#include <net.hh>
 #include "ui.hh"
 #include "keypad.hh"
-#include "ActionButton.hpp"
+#include "ActionButton.hh"
 
-int	main()
+int	main(int ac, char **av, char **ae)
 {
-  UI            ui;
+  if (std::getenv("DISPLAY") == NULL || ae == NULL)
+    {
+      std::cerr << "[ERROR] Make sure the environment is set correctly or the DISPLAY environment variable is set correctly"<< std::endl;
+      return (-1);
+    }
+  UI            ui(ae);
   Keypad        keypad;
   ActionButton  actionButton;
   sf::Event     event;

@@ -2,11 +2,11 @@
 // Created by costa_d on 07/05/17.
 //
 
-#ifndef EPIPAY_KEYBOARD_H
-#define EPIPAY_KEYBOARD_H
+#ifndef EPIPAY_KEYBOARD_HH
+#define EPIPAY_KEYBOARD_HH
 
 
-#include "Key.hpp"
+#include "Key.hh"
 
 class Keyboard : public Key
 {
@@ -20,4 +20,4 @@ class Keyboard : public Key
 };
 
 
-#endif //EPIPAY_KEYBOARD_H
+#endif /* EPIPAY_KEYBOARD_HH */

@@ -8,10 +8,10 @@
 // Last update mer. avr. 26 17:53:46 2017 Arnaud Costa
 //
 
-#ifndef EPIPAY_KEY_HPP
-#define EPIPAY_KEY_HPP
+#ifndef EPIPAY_KEY_HH
+#define EPIPAY_KEY_HH
 
-#include "IKey.hpp"
+#include "IKey.hh"
 
 class Key : public IKey
 {;
@@ -25,4 +25,4 @@ class Key : public IKey
 };
 
 
-#endif //EPIPAY_KEY_HPP
+#endif /* EPIPAY_KEY_HH */

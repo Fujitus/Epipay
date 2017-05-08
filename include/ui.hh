@@ -27,16 +27,18 @@ class 	UI
   std::vector<Elem>	UiList;
   std::vector<Elem>	SmalUiList;
   std::map<std::string, sf::Texture> textureList;
+  char 			**env;
   int 			clean;
   std::string		price;
  public:
     sf::RenderWindow	window;
-  UI();
+  UI(char **);
   ~UI();
   void		open();
   void		closewin();
   void		display();
   void		clear();
+  void		clearPrice();
   int		loadFiles();
   void		printPrice(std::size_t, std::size_t, const std::string, std::size_t);
   void		printDefaultText(std::size_t, std::size_t, const std::string, std::size_t);

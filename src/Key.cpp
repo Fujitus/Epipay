@@ -8,7 +8,7 @@
 // Last update mer. avr. 26 17:53:46 2017 Arnaud Costa
 //
 
-#include "Key.hpp"
+#include "Key.hh"
 
 Key::Key()
 {}

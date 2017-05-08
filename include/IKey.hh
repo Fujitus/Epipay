@@ -8,8 +8,8 @@
 // Last update mer. avr. 26 17:44:57 2017 Arnaud Costa
 //
 
-#ifndef EPIPAY_IBUTTON_HPP
-#define EPIPAY_IBUTTON_HPP
+#ifndef EPIPAY_IBUTTON_HH
+#define EPIPAY_IBUTTON_HH
 
 #include <vector>
 #include <cstddef>
@@ -27,4 +27,4 @@ class IKey
 					 std::string, std::string, std::size_t, std::size_t, std::size_t, TileType) = 0;
 };
 
-#endif //EPIPAY_IBUTTON_HPP
+#endif /* EPIPAY_IBUTTON_HH */
