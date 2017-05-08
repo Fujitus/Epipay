@@ -9,21 +9,13 @@ const mongoose = require('mongoose');
 
 //People Schema
 var   peopleSchema = mongoose.Schema({
-    firstname:{
-      type: String,
-      required: true
-    },
-    lastname:{
+    email:{
       type: String,
       required: true
     },
     balance:{
       type: Number,
       default: 0
-    },
-    email:{
-      type: String,
-      required: true
     },
     card_id:{
       type: String,
