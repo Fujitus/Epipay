@@ -18,6 +18,7 @@ enum class TileType : uint16_t
   BUTTON = 2,
   EXIT = 3,
   INPUT = 4,
+  SELECTE = 5,
 };
 
 struct 	Position

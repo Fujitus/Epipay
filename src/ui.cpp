@@ -19,7 +19,6 @@ UI::UI(char **ae)
   this->creatSmalUiList();
   this->price = "0.0";
   this->clean = 0;
-  this->env = ae;
 }
 
 UI::~UI()
@@ -45,9 +44,9 @@ void	UI::clear()
   this->window.clear();
 }
 
-void    UI::clearPrice()
+void    UI::clearPrice(std::string set)
 {
-  this->price = "0.0";
+  this->price = set;
 }
 
 int		UI::loadFiles()
@@ -264,7 +263,12 @@ Button 	UI::isClickable(Position mouse, std::vector<Button> tmpButton)
             if ((*it).c == "<-")
               this->price.pop_back();
             else
-              this->price += (*it).c;
+              {
+                if (isalpha((*it).c[0]))
+                  this->price += (*it).c[0] + 32;
+                else
+                  this->price += (*it).c;
+              }
           }
         std::cout << "{CLICK FUNC} Click on " << (*it).c << std::endl;
         this->printButton(*it, (*it).hover);
@@ -344,29 +348,54 @@ void    UI::newUser(sf::Event event)
   Keyboard	keyboard;
   RegisterUi	registerUi("toto");
   Button        tmp;
+  short         pos = 3;
+  std::string   tmpInputch1 = "";
+  std::string   tmpInputch2 = "";
 
   this->clear();
+  this->clearPrice("");
   while (42)
     {
       this->printUiList(this->SmalUiList);
       this->printButtonList(keyboard.getKeypad());
       this->printButtonList(registerUi.getKeypad());
+      printDefaultText(registerUi.getKeypad()[pos].textPos.x, registerUi.getKeypad()[pos].textPos.y, this->price, 18, sf::Color::White);
+      if (pos == 3)
+        printDefaultText(registerUi.getKeypad()[4].textPos.x, registerUi.getKeypad()[4].textPos.y, tmpInputch2, 18, sf::Color::White);
+      else if (pos == 4)
+        printDefaultText(registerUi.getKeypad()[3].textPos.x, registerUi.getKeypad()[3].textPos.y, tmpInputch1, 18, sf::Color::White);
       while (this->window.pollEvent(event))
         {
-          tmp = this->isClickable(this->getClickPos(event), keyboard.getKeypad());
-            if (tmp.type != TileType::NONE)
-              std::cout << "{MAIN} click on = " << tmp.c << std::endl;
           tmp = this->isClickable(this->getClickPos(event), registerUi.getKeypad());
           if (tmp.type == TileType::EXIT)
             {
-              this->clearPrice();
+              this->clearPrice("0.0");
+              this->clean = 0;
               return ;
             }
+          else if (tmp.type == TileType::INPUT)
+            {
+              if (pos == 3 && tmp.pos.x == registerUi.getKeypad()[4].pos.x &&
+                  tmp.pos.y == registerUi.getKeypad()[4].pos.y)
+                {
+                  tmpInputch1 = this->price;
+                  this->clearPrice("");
+                  this->clearPrice(tmpInputch2);
+                  pos = 4;
+                }
+              else if (pos == 4 && tmp.pos.x == registerUi.getKeypad()[3].pos.x &&
+                       tmp.pos.y == registerUi.getKeypad()[3].pos.y)
+                {
+                  tmpInputch2 = this->price;
+                  this->clearPrice("");
+                  this->clearPrice(tmpInputch1);
+                  pos = 3;
+                }
+            }
+          this->isClickable(this->getClickPos(event), keyboard.getKeypad());
         }
       this->display();
       usleep(10);
       this->clear();
     }
 }
-
-

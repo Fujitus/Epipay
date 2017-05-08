@@ -5,7 +5,7 @@
 ## Login   <costa_d@epitech.net>
 ## 
 ## Started on  Sun Jan 15 01:56:26 2017 Arnaud Costa
-## Last update Mon May  8 16:25:52 2017 Arnaud Costa
+## Last update Mon May  8 16:33:32 2017 Arnaud Costa
 ##
 
 CC			        = g++
@@ -16,7 +16,7 @@ MK			        = mkdir
 
 CPPFLAGS		    = -Iinclude -std=c++11 -lsfml-graphics -lsfml-window -lsfml-system
 
-SRCDIR			    = src/
+SRCDIR			   	= src/
 
 OBJDIR			    = obj/
 
@@ -53,4 +53,4 @@ fclean:			    clean
 
 re:			        fclean all
 
-.PHONY:			    all debug clean fclean re
+.PHONY:				all debug clean fclean re
