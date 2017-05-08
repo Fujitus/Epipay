@@ -5,7 +5,7 @@
 ## Login   <costa_d@epitech.net>
 ## 
 ## Started on  Sun Jan 15 01:56:26 2017 Arnaud Costa
-## Last update Sun May  7 18:21:38 2017 Arnaud Costa
+## Last update Mon May  8 16:25:52 2017 Arnaud Costa
 ##
 
 CC			        = g++
@@ -32,12 +32,10 @@ SRCS                = main.cpp          \
 
 OBJS			    = $(addprefix $(OBJDIR), $(SRCS:.cpp=.o))
 
-all:			    $(NAME)
-
-debug:              $(NAME_DEBUG)
-
 $(NAME):		    $(OBJS)
 			        $(CC) -o $(NAME) $(OBJS) $(CPPFLAGS)
+
+all:			    $(NAME)
 
 $(OBJDIR)%.o:   	$(SRCDIR)%.cpp
 			        @$(MK) -p $(OBJDIR)
