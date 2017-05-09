@@ -5,7 +5,7 @@
 ## Login   <costa_d@epitech.net>
 ## 
 ## Started on  Sun Jan 15 01:56:26 2017 Arnaud Costa
-## Last update Mon May  8 16:33:32 2017 Arnaud Costa
+## Last update Tue May  9 17:07:15 2017 Arnaud Costa
 ##
 
 CC			        = g++
@@ -14,7 +14,7 @@ RM			        = rm -f
 
 MK			        = mkdir
 
-CPPFLAGS		    = -Iinclude -std=c++11 -lsfml-graphics -lsfml-window -lsfml-system
+CPPFLAGS		    = -Iinclude -std=c++11 -lsfml-graphics -lsfml-window -lsfml-system -lnfc
 
 SRCDIR			   	= src/
 
@@ -28,7 +28,8 @@ SRCS                = main.cpp          \
                       keypad.cpp        \
                       ActionButton.cpp  \
                       Keyboard.cpp      \
-                      RegisterUi.cpp
+                      RegisterUi.cpp    \
+                      NfcReader.cpp
 
 OBJS			    = $(addprefix $(OBJDIR), $(SRCS:.cpp=.o))
 

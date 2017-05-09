@@ -12,6 +12,7 @@
 #include "ui.hh"
 #include "net.hh"
 #include "RegisterUi.hh"
+#include "NfcReader.hh"
 
 UI::UI(char **ae)
 {
@@ -348,12 +349,20 @@ void    UI::newUser(sf::Event event)
   Keyboard	keyboard;
   RegisterUi	registerUi("toto");
   Button        tmp;
+  NfcReader	nfc;
   short         pos = 3;
   std::string   tmpInputch1 = "";
-  std::string   tmpInputch2 = "";
+  std::string   tmpInputch2;
 
   this->clear();
   this->clearPrice("");
+  if (nfc.initNfcReader() == -1)
+    {
+      std::cerr << "[ERROR] Card Reader no init" << std::endl;
+      exit(EXIT_FAILURE);
+    }
+  nfc.readCard();
+  tmpInputch2 = nfc.getIdCard();
   while (42)
     {
       this->printUiList(this->SmalUiList);

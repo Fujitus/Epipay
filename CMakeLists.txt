@@ -9,4 +9,4 @@ file(GLOB SOURCE_FILES
         "include/*.hh")
 	
 include_directories(include)
-add_executable(Epipay ${SOURCE_FILES} src/Keyboard.cpp include/Keyboard.hh src/RegisterUi.cpp include/RegisterUi.hh)
+add_executable(Epipay ${SOURCE_FILES} src/Keyboard.cpp include/Keyboard.hh src/RegisterUi.cpp include/RegisterUi.hh src/NfcReader.cpp include/NfcReader.hh)
