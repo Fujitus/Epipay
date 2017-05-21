@@ -18,10 +18,10 @@ var   peopleSchema = mongoose.Schema({
       default: 0
     },
     card_id:{
-      type: String,
+      type:   String,
       required: true
     },
-    privilege:{
+    privileg:{
       type: String,
       enum: ['ADMIN', 'BDE', 'HUB', 'USER'],
       required: true
@@ -38,9 +38,10 @@ module.exports.getPeople = function(callback, limit){
   People.find(callback).limit(limit);
 }
 
-//Get People by id
-module.exports.getPeopleById = function(id, callback){
-  People.findById(id, callback);
+//Get People by card id
+module.exports.getPeopleById = function(card_id, callback){
+  let query = {card_id: card_id};
+  People.find(query, callback);
 }
 
 //Add People
@@ -48,9 +49,9 @@ module.exports.addPeople = function(people, callback){
   People.create(people, callback);
 }
 
-//Update People
+//Update People by card id
 module.exports.updatePeople = function(id, people, option, callback){
-  let query = {_id: id};
+  let query = {card_id: id};
   let update = {
     firstname: people.firstname,
     lastname: people.lastname,

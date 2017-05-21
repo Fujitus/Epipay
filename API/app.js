@@ -102,9 +102,9 @@ app.get('/api/people', function(req, res){
   });
 });
 
-// Get People by Id
-app.get('/api/people/:_id', function(req, res){
-  People.getPeopleById(req.params._id, function(err, people){
+// Get People by Card Id
+app.get('/api/people/:card_id', function(req, res){
+  People.getPeopleById(req.params.card_id, function(err, people){
     if (err){
       throw err;
     }
@@ -124,11 +124,11 @@ app.post('/api/people', function(req, res){
   });
 });
 
-// Put People by id
-app.put('/api/people/:_id', function(req, res){
-  let id = req.params._id;
+// Put People by card id
+app.put('/api/people/:card_id', function(req, res){
+  let card_id = req.params.card_id;
   let people = req.body;
-  People.updatePeople(id, people, {}, function(err, people){
+  People.updatePeople(card_id, people, {}, function(err, people){
     if (err){
       throw err;
     }
