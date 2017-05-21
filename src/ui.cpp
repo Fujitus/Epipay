@@ -13,6 +13,7 @@
 #include "net.hh"
 #include "RegisterUi.hh"
 #include "NfcReader.hh"
+#include "api.hh"
 
 UI::UI(char **ae)
 {
@@ -261,9 +262,9 @@ Button 	UI::isClickable(Position mouse, std::vector<Button> tmpButton)
                 this->price.clear();
                 this->clean = 1;
               }
-	    else if ((*it).c == "<-" && this->price.length() > 0)
+	    else if ((*it).c == "<-" && this->price.length() - 1 > 0)
               this->price.pop_back();
-            else if ((*it).c != "<-")
+            if ((*it).c != "<-")
               {
                 if (isalpha((*it).c[0]))
                   this->price += (*it).c[0] + 32;
@@ -320,8 +321,10 @@ void	UI::ip()
 
 void    UI::actionView(Button button, std::string price)
 {
-  sf::RectangleShape  rectangle(sf::Vector2f(300, 150));
-  double              balnce = std::atof(this->price.c_str());
+  NfcReader		nfc;
+  api			api("http://localhost:3042/");
+  sf::RectangleShape  	rectangle(sf::Vector2f(300, 150));
+  double              	balance = std::atof(this->price.c_str());
 
   rectangle.setFillColor(sf::Color::White);
   rectangle.setPosition(250, 100);
@@ -329,19 +332,32 @@ void    UI::actionView(Button button, std::string price)
   this->printDefaultText(378 - button.c.length() * 2, 108, button.c, 25);
   if (price == "0.0")
     {
-      this->printDefaultText(320, 138, "Error no price define", 20);
+      this->printDefaultText(315, 138, "Error no price define", 20);
       this->display();
       sleep(2);
       return ;
     }
   this->printDefaultText(280, 138, "Waiting API for update acount", 18);
   this->display();
-  system("curl");
-  while (42)
+  if (nfc.initNfcReader() == -1)
+    std::cerr << "[ERROR] Card Reader no init" << std::endl;
+  else
+    nfc.readCard();
+  if (api.get("04:d3:57:22:f0:4a:80"/*nfc.getIdCard()*/))
+    api.updateAccount(button, balance, "04:d3:57:22:f0:4a:80");
+  else
     {
-      std::cout << "Waiting API " << std::setprecision(4) << balnce << std::endl;
+      rectangle.setFillColor(sf::Color::White);
+      rectangle.setPosition(250, 100);
+      this->window.draw(rectangle);
+      this->printDefaultText(378 - button.c.length() * 2, 108, button.c, 25);
+      this->printDefaultText(295, 138, "Error API not responding", 20);
+      this->display();
+      sleep(2);
     }
   this->clear();
+  this->clearPrice("0.0");
+  this->clean = 0;
 }
 
 void    UI::newUser(sf::Event event)
@@ -352,16 +368,14 @@ void    UI::newUser(sf::Event event)
   NfcReader	nfc;
   short         pos = 3;
   std::string   tmpInputch1 = "";
-  std::string   tmpInputch2;
+  std::string   tmpInputch2 = "";
 
   this->clear();
   this->clearPrice("");
   if (nfc.initNfcReader() == -1)
-    {
-      std::cerr << "[ERROR] Card Reader no init" << std::endl;
-      exit(EXIT_FAILURE);
-    }
-  nfc.readCard();
+    std::cerr << "[ERROR] Card Reader no init" << std::endl;
+  else
+    nfc.readCard();
   tmpInputch2 = nfc.getIdCard();
   while (42)
     {

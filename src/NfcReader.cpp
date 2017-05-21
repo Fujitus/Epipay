@@ -15,8 +15,10 @@ NfcReader::NfcReader()
 
 NfcReader::~NfcReader()
 {
-  nfc_close(this->pnd);
-  nfc_exit(this->context);
+//  if (this->pnd)
+//    nfc_close(this->pnd);
+//  if (this->context)
+//    nfc_exit(this->context);
 }
 
 int 	NfcReader::initNfcReader()
@@ -53,7 +55,7 @@ void	NfcReader::toHex(const uint8_t *pbtData, const size_t szBytes)
       	ss << ":";
     }
   this->cardId = ss.str();
-  std::cout << ss.str() << std::endl;
+  std::cout << "NFCFUNCK "<< ss.str() << std::endl;
 }
 
 int 	NfcReader::readCard()

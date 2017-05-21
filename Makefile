@@ -14,7 +14,7 @@ RM			        = rm -f
 
 MK			        = mkdir
 
-CPPFLAGS		    = -Iinclude -std=c++11 -lsfml-graphics -lsfml-window -lsfml-system -lnfc
+CPPFLAGS		    = -Iinclude -std=c++11 -lsfml-graphics -lsfml-window -lsfml-system -lnfc -lcurl
 
 SRCDIR			   	= src/
 
@@ -29,7 +29,8 @@ SRCS                = main.cpp          \
                       ActionButton.cpp  \
                       Keyboard.cpp      \
                       RegisterUi.cpp    \
-                      NfcReader.cpp
+                      NfcReader.cpp     \
+                      api.cpp
 
 OBJS			    = $(addprefix $(OBJDIR), $(SRCS:.cpp=.o))
 
