@@ -262,7 +262,7 @@ Button 	UI::isClickable(Position mouse, std::vector<Button> tmpButton)
                 this->price.clear();
                 this->clean = 1;
               }
-	    else if ((*it).c == "<-" && this->price.length() - 1 > 0)
+	    else if ((*it).c == "<-" && this->price.length() > 0)
               this->price.pop_back();
             if ((*it).c != "<-")
               {
@@ -343,8 +343,8 @@ void    UI::actionView(Button button, std::string price)
     std::cerr << "[ERROR] Card Reader no init" << std::endl;
   else
     nfc.readCard();
-  if (api.get("04:d3:57:22:f0:4a:80"/*nfc.getIdCard()*/))
-    api.updateAccount(button, balance, "04:d3:57:22:f0:4a:80");
+  if (api.get(nfc.getIdCard()))
+    api.updateAccount(button, balance, nfc.getIdCard());
   else
     {
       rectangle.setFillColor(sf::Color::White);
@@ -363,7 +363,7 @@ void    UI::actionView(Button button, std::string price)
 void    UI::newUser(sf::Event event)
 {
   Keyboard	keyboard;
-  RegisterUi	registerUi("toto");
+  RegisterUi	registerUi("img/beta_photo.png");
   Button        tmp;
   NfcReader	nfc;
   short         pos = 3;

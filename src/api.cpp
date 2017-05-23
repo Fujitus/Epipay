@@ -8,6 +8,7 @@
 api::api(std::string url)
 {
   this->apiUrl = url;
+  this->json = "";
 }
 
 api::~api()
@@ -47,7 +48,7 @@ bool 		api::get(std::string card_id)
 bool 		api::put(std::string card_id)
 {
   CURL *curl;
-  CURLcode res;
+//  CURLcode res;
   struct curl_slist *json_struct = NULL;
   std::string url;
 
@@ -59,10 +60,12 @@ bool 		api::put(std::string card_id)
   curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
   curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 1L);
   curl_easy_setopt(curl, CURLOPT_POSTFIELDS, this->json.c_str());
+  curl_easy_setopt(curl, CURLOPT_USERAGENT, "curl/7.38.0");
   curl_easy_setopt(curl, CURLOPT_HTTPHEADER, json_struct);
+  curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 50L);
   curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PUT");
   curl_easy_setopt(curl, CURLOPT_TCP_KEEPALIVE, 1L);
-  res = curl_easy_perform(curl);
+  curl_easy_perform(curl);
   curl_easy_cleanup(curl);
   curl_slist_free_all(json_struct);
 }
@@ -87,16 +90,18 @@ int            api::updateAccount(Button action, double balance, std::string car
     price = std::atof(tmp.c_str()) - balance;
   else
     price = balance;
-  std::cout << "Price = " << price << std::endl;
+  std::cout << "New Balance = " << price << std::endl;
   this->creatJson(price, newJson);
   this->put(card_id);
 }
 
-std::string		api::creatJson(double price, std::vector<std::string> newJson)
+void		api::creatJson(double price, std::vector<std::string> &newJson)
 {
   std::stringstream ss;
+  std::string sjson;
 
-  this->json.clear();
+//  this->json.clear();
+  sjson = "{";
   for (std::vector<std::string>::iterator it = newJson.begin(); it != newJson.end(); ++it)
     {
       std::string token = (*it).substr(0, (*it).find(':'));
@@ -105,15 +110,12 @@ std::string		api::creatJson(double price, std::vector<std::string> newJson)
 	  ss << price;
 	  (*it) = "\"balance\":" + ss.str();
 	}
-    }
-  json += "{";
-  for (std::vector<std::string>::iterator it = newJson.begin(); it != newJson.end(); ++it)
-    {
-      this->json += (*it);
+      sjson += (*it);
       if (it != newJson.end() - 1)
-	this->json += ",";
+	sjson += ",";
     }
-  this->json += "}";
+  sjson += "}";
+  this->json = sjson;
   std::cout << "New json = " << this->json << std::endl;
 }
 

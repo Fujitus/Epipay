@@ -24,7 +24,7 @@ class api
   bool				get(std::string);
   int 				updateAccount(Button, double, std::string);
   std::vector<std::string> 	getJson();
-  std::string			creatJson(double, std::vector<std::string>);
+  void			creatJson(double, std::vector<std::string> &);
 };
 
 static size_t 	getResponse(void *, std::size_t, std::size_t, void *);
