@@ -139,7 +139,8 @@ int		UI::printButton(const Button tmp)
   sprite.setTexture(texture);
   sprite.setPosition(tmp.pos.x, tmp.pos.y);
   this->window.draw(sprite);
-  this->printDefaultText(tmp.textPos.x, tmp.textPos.y, tmp.c, tmp.fontSize);
+  if ((*it).c != "<-")
+    this->printDefaultText(tmp.textPos.x, tmp.textPos.y, tmp.c, tmp.fontSize);
   return (0);
 }
 
@@ -163,7 +164,8 @@ int		UI::printButton(const Button tmp, std::string hover)
   sprite.setTexture(texture);
   sprite.setPosition(tmp.pos.x, tmp.pos.y);
   this->window.draw(sprite);
-  this->printDefaultText(tmp.textPos.x, tmp.textPos.y, tmp.c, tmp.fontSize);
+  if ((*it).c != "<-")
+    this->printDefaultText(tmp.textPos.x, tmp.textPos.y, tmp.c, tmp.fontSize);
   return (0);
 }
 
@@ -210,7 +212,7 @@ Elem 	UI::creatElem(std::size_t x, std::size_t y, std::size_t l,
 void 	UI::creatUiList()
 {
   this->UiList.push_back(this->creatElem(0, 0, 800, 480, "./img/background.png"));
-  this->UiList.push_back(this->creatElem(10, 10, 101, 35, "./img/logo_epipay.png"));
+  //this->UiList.push_back(this->creatElem(10, 10, 101, 35, "./img/logo_epipay.png"));
   this->UiList.push_back(this->creatElem(20, 90, 477, 92, "./img/priceRec.png"));
   this->UiList.push_back(this->creatElem(20, 165, 475, 178, "./img/billRec.png"));
 }
@@ -218,7 +220,7 @@ void 	UI::creatUiList()
 void 	UI::creatSmalUiList()
 {
   this->SmalUiList.push_back(this->creatElem(0, 0, 800, 480, "./img/background.png"));
-  this->SmalUiList.push_back(this->creatElem(10, 10, 101, 35, "./img/logo_epipay.png"));
+  //this->SmalUiList.push_back(this->creatElem(10, 10, 101, 35, "./img/logo_epipay.png"));
 }
 
 Position	UI::getClickPos(sf::Event e) const
@@ -275,7 +277,7 @@ Button 	UI::isClickable(Position mouse, std::vector<Button> tmpButton)
         std::cout << "{CLICK FUNC} Click on " << (*it).c << std::endl;
         this->printButton(*it, (*it).hover);
         this->display();
-        usleep(50000);
+        usleep(30000);
         return ((*it));
     }
     --it;
