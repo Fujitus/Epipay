@@ -23,7 +23,6 @@ static size_t getResponse(void *contents, std::size_t size, std::size_t nmemb, v
 bool 		api::get(std::string card_id)
 {
   CURL *curl;
-  CURLcode res;
   std::string url;
 
   curl = curl_easy_init();
@@ -35,7 +34,7 @@ bool 		api::get(std::string card_id)
       curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
       curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, getResponse);
       curl_easy_setopt(curl, CURLOPT_WRITEDATA, &this->json);
-      res = curl_easy_perform(curl);
+      curl_easy_perform(curl);
       curl_easy_cleanup(curl);
       if (this->json == "[]" || this->json.length() == 0)
 	return (false);
@@ -48,7 +47,7 @@ bool 		api::get(std::string card_id)
 bool 		api::put(std::string card_id)
 {
   CURL *curl;
-//  CURLcode res;
+
   struct curl_slist *json_struct = NULL;
   std::string url;
 
@@ -98,9 +97,7 @@ int            api::updateAccount(Button action, double balance, std::string car
 void		api::CatToNewJson(double price, std::vector<std::string> &newJson)
 {
   std::stringstream ss;
-  //std::string sjson;
 
-//  this->json.clear();
   this->json = "{";
   for (std::vector<std::string>::iterator it = newJson.begin(); it != newJson.end(); ++it)
     {
@@ -115,7 +112,6 @@ void		api::CatToNewJson(double price, std::vector<std::string> &newJson)
 	this->json += ",";
     }
   this->json += "}";
-  //this->json = sjson;
   std::cout << "New json = " << this->json << std::endl;
 }
 

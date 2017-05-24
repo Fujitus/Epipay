@@ -27,6 +27,6 @@ class api
   void				CatToNewJson(double, std::vector<std::string> &);
 };
 
-static size_t 	getResponse(void *, std::size_t, std::size_t, void *);
+static size_t 			getResponse(void *, std::size_t, std::size_t, void *);
 
 #endif /* EPIPAY_API_HH */

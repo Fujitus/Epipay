@@ -139,7 +139,7 @@ int		UI::printButton(const Button tmp)
   sprite.setTexture(texture);
   sprite.setPosition(tmp.pos.x, tmp.pos.y);
   this->window.draw(sprite);
-  if (tmp.c != "<-")
+  if (tmp.c != "<-" && tmp.c != "AddAcount")
     this->printDefaultText(tmp.textPos.x, tmp.textPos.y, tmp.c, tmp.fontSize);
   return (0);
 }
@@ -164,7 +164,7 @@ int		UI::printButton(const Button tmp, std::string hover)
   sprite.setTexture(texture);
   sprite.setPosition(tmp.pos.x, tmp.pos.y);
   this->window.draw(sprite);
-  if (tmp.c != "<-")
+  if (tmp.c != "<-" && tmp.c != "AddAcount")
     this->printDefaultText(tmp.textPos.x, tmp.textPos.y, tmp.c, tmp.fontSize);
   return (0);
 }
@@ -212,7 +212,6 @@ Elem 	UI::creatElem(std::size_t x, std::size_t y, std::size_t l,
 void 	UI::creatUiList()
 {
   this->UiList.push_back(this->creatElem(0, 0, 800, 480, "./img/background.png"));
-  //this->UiList.push_back(this->creatElem(10, 10, 101, 35, "./img/logo_epipay.png"));
   this->UiList.push_back(this->creatElem(20, 90, 477, 92, "./img/priceRec.png"));
   this->UiList.push_back(this->creatElem(20, 165, 475, 178, "./img/billRec.png"));
 }
@@ -220,7 +219,6 @@ void 	UI::creatUiList()
 void 	UI::creatSmalUiList()
 {
   this->SmalUiList.push_back(this->creatElem(0, 0, 800, 480, "./img/background.png"));
-  //this->SmalUiList.push_back(this->creatElem(10, 10, 101, 35, "./img/logo_epipay.png"));
 }
 
 Position	UI::getClickPos(sf::Event e) const
@@ -369,8 +367,8 @@ void    UI::newUser(sf::Event event)
   Button        tmp;
   NfcReader	nfc;
   short         pos = 3;
-  std::string   tmpInputch1 = "";
-  std::string   tmpInputch2 = "";
+  std::string   email = "";
+  std::string   cardId = "";
 
   this->clear();
   this->clearPrice("");
@@ -378,7 +376,7 @@ void    UI::newUser(sf::Event event)
     std::cerr << "[ERROR] Card Reader no init" << std::endl;
   else
     nfc.readCard();
-  tmpInputch2 = nfc.getIdCard();
+  cardId = nfc.getIdCard();
   while (42)
     {
       this->printUiList(this->SmalUiList);
@@ -386,9 +384,9 @@ void    UI::newUser(sf::Event event)
       this->printButtonList(registerUi.getKeypad());
       printDefaultText(registerUi.getKeypad()[pos].textPos.x, registerUi.getKeypad()[pos].textPos.y, this->price, 18, sf::Color::White);
       if (pos == 3)
-        printDefaultText(registerUi.getKeypad()[4].textPos.x, registerUi.getKeypad()[4].textPos.y, tmpInputch2, 18, sf::Color::White);
+        printDefaultText(registerUi.getKeypad()[4].textPos.x, registerUi.getKeypad()[4].textPos.y, cardId, 18, sf::Color::White);
       else if (pos == 4)
-        printDefaultText(registerUi.getKeypad()[3].textPos.x, registerUi.getKeypad()[3].textPos.y, tmpInputch1, 18, sf::Color::White);
+        printDefaultText(registerUi.getKeypad()[3].textPos.x, registerUi.getKeypad()[3].textPos.y, email, 18, sf::Color::White);
       while (this->window.pollEvent(event))
         {
           tmp = this->isClickable(this->getClickPos(event), registerUi.getKeypad());
@@ -403,23 +401,27 @@ void    UI::newUser(sf::Event event)
               if (pos == 3 && tmp.pos.x == registerUi.getKeypad()[4].pos.x &&
                   tmp.pos.y == registerUi.getKeypad()[4].pos.y)
                 {
-                  tmpInputch1 = this->price;
+                  email = this->price;
                   this->clearPrice("");
-                  this->clearPrice(tmpInputch2);
+                  this->clearPrice(cardId);
                   pos = 4;
                 }
               else if (pos == 4 && tmp.pos.x == registerUi.getKeypad()[3].pos.x &&
                        tmp.pos.y == registerUi.getKeypad()[3].pos.y)
                 {
-                  tmpInputch2 = this->price;
+		  cardId = this->price;
                   this->clearPrice("");
-                  this->clearPrice(tmpInputch1);
+                  this->clearPrice(email);
                   pos = 3;
                 }
-	      else if (tmp.c == "Add\nAcount")
+	      else if (tmp.c == "AddAcount")
 		{
 		  std::cout << "Make new acount" << std::endl;
-		  //api.make
+		  std::cout << "cardId = " << cardId << std::endl;
+		  std::cout << "Email = " << email << std::endl;
+		  std::cout << "balance = "  << std::endl;
+		  std::cout << "Privilege = "  << std::endl;
+		  //api.makeJson();
 		}
             }
           this->isClickable(this->getClickPos(event), keyboard.getKeypad());
