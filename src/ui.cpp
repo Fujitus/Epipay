@@ -322,7 +322,7 @@ void	UI::ip()
 void    UI::actionView(Button button, std::string price)
 {
   NfcReader		nfc;
-  api			api("http://localhost:3000/");
+  api			api("http://192.168.43.26:3000/");
   sf::RectangleShape  	rectangle(sf::Vector2f(300, 150));
   double              	balance = std::atof(this->price.c_str());
 
@@ -364,7 +364,7 @@ void    UI::newUser(sf::Event event)
 {
   Keyboard	keyboard;
   RegisterUi	registerUi("img/beta_photo.png");
-  api		api("http://localhost:3000/");
+  api		api("http://192.168.43.26:3000/");
   Button        tmp;
   NfcReader	nfc;
   short         pos = 3;
