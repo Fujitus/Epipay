@@ -37,7 +37,7 @@ void 	Keypad::creatKeypad()
   }
   this->pad.push_back(this->creatKey(x - 213, y, '.', 61, 61, "./img/kyClassic.png", "./img/kyHover.png", 45, x + 25 - 213, y + 5, TileType::KEYPAD));
   this->pad.push_back(this->creatKey(x - 142, y, '0', 61, 61, "./img/kyClassic.png", "./img/kyHover.png", 45, x + 20 - 142, y + 5, TileType::KEYPAD));
-  this->pad.push_back(this->creatKey(x - 72, y, "<-", 61, 61, "./img/kyClassic.png", "./img/kyHover.png", 45, x + 10 - 72, y,  TileType::KEYPAD));
+  this->pad.push_back(this->creatKey(x - 72, y, "<-", 61, 61, "./img/kyClassic_entree.png", "./img/kyHover_entree.png", 45, x + 10 - 72, y,  TileType::KEYPAD));
 }
 
 std::vector<Button>	Keypad::getKeypad() const
