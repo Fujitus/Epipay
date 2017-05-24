@@ -139,7 +139,7 @@ int		UI::printButton(const Button tmp)
   sprite.setTexture(texture);
   sprite.setPosition(tmp.pos.x, tmp.pos.y);
   this->window.draw(sprite);
-  if ((*it).c != "<-")
+  if (tmp.c != "<-")
     this->printDefaultText(tmp.textPos.x, tmp.textPos.y, tmp.c, tmp.fontSize);
   return (0);
 }
@@ -164,7 +164,7 @@ int		UI::printButton(const Button tmp, std::string hover)
   sprite.setTexture(texture);
   sprite.setPosition(tmp.pos.x, tmp.pos.y);
   this->window.draw(sprite);
-  if ((*it).c != "<-")
+  if (tmp.c != "<-")
     this->printDefaultText(tmp.textPos.x, tmp.textPos.y, tmp.c, tmp.fontSize);
   return (0);
 }
@@ -416,6 +416,11 @@ void    UI::newUser(sf::Event event)
                   this->clearPrice(tmpInputch1);
                   pos = 3;
                 }
+	      else if (tmp.c == "Add\nAcount")
+		{
+		  std::cout << "Make new acount" << std::endl;
+		  //api.make
+		}
             }
           this->isClickable(this->getClickPos(event), keyboard.getKeypad());
         }

@@ -91,17 +91,17 @@ int            api::updateAccount(Button action, double balance, std::string car
   else
     price = balance;
   std::cout << "New Balance = " << price << std::endl;
-  this->creatJson(price, newJson);
+  this->CatToNewJson(price, newJson);
   this->put(card_id);
 }
 
-void		api::creatJson(double price, std::vector<std::string> &newJson)
+void		api::CatToNewJson(double price, std::vector<std::string> &newJson)
 {
   std::stringstream ss;
-  std::string sjson;
+  //std::string sjson;
 
 //  this->json.clear();
-  sjson = "{";
+  this->json = "{";
   for (std::vector<std::string>::iterator it = newJson.begin(); it != newJson.end(); ++it)
     {
       std::string token = (*it).substr(0, (*it).find(':'));
@@ -110,12 +110,12 @@ void		api::creatJson(double price, std::vector<std::string> &newJson)
 	  ss << price;
 	  (*it) = "\"balance\":" + ss.str();
 	}
-      sjson += (*it);
+      this->json += (*it);
       if (it != newJson.end() - 1)
-	sjson += ",";
+	this->json += ",";
     }
-  sjson += "}";
-  this->json = sjson;
+  this->json += "}";
+  //this->json = sjson;
   std::cout << "New json = " << this->json << std::endl;
 }
 

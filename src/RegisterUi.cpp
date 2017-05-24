@@ -25,6 +25,7 @@ void 	RegisterUi::creatKeypad()
   this->pad.push_back(this->creatKey(377, 193, "HUB", 11 + 15 + 4, 11, "./img/statut-off.png", "./img/statut-on.png", 15, 377 + 15, 189, TileType::SELECTE));
   this->pad.push_back(this->creatKey(236, 99 + 28 + 28 + 15 + 15, "", 250, 28, "./img/cadre-texte-photo.png", "", 0, 0, 0,  TileType::NONE));
   this->pad.push_back(this->creatKey(751, 73, "", 32, 34, "./img/quit.png", "", 0, 0, 0, TileType::EXIT));
+  this->pad.push_back(this->creatKey(720, 300, "Add\nAcount", 32, 34, "./img/quit.png", "", 15, 725, 315, TileType::INPUT));
 }
 
 std::vector<Button>	RegisterUi::getKeypad() const
