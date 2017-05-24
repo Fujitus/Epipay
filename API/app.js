@@ -119,6 +119,7 @@ app.post('/api/people', function(req, res){
     if (err){
       res.status(416).send("[API - Error] people Shema not correct");
       console.log("[API - Error] people Shema not correct");
+      res.status(416).send(people);
     }
   res.json(people);
   });

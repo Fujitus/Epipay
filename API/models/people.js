@@ -13,17 +13,17 @@ var   peopleSchema = mongoose.Schema({
       type: String,
       required: true
     },
-    balance:{
-      type: Number,
-      default: 0
-    },
     card_id:{
       type:   String,
       required: true
     },
-    privileg:{
+    privilege:{
       type: String,
-      enum: ['ADMIN', 'BDE', 'HUB', 'USER'],
+      enum: ['ADMIN', 'USER','BDE', 'HUB'],
+      required: true
+    },
+    balance:{
+      type:   Number,
       required: true
     }
   },

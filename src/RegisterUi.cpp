@@ -15,7 +15,7 @@ RegisterUi::~RegisterUi()
 
 void 	RegisterUi::creatKeypad()
 {
-  this->pad.push_back(this->creatKey(546, 121, "", 143, 70, "./img/money-cadre.png", "", 0, 0, 0,  TileType::NONE));
+  this->pad.push_back(this->creatKey(546, 121, "", 143, 70, "./img/money-cadre.png", "", 0, 0, 0,  TileType::INPUT));
   this->pad.push_back(this->creatKey(31, 256, "", 737, 3, "./img/barre_separation_gris-fonce.png", "", 0, 0, 0,  TileType::NONE));
   this->pad.push_back(this->creatKey(111, 90, "", 111, 131, "./img/photo-cadre.png", "", 0, 0, 0,  TileType::NONE));
   this->pad.push_back(this->creatKey(236, 99, "", 250, 28, "./img/cadre-texte-photo.png", "", 0, 236 + 5, 99 + 2, TileType::INPUT));

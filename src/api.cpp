@@ -67,6 +67,32 @@ bool 		api::put(std::string card_id)
   curl_easy_perform(curl);
   curl_easy_cleanup(curl);
   curl_slist_free_all(json_struct);
+  return (true);
+}
+
+bool 		api::post()
+{
+  CURL *curl;
+
+  struct curl_slist *json_struct = NULL;
+  std::string url;
+
+  url = this->apiUrl + "api/people/";
+  std::cout << "URL = " << url << std::endl;
+  json_struct = curl_slist_append(json_struct, "Content-Type: application/json");
+  curl = curl_easy_init();
+  curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+  curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 1L);
+  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, this->json.c_str());
+  curl_easy_setopt(curl, CURLOPT_USERAGENT, "curl/7.38.0");
+  curl_easy_setopt(curl, CURLOPT_HTTPHEADER, json_struct);
+  curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 50L);
+  curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "POST");
+  curl_easy_setopt(curl, CURLOPT_TCP_KEEPALIVE, 1L);
+  curl_easy_perform(curl);
+  curl_easy_cleanup(curl);
+  curl_slist_free_all(json_struct);
+  return (true);
 }
 
 int            api::updateAccount(Button action, double balance, std::string card_id)
@@ -134,4 +160,19 @@ std::vector<std::string>		api::getJson()
       curs++;
     }
   return (tab);
+}
+
+void	api::makeJson(std::string email, std::string cardId, std::string balance, std::string privilege)
+{
+  this->json = "{";
+  this->json += "\"email\":";
+  this->json += "\"" + email + "\",";
+  this->json += "\"card_id\":";
+  this->json += "\"" + cardId + "\",";
+  this->json += "\"privilege\":";
+  this->json += "\"" + privilege + "\",";
+  this->json += "\"balance\":";
+  this->json += "\"" + balance + "\"";
+  this->json += "}";
+  std::cout << "New json = " << this->json << std::endl;
 }

@@ -364,11 +364,14 @@ void    UI::newUser(sf::Event event)
 {
   Keyboard	keyboard;
   RegisterUi	registerUi("img/beta_photo.png");
+  api		api("http://localhost:3042/");
   Button        tmp;
   NfcReader	nfc;
   short         pos = 3;
   std::string   email = "";
   std::string   cardId = "";
+  std::string	balance = "0.0";
+  std::string	privilege = "USER";
 
   this->clear();
   this->clearPrice("");
@@ -414,14 +417,19 @@ void    UI::newUser(sf::Event event)
                   this->clearPrice(email);
                   pos = 3;
                 }
+	      else if (tmp.pos.x == registerUi.getKeypad()[0].pos.x &&
+		       tmp.pos.y == registerUi.getKeypad()[0].pos.y)
+		{
+		  std::cout << "Print Key pad" << std::endl;
+		}
 	      else if (tmp.c == "AddAcount")
 		{
-		  std::cout << "Make new acount" << std::endl;
-		  std::cout << "cardId = " << cardId << std::endl;
-		  std::cout << "Email = " << email << std::endl;
-		  std::cout << "balance = "  << std::endl;
-		  std::cout << "Privilege = "  << std::endl;
-		  //api.makeJson();
+		  email = this->price;
+		  api.makeJson(email, cardId, balance, privilege);
+		  api.post();
+		  this->clear();
+		  this->clearPrice("");
+		  return ;
 		}
             }
           this->isClickable(this->getClickPos(event), keyboard.getKeypad());
