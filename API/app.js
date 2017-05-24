@@ -164,7 +164,7 @@ app.get('/api/log', function(req, res){
   });
 });
 
-app.set("port", 3042);
+app.set("port", 3000);
 
 // Listen func
 const server = app.listen(app.get('port'), () => {
