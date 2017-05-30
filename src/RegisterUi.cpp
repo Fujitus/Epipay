@@ -15,7 +15,7 @@ RegisterUi::~RegisterUi()
 
 void 	RegisterUi::creatKeypad()
 {
-  this->pad.push_back(this->creatKey(546, 121, "", 143, 70, "./img/money-cadre.png", "", 0, 0, 0,  TileType::NONE));
+  this->pad.push_back(this->creatKey(546, 121, "", 143, 70, "./img/money-cadre.png", "", 0, 0, 0,  TileType::INPUT));
   this->pad.push_back(this->creatKey(31, 256, "", 737, 3, "./img/barre_separation_gris-fonce.png", "", 0, 0, 0,  TileType::NONE));
   this->pad.push_back(this->creatKey(111, 90, "", 111, 131, "./img/photo-cadre.png", "", 0, 0, 0,  TileType::NONE));
   this->pad.push_back(this->creatKey(236, 99, "", 250, 28, "./img/cadre-texte-photo.png", "", 0, 236 + 5, 99 + 2, TileType::INPUT));
@@ -25,7 +25,7 @@ void 	RegisterUi::creatKeypad()
   this->pad.push_back(this->creatKey(377, 193, "HUB", 11 + 15 + 4, 11, "./img/statut-off.png", "./img/statut-on.png", 15, 377 + 15, 189, TileType::SELECTE));
   this->pad.push_back(this->creatKey(236, 99 + 28 + 28 + 15 + 15, "", 250, 28, "./img/cadre-texte-photo.png", "", 0, 0, 0,  TileType::NONE));
   this->pad.push_back(this->creatKey(751, 73, "", 32, 34, "./img/quit.png", "", 0, 0, 0, TileType::EXIT));
-  this->pad.push_back(this->creatKey(720, 300, "Add\nAcount", 32, 34, "./img/quit.png", "", 15, 725, 315, TileType::INPUT));
+  this->pad.push_back(this->creatKey(710, 300, "AddAcount", 70, 144, "./img/newUser.png", "", 17, 717, 335, TileType::INPUT));
 }
 
 std::vector<Button>	RegisterUi::getKeypad() const

@@ -119,6 +119,7 @@ app.post('/api/people', function(req, res){
     if (err){
       res.status(416).send("[API - Error] people Shema not correct");
       console.log("[API - Error] people Shema not correct");
+      res.status(416).send(people);
     }
   res.json(people);
   });
@@ -163,7 +164,7 @@ app.get('/api/log', function(req, res){
   });
 });
 
-app.set("port", 3042);
+app.set("port", 3000);
 
 // Listen func
 const server = app.listen(app.get('port'), () => {
