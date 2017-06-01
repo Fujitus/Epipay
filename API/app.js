@@ -22,7 +22,7 @@ mongoose.connect('mongodb://epipay:epipay@ds127341.mlab.com:27341/epipay');
 
 // Get '/' func
 app.get('/', function(req, res){
-  res.send('Welcome Please use /ap/people - /api/stock - /api/log');
+  res.send('Welcome Please use /api/people - /api/stock - /api/log');
 });
 
 /*
