@@ -14,12 +14,12 @@ class RegisterUi : public Key
  public:
   RegisterUi(std::string);
   ~RegisterUi();
-  std::vector<Button>	pad;
+  std::vector<Button>	form;
  public:
-  void	creatKeypad();
-  std::vector<Button> getKeypad() const;
-  void	newUser(sf::Event, UI &);
-  std::string   cardManager(UI &);
+  void			creatKeypad();
+  std::vector<Button> 	getForm() const;
+  void			newUser(sf::Event, UI &);
+  std::string   	cardManager(UI &);
 };
 
 #endif /* EPIPAY_REGISTERUI_HH */

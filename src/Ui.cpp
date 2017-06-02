@@ -46,7 +46,7 @@ void	UI::clear()
   this->window.clear();
 }
 
-void    UI::clearPrice(std::string set)
+void    UI::setPrice(std::string set)
 {
   this->price = set;
 }
@@ -364,6 +364,6 @@ void    UI::actionView(Button button, std::string price)
       this->display();
       sleep(2);
     }
-  this->clearPrice("0.0");
+  this->setPrice("0.0");
   this->clean = 0;
 }

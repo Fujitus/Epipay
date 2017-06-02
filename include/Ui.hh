@@ -37,7 +37,7 @@ class 	UI
   void		closewin();
   void		display();
   void		clear();
-  void		clearPrice(std::string);
+  void		setPrice(std::string);
   int		loadFiles();
   void		setClean();
   void		printPrice(std::size_t, std::size_t, const std::string, std::size_t);
@@ -59,8 +59,6 @@ class 	UI
   void 		clock();
   void		ip();
   void 		actionView(Button, std::string);
-  //void          newUser(sf::Event);
-  //std::string   cardManager();
 };
 
 #endif /* EPIPAY_UI_HH */
