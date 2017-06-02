@@ -77,9 +77,10 @@ module.exports.getStock = function(callback, limit){
   Stock.find(callback).limit(limit);
 }
 
-//Get Stock by id
-module.exports.getStockById = function(id, callback){
-  Stock.findById(id, callback);
+//Get Stock by codebar
+module.exports.getStockById = function(codebar, callback){
+  let query = {codebar: codebar};
+  Stock.find(query, callback);
 }
 
 //Add Stock

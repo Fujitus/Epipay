@@ -41,9 +41,9 @@ app.get('/api/stock', function(req, res){
   });
 });
 
-// Get Stock by Id
-app.get('/api/stock/:_id', function(req, res){
-  Stock.getStockById(req.params._id, function(err, stock){
+// Get Stock by codebar
+app.get('/api/stock/:codebar', function(req, res){
+  Stock.getStockById(req.params.codebar, function(err, stock){
     if (err){
       throw err;
     }
