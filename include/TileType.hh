@@ -21,6 +21,16 @@ enum class TileType : uint16_t
   SELECTE = 5,
 };
 
+enum ErrorType : uint16_t
+{
+  NONE = 0,
+  NOID = 1,
+  BADEMAIL = 2,
+  API = 3,
+  NFC = 4,
+  NOPRICE = 5,
+};
+
 struct 	Position
 {
   int	 	x;

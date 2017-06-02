@@ -15,7 +15,7 @@
 #include "NfcReader.hh"
 #include "api.hh"
 
-UI::UI(char **ae)
+UI::UI()
 {
   this->creatUiList();
   this->creatSmalUiList();
@@ -331,40 +331,68 @@ void	UI::ip()
 
 void    UI::actionView(Button button, std::string price)
 {
-  NfcReader nfc;
-  api api("http://192.168.43.26:3000/");
-  sf::RectangleShape rectangle(sf::Vector2f(300, 150));
-  double balance = std::atof(this->price.c_str());
+  ErrorType		error;
+  NfcReader		nfc;
+  api 			api("http://192.168.43.26:3000/");
+  double 		balance;
+
+  balance = std::atof(this->price.c_str());
+  this->printDefaultText(378 - button.c.length() * 2, 108, button.c, 25);
+  if (price == "0.0")
+    {
+      this->printError(ErrorType::NOPRICE, "\t\t\tNo price define");
+      return;
+    }
+  if ((error = nfc.initNfcReader()) != ErrorType::NONE)
+    {
+      this->printError(error, "\t\tCard Reader no init");
+      this->setPrice("0.0");
+      this->clean = 0;
+      return ;
+    }
+  else
+    {
+      this->printMsg("Waiting API for update acount", 0);
+      nfc.readCard();
+    }
+  if ((error == api.get(nfc.getIdCard())) == ErrorType::NONE)
+    {
+    if (api.updateAccount(button, balance, nfc.getIdCard()) != ErrorType::NONE)
+      this->printError(error, "API not responding\n Or not find user");
+    else
+      this->printMsg("Account updated\n\t\t\tsuccessfully", 2);
+    }
+  else
+    this->printError(ErrorType::API, "API not responding\n Or not find user");
+  this->setPrice("0.0");
+  this->clean = 0;
+  return ;
+}
+
+void		UI::printError(ErrorType type, std::string errorMsg)
+{
+  sf::RectangleShape 	rectangle(sf::Vector2f(300, 150));
+  std::stringstream 	msg;
+
+  msg << "\t\t\t\t[ERROR - " << type << " ]\n" << errorMsg;
+  rectangle.setFillColor(sf::Color::White);
+  rectangle.setPosition(250, 100);
+  this->window.draw(rectangle);
+  this->printDefaultText(270, 138, msg.str(), 20);
+  this->display();
+  sleep(2);
+  return ;
+}
+
+void		UI::printMsg(std::string msg, unsigned int nbSleep)
+{
+  sf::RectangleShape 	rectangle(sf::Vector2f(300, 150));
 
   rectangle.setFillColor(sf::Color::White);
   rectangle.setPosition(250, 100);
   this->window.draw(rectangle);
-  this->printDefaultText(378 - button.c.length() * 2, 108, button.c, 25);
-  if (price == "0.0")
-    {
-      this->printDefaultText(315, 138, "[Error] no price define", 20);
-      this->display();
-      sleep(2);
-      return;
-    }
-  this->printDefaultText(280, 138, "Waiting API for update acount", 18);
+  this->printDefaultText(270, 138, msg, 20);
   this->display();
-  if (nfc.initNfcReader() == -1)
-    std::cerr << "[ERROR] Card Reader no init" << std::endl;
-  else
-    nfc.readCard();
-  if (api.get(nfc.getIdCard()))
-    api.updateAccount(button, balance, nfc.getIdCard());
-  else
-    {
-      rectangle.setFillColor(sf::Color::White);
-      rectangle.setPosition(250, 100);
-      this->window.draw(rectangle);
-      this->printDefaultText(378 - button.c.length() * 2, 108, button.c, 25);
-      this->printDefaultText(295, 138, "[Error] API not responding", 20);
-      this->display();
-      sleep(2);
-    }
-  this->setPrice("0.0");
-  this->clean = 0;
+  sleep(nbSleep);
+  return ;
 }

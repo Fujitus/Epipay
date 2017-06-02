@@ -46,6 +46,7 @@ void    RegisterUi::newUser(sf::Event event, UI &ui)
   std::string	balance = "0.0";
   std::string	privilege = "USER";
   std::string	status = "getEmail";
+  ErrorType 	error;
 
   ui.clear();
   ui.setPrice("");
@@ -84,11 +85,15 @@ void    RegisterUi::newUser(sf::Event event, UI &ui)
 	      else if (tmp.c == "AddAcount")
 		{
 		  email = ui.getPrice();
-		  api.makeJson(email, cardId, balance, privilege);
-		  api.post();
-		  ui.clear();
+		  if ((error = api.makeJson(email, cardId, balance, privilege)) != ErrorType::NONE)
+		    ui.printError(error, "Incorrecte register schemas");
+		  else
+		    {
+		      api.post();
+		      ui.printMsg("Account registered\n\t\t\tsuccessfully", 2);
+		      return ;
+		    }
 		  ui.setPrice("0.0");
-		  return ;
 		}
 	    }
 	  else if (tmp.type == TileType::SELECTE)
@@ -114,24 +119,18 @@ void    RegisterUi::newUser(sf::Event event, UI &ui)
 
 std::string     RegisterUi::cardManager(UI &ui)
 {
+  ErrorType 	error;
   NfcReader	nfc;
   std::string   cardId;
-  sf::RectangleShape rectangle(sf::Vector2f(300, 150));
 
-  rectangle.setFillColor(sf::Color::White);
-  rectangle.setPosition(250, 100);
-  ui.window.draw(rectangle);
-  if (nfc.initNfcReader() == -1)
+  if ((error = nfc.initNfcReader()) != ErrorType::NONE)
     {
-      ui.printDefaultText(270, 138, "[ERROR] Card Reader no init", 20);
-      ui.display();
-      sleep(2);
+      ui.printError(error, "\t\tCard Reader no init");
       return ("<Get Card ID>");
     }
   else
     {
-      ui.printDefaultText(315, 138, "[OK] Get Card ID", 20);
-      ui.display();
+      ui.printMsg("[OK] Get Card ID", 0);
       nfc.readCard();
       sleep(1);
     }

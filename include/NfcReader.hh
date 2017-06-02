@@ -19,8 +19,8 @@ class NfcReader
  public:
   NfcReader();
   ~NfcReader();
-  int 				initNfcReader();
-  int				readCard();
+  ErrorType 			initNfcReader();
+  ErrorType			readCard();
   void				toHex(const uint8_t*, const size_t);
   std::string			getIdCard() const;
 };

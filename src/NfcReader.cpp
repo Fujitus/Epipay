@@ -4,6 +4,7 @@
 
 #include <sstream>
 #include <iomanip>
+#include "TileType.hh"
 #include "NfcReader.hh"
 
 NfcReader::NfcReader()
@@ -21,26 +22,25 @@ NfcReader::~NfcReader()
 //    nfc_exit(this->context);
 }
 
-int 	NfcReader::initNfcReader()
+ErrorType 	NfcReader::initNfcReader()
 {
   nfc_init(&this->context);
   if (this->context == NULL)
     {
       std::cerr << "[ERROR] Unable to init libnfc" << std::endl;
-      exit(-1);
+      exit(ErrorType::NFC);
     }
   if ((this->pnd = nfc_open(this->context, NULL)) == NULL)
     {
       std::cerr << "[ERROR] Unable to open NFC device." << std::endl;
-      return (-1);
+      return (ErrorType::NFC);
     }
   if (nfc_initiator_init(this->pnd) < 0)
     {
       nfc_perror(this->pnd, "nfc_initiator_init");
-      return (-1);
+      return (ErrorType::NFC);
     }
-  std::cerr << "[OK] NFC Reader initialize" << std::endl;
-  return (0);
+  return (ErrorType::NONE);
 }
 
 void	NfcReader::toHex(const uint8_t *pbtData, const size_t szBytes)
@@ -58,14 +58,14 @@ void	NfcReader::toHex(const uint8_t *pbtData, const size_t szBytes)
   std::cout << "NFCFUNCK "<< ss.str() << std::endl;
 }
 
-int 	NfcReader::readCard()
+ErrorType 	NfcReader::readCard()
 {
   if (nfc_initiator_select_passive_target(this->pnd, this->nmMifare, NULL, 0, &this->nt) > 0)
     {
       this->toHex(this->nt.nti.nai.abtUid, this->nt.nti.nai.szUidLen);
-      return (0);
+      return (ErrorType::NONE);
     }
-  return (-1);
+  return (ErrorType::NFC);
 }
 
 std::string	NfcReader::getIdCard() const

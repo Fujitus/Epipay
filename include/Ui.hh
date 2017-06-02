@@ -22,16 +22,16 @@
 
 class 	UI
 {
-  sf::Font      	priceFont;
-  sf::Font      	defaultFont;
-  std::vector<Elem>	UiList;
-  std::vector<Elem>	SmallUiList;
-  std::map<std::string, sf::Texture> textureList;
-  int 			clean;
-  std::string		price;
+  sf::Font      			priceFont;
+  sf::Font      			defaultFont;
+  std::vector<Elem>			UiList;
+  std::vector<Elem>			SmallUiList;
+  std::map<std::string, sf::Texture> 	textureList;
+  int 					clean;
+  std::string				price;
  public:
-  sf::RenderWindow	window;
-  UI(char **);
+  sf::RenderWindow			window;
+  UI();
   ~UI();
   void		open();
   void		closewin();
@@ -59,6 +59,8 @@ class 	UI
   void 		clock();
   void		ip();
   void 		actionView(Button, std::string);
+  void		printError(ErrorType, std::string);
+  void		printMsg(std::string, unsigned int);
 };
 
 #endif /* EPIPAY_UI_HH */

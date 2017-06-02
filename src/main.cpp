@@ -21,7 +21,7 @@ int	main(int ac, char **av, char **ae)
       std::cerr << "[ERROR] Make sure the environment is set correctly or the DISPLAY environment variable is set correctly"<< std::endl;
       return (-1);
     }
-  UI            ui(ae);
+  UI            ui;
   RegisterUi	RegUi("img/beta_photo.png");
   Keypad        keypad;
   ActionButton  actionButton;
@@ -38,27 +38,25 @@ int	main(int ac, char **av, char **ae)
       ui.printButtonList(actionButton.getKeypad());
       ui.printPrice(460, 72, ui.getPrice(), 64);
       while (ui.window.pollEvent(event))
-    	{
+	{
 	  tmp = ui.isClickable(ui.getClickPos(event), keypad.getKeypad());
-	  if (tmp.type != TileType::NONE)
-	    std::cout << "{MAIN} click on = " << tmp.c << std::endl;
 	  tmp = ui.isClickable(ui.getClickPos(event), actionButton.getKeypad());
-	  if (tmp.type != TileType::NONE)
-	    std::cout << "{MAIN} click on = " << tmp.c << std::endl;
-	  if (tmp.type == TileType::BUTTON && tmp.c != "Stock Mod" && tmp.c != "Add Card")
-	    ui.actionView(tmp, ui.getPrice());
 	  if (tmp.type == TileType::BUTTON && tmp.c == "Poweroff")
 	    system("poweroff");
+	  else if (tmp.type == TileType::BUTTON && tmp.c != "Stock Mod" && tmp.c != "Add Card")
+	    ui.actionView(tmp, ui.getPrice());
 	  else if (tmp.type == TileType::BUTTON && tmp.c == "Add Card")
 	    RegUi.newUser(event, ui);
+	  else if (tmp.type == TileType::BUTTON && tmp.c == "Stock Mod")
+	    ui.printMsg("\t\t\t\t\tStock Mod\n\t\t\tWork in progress", 2);
     	}
     	ui.display();
     	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-    	{
+	  {
 	    ui.closewin();
 	    return (0);
-    	}
-      usleep(10);
+	  }
+      usleep(5000);
       ui.clear();
     }
 }
