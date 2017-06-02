@@ -20,13 +20,13 @@ class api
  public:
   api(std::string);
   ~api();
-  bool				put(std::string);
-  bool 				post();
-  bool				get(std::string);
-  int 				updateAccount(Button, double, std::string);
+  ErrorType			put(std::string);
+  ErrorType			post();
+  ErrorType			get(std::string);
+  ErrorType 			updateAccount(Button, double, std::string);
   std::vector<std::string> 	getJson();
   void				CatToNewJson(double, std::vector<std::string> &);
-  void				makeJson(std::string, std::string, std::string, std::string);
+  ErrorType			makeJson(std::string, std::string, std::string, std::string);
 };
 
 static size_t 			getResponse(void *, std::size_t, std::size_t, void *);
