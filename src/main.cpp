@@ -39,10 +39,18 @@ int	main(int ac, char **av, char **ae)
       ui.printPrice(460, 72, ui.getPrice(), 64);
       while (ui.window.pollEvent(event))
 	{
+	  if (atof(ui.getPrice().c_str()) > 100)
+	    {
+	      ui.printError(ErrorType::PRICELEN, "\t\tInvalide input price");
+	      ui.setPrice("0.0");
+	      ui.setClean();
+	    }
 	  tmp = ui.isClickable(ui.getClickPos(event), keypad.getKeypad());
 	  tmp = ui.isClickable(ui.getClickPos(event), actionButton.getKeypad());
 	  if (tmp.type == TileType::BUTTON && tmp.c == "Poweroff")
 	    system("poweroff");
+	  else if (tmp.type == TileType::BUTTON && tmp.c == "Reboot")
+	      system("reboot");
 	  else if (tmp.type == TileType::BUTTON && tmp.c != "Stock Mod" && tmp.c != "Add Card")
 	    ui.actionView(tmp, ui.getPrice());
 	  else if (tmp.type == TileType::BUTTON && tmp.c == "Add Card")

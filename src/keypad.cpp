@@ -57,16 +57,16 @@ void 	Keypad::creatSmallKeypad()
       y = 270;
       while (y < 112 + 270)
         {
-          this->smallpad.push_back(this->creatKey(x, y, c, 55, 54,"./img/bouton-clavier.png", "./img/kyHover.png", 45, x + 20, y, TileType::KEYPAD));
+          this->smallpad.push_back(this->creatKey(x, y, c, 55, 54,"./img/bouton-clavier.png", "./img/bouton-clavier-hover.png", 45, x + 20, y, TileType::KEYPAD));
           y += 55 + 5;
           c++;
         }
       x += 54 + 5;
     }
-  this->smallpad.push_back(this->creatKey(x - (54 + 5 + 54 + 5 + 54 + 5 + 54 + 5), y, '.', 55, 54, "./img/bouton-clavier.png", "./img/kyHover.png", 45, x - (54 + 5 + 54 + 5 + 54 + 5 + 54 + 5) + 20, y, TileType::KEYPAD));
-  this->smallpad.push_back(this->creatKey(x - (54 + 5 + 54 + 5 + 54 + 5), y, '9', 55, 54, "./img/bouton-clavier.png", "./img/kyHover.png", 45, x - (54 + 5 + 54 + 5 + 54 + 5) + 20, y, TileType::KEYPAD));
-  this->smallpad.push_back(this->creatKey(x - (54 + 5 + 54 + 5), y, '0', 55, 54, "./img/bouton-clavier.png", "./img/kyHover.png", 45, x - (54 + 5 + 54 + 5) + 20, y, TileType::KEYPAD));
-  this->smallpad.push_back(this->creatKey(x - (54 + 5), y, "<-", 55 , 54, "./img/bouton-clavier.png", "./img/kyHover_entree.png", 45, x - (54 + 5) + 20, y,  TileType::KEYPAD));
+  this->smallpad.push_back(this->creatKey(x - (54 + 5 + 54 + 5 + 54 + 5 + 54 + 5), y, '.', 55, 54, "./img/bouton-clavier.png", "./img/bouton-clavier-hover.png", 45, x - (54 + 5 + 54 + 5 + 54 + 5 + 54 + 5) + 20, y, TileType::KEYPAD));
+  this->smallpad.push_back(this->creatKey(x - (54 + 5 + 54 + 5 + 54 + 5), y, '9', 55, 54, "./img/bouton-clavier.png", "./img/bouton-clavier-hover.png", 45, x - (54 + 5 + 54 + 5 + 54 + 5) + 20, y, TileType::KEYPAD));
+  this->smallpad.push_back(this->creatKey(x - (54 + 5 + 54 + 5), y, '0', 55, 54, "./img/bouton-clavier.png", "./img/bouton-clavier-hover.png", 45, x - (54 + 5 + 54 + 5) + 20, y, TileType::KEYPAD));
+  this->smallpad.push_back(this->creatKey(x - (54 + 5), y, "<-", 55 , 54, "./img/bouton-clavier.png", "./img/bouton-clavier-hover.png", 45, x - (54 + 5) + 20, y,  TileType::KEYPAD));
 }
 
 std::vector<Button>	Keypad::getSmallKeypad() const

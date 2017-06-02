@@ -60,12 +60,12 @@ int		UI::loadFiles()
 {
   if (!this->priceFont.loadFromFile("./font/price.ttf"))
     {
-      std::cerr << "[ ERROR ] can't open price font"<< std::endl;
+      std::cerr << "[ERROR] can't open price font"<< std::endl;
       return (-1);
     }
   if (!this->defaultFont.loadFromFile("./font/default.ttf"))
   {
-    std::cerr << "[ ERROR ] can't open default font"<< std::endl;
+    std::cerr << "[ERROR] can't open default font"<< std::endl;
     return (-1);
   }
   return (0);
@@ -283,7 +283,6 @@ Button 	UI::isClickable(Position mouse, std::vector<Button> tmpButton)
                   this->price += (*it).c;
               }
           }
-        std::cout << "{CLICK FUNC} Click on " << (*it).c << std::endl;
         this->printButton(*it, (*it).hover);
         this->display();
         usleep(30000);

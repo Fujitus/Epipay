@@ -63,6 +63,13 @@ void    RegisterUi::newUser(sf::Event event, UI &ui)
       ui.printDefaultText(this->getForm()[3].textPos.x, this->getForm()[3].textPos.y, email, 18, sf::Color::White);
       while (ui.window.pollEvent(event))
 	{
+	  if (atof(balance.c_str()) > 100)
+	    {
+	      ui.printError(ErrorType::PRICELEN, "\t\tInvalide input price");
+	      ui.setPrice("");
+	      balance = "0.0";
+	      ui.setClean();
+	    }
 	  Button tmp = ui.isClickable(ui.getClickPos(event), this->getForm());
 	  if (tmp.type == TileType::EXIT)
 	    {
@@ -86,7 +93,10 @@ void    RegisterUi::newUser(sf::Event event, UI &ui)
 		{
 		  email = ui.getPrice();
 		  if ((error = api.makeJson(email, cardId, balance, privilege)) != ErrorType::NONE)
-		    ui.printError(error, "Incorrecte register schemas");
+		    {
+		      ui.printError(error, "Incorrecte register schemas");
+		      ui.setPrice("");
+		    }
 		  else
 		    {
 		      api.post();

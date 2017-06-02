@@ -29,6 +29,7 @@ enum ErrorType : uint16_t
   API = 3,
   NFC = 4,
   NOPRICE = 5,
+  PRICELEN = 6,
 };
 
 struct 	Position
