@@ -6,6 +6,7 @@
 #define EPIPAY_REGISTERUI_HH
 
 # include <Key.hh>
+# include "Ui.hh"
 
 class RegisterUi : public Key
 {
@@ -17,6 +18,8 @@ class RegisterUi : public Key
  public:
   void	creatKeypad();
   std::vector<Button> getKeypad() const;
+  void	newUser(sf::Event, UI &);
+  std::string   cardManager(UI &);
 };
 
 #endif /* EPIPAY_REGISTERUI_HH */

@@ -9,7 +9,8 @@
 //
 
 #include <net.hh>
-#include "ui.hh"
+#include <RegisterUi.hh>
+#include "Ui.hh"
 #include "keypad.hh"
 #include "ActionButton.hh"
 
@@ -21,6 +22,7 @@ int	main(int ac, char **av, char **ae)
       return (-1);
     }
   UI            ui(ae);
+  RegisterUi	RegUi("img/beta_photo.png");
   Keypad        keypad;
   ActionButton  actionButton;
   sf::Event     event;
@@ -45,8 +47,10 @@ int	main(int ac, char **av, char **ae)
 	    std::cout << "{MAIN} click on = " << tmp.c << std::endl;
 	  if (tmp.type == TileType::BUTTON && tmp.c != "Stock Mod" && tmp.c != "Add Card")
 	    ui.actionView(tmp, ui.getPrice());
+	  if (tmp.type == TileType::BUTTON && tmp.c == "Poweroff")
+	    system("poweroff");
 	  else if (tmp.type == TileType::BUTTON && tmp.c == "Add Card")
-	    ui.newUser(event);
+	    RegUi.newUser(event, ui);
     	}
     	ui.display();
     	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))

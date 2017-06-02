@@ -13,6 +13,7 @@
 Keypad::Keypad()
 {
   this->creatKeypad();
+  this->creatSmallKeypad();
 }
 
 Keypad::~Keypad()
@@ -43,4 +44,31 @@ void 	Keypad::creatKeypad()
 std::vector<Button>	Keypad::getKeypad() const
 {
   return (this->pad);
+}
+
+void 	Keypad::creatSmallKeypad()
+{
+  std::size_t 	x = 550;
+  std::size_t 	y;
+  short 	c = '1';
+
+  while (x < 183 + 550)
+    {
+      y = 90;
+      while (y < 110 + 183)
+        {
+          this->smallpad.push_back(this->creatKey(x, y, c, 54, 55,"./img/bouton-clavier.png", "./img/kyHover.png", 45, x + 20, y + 5, TileType::KEYPAD));
+          y += 54 + 5;
+          c++;
+        }
+      x += 55 + 5;
+    }
+  this->smallpad.push_back(this->creatKey(x - 213, y, '.', 54, 55, "./img/bouton-clavier.png", "./img/kyHover.png", 45, x + 25 - 213, y + 5, TileType::KEYPAD));
+  this->smallpad.push_back(this->creatKey(x - 142, y, '0', 54, 55, "./img/bouton-clavier.png", "./img/kyHover.png", 45, x + 20 - 142, y + 5, TileType::KEYPAD));
+  this->smallpad.push_back(this->creatKey(x - 72, y, "<-", 54, 55, "./img/bouton-clavier.png", "./img/kyHover_entree.png", 45, x + 10 - 72, y,  TileType::KEYPAD));
+}
+
+std::vector<Button>	Keypad::getSmallKeypad() const
+{
+  return (this->smallpad);
 }

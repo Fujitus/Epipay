@@ -25,7 +25,7 @@ class 	UI
   sf::Font      	priceFont;
   sf::Font      	defaultFont;
   std::vector<Elem>	UiList;
-  std::vector<Elem>	SmalUiList;
+  std::vector<Elem>	SmallUiList;
   std::map<std::string, sf::Texture> textureList;
   int 			clean;
   std::string		price;
@@ -39,6 +39,7 @@ class 	UI
   void		clear();
   void		clearPrice(std::string);
   int		loadFiles();
+  void		setClean();
   void		printPrice(std::size_t, std::size_t, const std::string, std::size_t);
   void		printDefaultText(std::size_t, std::size_t, const std::string, std::size_t);
   void		printDefaultText(std::size_t, std::size_t, const std::string, std::size_t, sf::Color);
@@ -54,10 +55,12 @@ class 	UI
   Button 	isClickable(Position, std::vector<Button>);
   std::string	getPrice() const;
   std::vector<Elem> getUiList() const;
+  std::vector<Elem> getSmallUiList() const;
   void 		clock();
   void		ip();
   void 		actionView(Button, std::string);
-  void          newUser(sf::Event);
+  //void          newUser(sf::Event);
+  //std::string   cardManager();
 };
 
 #endif /* EPIPAY_UI_HH */

@@ -9,9 +9,9 @@
 //
 
 #include <iomanip>
-#include "ui.hh"
+#include "Ui.hh"
 #include "net.hh"
-#include "RegisterUi.hh"
+//#include "RegisterUi.hh"
 #include "NfcReader.hh"
 #include "api.hh"
 
@@ -49,6 +49,11 @@ void	UI::clear()
 void    UI::clearPrice(std::string set)
 {
   this->price = set;
+}
+
+void    UI::setClean()
+{
+  this->clean = 0;
 }
 
 int		UI::loadFiles()
@@ -218,7 +223,7 @@ void 	UI::creatUiList()
 
 void 	UI::creatSmalUiList()
 {
-  this->SmalUiList.push_back(this->creatElem(0, 0, 800, 480, "./img/background.png"));
+  this->SmallUiList.push_back(this->creatElem(0, 0, 800, 480, "./img/background.png"));
 }
 
 Position	UI::getClickPos(sf::Event e) const
@@ -242,6 +247,11 @@ Position	UI::getClickPos(sf::Event e) const
 std::vector<Elem> UI::getUiList() const
 {
   return (this->UiList);
+}
+
+std::vector<Elem> UI::getSmallUiList() const
+{
+  return (this->SmallUiList);
 }
 
 Button 	UI::isClickable(Position mouse, std::vector<Button> tmpButton)
@@ -286,7 +296,7 @@ Button 	UI::isClickable(Position mouse, std::vector<Button> tmpButton)
 std::string	UI::getPrice() const
 {
   return (this->price);
-};
+}
 
 void 	UI::clock()
 {
@@ -296,7 +306,6 @@ void 	UI::clock()
 
   time (&rawtime);
   timeinfo = localtime(&rawtime);
-
   strftime(buffer,sizeof(buffer),"%d-%m-%Y\n     %I:%M",timeinfo);
   std::string str(buffer);
   this->printDefaultText(350, 5, str, 18, sf::Color::White);
@@ -312,8 +321,8 @@ void	UI::ip()
   strncpy(ifr.ifr_name, "wlo1", IFNAMSIZ-1);
   ioctl(fd, SIOCGIFADDR, &ifr);
   close(fd);
-  std::string str(inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr));
-  if (str != "0.0.0.0")
+  std::string ip(inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr));
+  if (ip != "0.0.0.0")
     this->printUiElem(this->creatElem(750, 15, 31, 25,"./img/wifi.png"));
   else
     this->printUiElem(this->creatElem(760, 35, 31, 25,"./img/wifi_no.png"));
@@ -321,10 +330,10 @@ void	UI::ip()
 
 void    UI::actionView(Button button, std::string price)
 {
-  NfcReader		nfc;
-  api			api("http://192.168.43.26:3000/");
-  sf::RectangleShape  	rectangle(sf::Vector2f(300, 150));
-  double              	balance = std::atof(this->price.c_str());
+  NfcReader nfc;
+  api api("http://192.168.43.26:3000/");
+  sf::RectangleShape rectangle(sf::Vector2f(300, 150));
+  double balance = std::atof(this->price.c_str());
 
   rectangle.setFillColor(sf::Color::White);
   rectangle.setPosition(250, 100);
@@ -332,10 +341,10 @@ void    UI::actionView(Button button, std::string price)
   this->printDefaultText(378 - button.c.length() * 2, 108, button.c, 25);
   if (price == "0.0")
     {
-      this->printDefaultText(315, 138, "Error no price define", 20);
+      this->printDefaultText(315, 138, "[Error] no price define", 20);
       this->display();
       sleep(2);
-      return ;
+      return;
     }
   this->printDefaultText(280, 138, "Waiting API for update acount", 18);
   this->display();
@@ -351,91 +360,10 @@ void    UI::actionView(Button button, std::string price)
       rectangle.setPosition(250, 100);
       this->window.draw(rectangle);
       this->printDefaultText(378 - button.c.length() * 2, 108, button.c, 25);
-      this->printDefaultText(295, 138, "Error API not responding", 20);
+      this->printDefaultText(295, 138, "[Error] API not responding", 20);
       this->display();
       sleep(2);
     }
-  this->clear();
   this->clearPrice("0.0");
   this->clean = 0;
-}
-
-void    UI::newUser(sf::Event event)
-{
-  Keyboard	keyboard;
-  RegisterUi	registerUi("img/beta_photo.png");
-  api		api("http://192.168.43.26:3000/");
-  Button        tmp;
-  NfcReader	nfc;
-  short         pos = 3;
-  std::string   email = "";
-  std::string   cardId = "";
-  std::string	balance = "0.0";
-  std::string	privilege = "USER";
-
-  this->clear();
-  this->clearPrice("");
-  if (nfc.initNfcReader() == -1)
-    std::cerr << "[ERROR] Card Reader no init" << std::endl;
-  else
-    nfc.readCard();
-  cardId = nfc.getIdCard();
-  while (42)
-    {
-      this->printUiList(this->SmalUiList);
-      this->printButtonList(keyboard.getKeypad());
-      this->printButtonList(registerUi.getKeypad());
-      printDefaultText(registerUi.getKeypad()[pos].textPos.x, registerUi.getKeypad()[pos].textPos.y, this->price, 18, sf::Color::White);
-      if (pos == 3)
-        printDefaultText(registerUi.getKeypad()[4].textPos.x, registerUi.getKeypad()[4].textPos.y, cardId, 18, sf::Color::White);
-      else if (pos == 4)
-        printDefaultText(registerUi.getKeypad()[3].textPos.x, registerUi.getKeypad()[3].textPos.y, email, 18, sf::Color::White);
-      while (this->window.pollEvent(event))
-        {
-          tmp = this->isClickable(this->getClickPos(event), registerUi.getKeypad());
-          if (tmp.type == TileType::EXIT)
-            {
-              this->clearPrice("0.0");
-              this->clean = 0;
-              return ;
-            }
-          else if (tmp.type == TileType::INPUT)
-            {
-              if (pos == 3 && tmp.pos.x == registerUi.getKeypad()[4].pos.x &&
-                  tmp.pos.y == registerUi.getKeypad()[4].pos.y)
-                {
-                  email = this->price;
-                  this->clearPrice("");
-                  this->clearPrice(cardId);
-                  pos = 4;
-                }
-              else if (pos == 4 && tmp.pos.x == registerUi.getKeypad()[3].pos.x &&
-                       tmp.pos.y == registerUi.getKeypad()[3].pos.y)
-                {
-		  cardId = this->price;
-                  this->clearPrice("");
-                  this->clearPrice(email);
-                  pos = 3;
-                }
-	      else if (tmp.pos.x == registerUi.getKeypad()[0].pos.x &&
-		       tmp.pos.y == registerUi.getKeypad()[0].pos.y)
-		{
-		  std::cout << "Print Key pad" << std::endl;
-		}
-	      else if (tmp.c == "AddAcount")
-		{
-		  email = this->price;
-		  api.makeJson(email, cardId, balance, privilege);
-		  api.post();
-		  this->clear();
-		  this->clearPrice("");
-		  return ;
-		}
-            }
-          this->isClickable(this->getClickPos(event), keyboard.getKeypad());
-        }
-      this->display();
-      usleep(10);
-      this->clear();
-    }
 }

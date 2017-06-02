@@ -11,16 +11,19 @@
 #ifndef EPIPAY_KEYPAD_HH
 #define EPIPAY_KEYPAD_HH
 
-#include "Key.hh"
+# include "Key.hh"
 
 class	Keypad : public Key
 {
   std::vector<Button>	pad;
+  std::vector<Button>	smallpad;
  public:
   Keypad();
   ~Keypad();
   void	creatKeypad();
+  void	creatSmallKeypad();
   std::vector<Button> getKeypad() const;
+  std::vector<Button> getSmallKeypad() const;
 };
 
 #endif /* EPIPAY_KEYPAD_HH */

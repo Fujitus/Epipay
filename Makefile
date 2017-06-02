@@ -23,7 +23,7 @@ OBJDIR			    = obj/
 NAME		        = epipay
 
 SRCS                = main.cpp          \
-                      ui.cpp            \
+                      Ui.cpp            \
                       Key.cpp           \
                       keypad.cpp        \
                       ActionButton.cpp  \
