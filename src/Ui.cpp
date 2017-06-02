@@ -224,6 +224,7 @@ void 	UI::creatUiList()
 void 	UI::creatSmalUiList()
 {
   this->SmallUiList.push_back(this->creatElem(0, 0, 800, 480, "./img/background.png"));
+  this->SmallUiList.push_back(this->creatElem(236, 99 + 28 + 28 + 15 + 15, 250, 28, "./img/cadre-texte-photo.png"));
 }
 
 Position	UI::getClickPos(sf::Event e) const

@@ -20,6 +20,7 @@ class RegisterUi : public Key
   std::vector<Button> 	getForm() const;
   void			newUser(sf::Event, UI &);
   std::string   	cardManager(UI &);
+  std::string		updatePrivilege(UI &, Button);
 };
 
 #endif /* EPIPAY_REGISTERUI_HH */
