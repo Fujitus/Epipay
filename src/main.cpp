@@ -50,6 +50,11 @@ int	main_loop()
 	      system("reboot");
 	  if (tmp.type == TileType::BUTTON && tmp.c == "Account\n\tInfo")
 	    accountInfo.printInfo(event, ui);
+	  if (tmp.type == TileType::BUTTON && tmp.c == "Reset")
+	    {
+	      ui.setClean();
+	      ui.setPrice("0.0");
+	    }
 	  else if (tmp.type == TileType::BUTTON && tmp.c != "Stock Mod" && tmp.c != "Add Card")
 	    ui.actionView(tmp, ui.getPrice());
 	  else if (tmp.type == TileType::BUTTON && tmp.c == "Add Card")

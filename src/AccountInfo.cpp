@@ -43,6 +43,8 @@ void    AccountInfo::printInfo(sf::Event event, UI &ui)
   if ((error = nfc.initNfcReader()) != ErrorType::NONE)
     {
       ui.printError(error, "\t\tCard Reader no init");
+      ui.setClean();
+      ui.setPrice("0.0");
       return ;
     }
   else
@@ -55,6 +57,8 @@ void    AccountInfo::printInfo(sf::Event event, UI &ui)
   else
     {
       ui.printError(error, "\t\tAPI not responding\n\t\t\tOr not find user");
+      ui.setClean();
+      ui.setPrice("0.0");
       return ;
     }
   ui.clear();
@@ -72,7 +76,9 @@ void    AccountInfo::printInfo(sf::Event event, UI &ui)
 	  Button tmp = ui.isClickable(ui.getClickPos(event), this->getInfo());
 	  if (tmp.type == TileType::EXIT)
 	    {
-	      ui.display();
+	      //ui.display();
+	      ui.setClean();
+	      ui.setPrice("0.0");
 	      return ;
 	    }
 	}
