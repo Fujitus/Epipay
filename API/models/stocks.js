@@ -94,9 +94,9 @@ module.exports.addStock = function(stock, callback){
   Log.addLog(updateStock);
 }
 
-//Update Stock
-module.exports.updateStock = function(id, stock, option, callback){
-  let query = {_id: id};
+//Update Stock by codebar
+module.exports.updateStock = function(codebar, stock, option, callback){
+  let query = {codebar: codebar};
   let update = {
     name: stock.name,
     type: stock.type,

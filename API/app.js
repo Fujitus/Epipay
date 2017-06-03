@@ -63,11 +63,11 @@ app.post('/api/stock', function(req, res){
   });
 });
 
-// Put Stock
-app.put('/api/stock/:_id', function(req, res){
-  let id = req.params._id;
+// Put Stock by codebar
+app.put('/api/stock/:codebar', function(req, res){
+  let codebar = req.params.codebar;
   let stock = req.body;
-  Stock.updateStock(id, stock, {}, function(err, stock){
+  Stock.updateStock(codebar, stock, {}, function(err, stock){
     if (err){
       throw err;
     }
