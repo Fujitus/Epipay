@@ -41,7 +41,7 @@ void    AccountInfo::printInfo(sf::Event event, UI &ui)
   std::size_t 			pos;
   ErrorType 			error;
 
-  if ((error = api.get(/*nfc.getIdCard()*/ "04:d3:57:22:f0:4a:80")) == ErrorType::NONE)
+  if ((error = api.get(nfc.getIdCard())) == ErrorType::NONE)
     json = api.getJson();
   else
     {
