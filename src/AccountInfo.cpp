@@ -60,10 +60,6 @@ void    AccountInfo::printInfo(sf::Event event, UI &ui)
   ui.clear();
   ui.printUiList(ui.getSmallUiList());
   ui.printButtonList(this->getInfo());
-  for (std::vector<std::string>::iterator it = json.begin(); it != json.end(); ++it)
-    {
-      std::cout << (*it) << std::endl;
-    }
   ui.printDefaultText(this->getInfo()[2].textPos.x, this->getInfo()[2].textPos.y, json[1].substr(json[1].find(":") + 1), 18, sf::Color::White);
   ui.printDefaultText(this->getInfo()[3].textPos.x, this->getInfo()[3].textPos.y, json[2].substr(json[2].find(":") + 1), 18, sf::Color::White);
   ui.printDefaultText(246, 188, json[3].substr(json[3].find(":") + 1), 18, sf::Color::White);
