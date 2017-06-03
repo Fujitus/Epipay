@@ -15,13 +15,8 @@
 #include "keypad.hh"
 #include "ActionButton.hh"
 
-int	main(int ac, char **av, char **ae)
+int	main_loop()
 {
-  if (std::getenv("DISPLAY") == NULL || ae == NULL)
-    {
-      std::cerr << "[ERROR] Make sure the environment is set correctly or the DISPLAY environment variable is set correctly"<< std::endl;
-      return (-1);
-    }
   UI            ui;
   RegisterUi	RegUi("https://cdn.local.epitech.eu/userprofil/profilview/");
   Keypad        keypad;
@@ -47,7 +42,7 @@ int	main(int ac, char **av, char **ae)
 	      ui.setPrice("0.0");
 	      ui.setClean();
 	    }
-	  tmp = ui.isClickable(ui.getClickPos(event), keypad.getKeypad());
+	  ui.isClickable(ui.getClickPos(event), keypad.getKeypad());
 	  tmp = ui.isClickable(ui.getClickPos(event), actionButton.getKeypad());
 	  if (tmp.type == TileType::BUTTON && tmp.c == "Poweroff")
 	    system("poweroff");
@@ -71,4 +66,15 @@ int	main(int ac, char **av, char **ae)
       usleep(5000);
       ui.clear();
     }
+}
+
+int	main(int ac, char **av, char **ae)
+{
+  if (std::getenv("DISPLAY") == NULL || ae == NULL)
+    {
+      std::cerr << "[ERROR] Make sure the environment is set correctly or the DISPLAY environment variable is set correctly"<< std::endl;
+      return (-1);
+    }
+  main_loop();
+  return (0);
 }

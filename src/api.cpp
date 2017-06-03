@@ -195,9 +195,9 @@ std::vector<std::string>		api::getJson()
 
 ErrorType	api::makeJson(std::string email, std::string cardId, std::string balance, std::string privilege)
 {
-  if (email.find("@epitech.eu"))
+  if (std::strstr(email.c_str(), "@epitech.eu") == NULL)
     return (ErrorType::BADEMAIL);
-  if (email == "<Get Card ID>")
+  if (cardId == "<Get Card ID>")
     return (ErrorType::NOID);
   this->json = "{";
   this->json += "\"email\":";

@@ -355,11 +355,11 @@ void    UI::actionView(Button button, std::string price)
     }
   if ((error = api.get(nfc.getIdCard())) == ErrorType::NONE)
     {
-      this->printMsg("Waiting API for update acount", 0);
+      this->printMsg("aiting API for update acount", 0);
     if (api.updateAccount(button, balance, nfc.getIdCard()) != ErrorType::NONE)
       this->printError(error, "API not responding\n Or not find user");
     else
-      this->printMsg("Account updated\n\t\t\tsuccessfully", 2);
+      this->printMsg("\t\t\t\tAccount updated\n\t\t\tsuccessfully", 2);
     }
   else
     this->printError(error, "API not responding\n Or not find user");

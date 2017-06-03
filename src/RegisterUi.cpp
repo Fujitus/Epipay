@@ -101,6 +101,7 @@ void    RegisterUi::newUser(sf::Event event, UI &ui)
 		  else
 		    {
 		      api.post();
+		      ui.setPrice("0.0");
 		      ui.printMsg("Account registered\n\t\t\tsuccessfully", 2);
 		      return ;
 		    }
@@ -141,7 +142,7 @@ std::string     RegisterUi::cardManager(UI &ui)
     }
   else
     {
-      ui.printMsg("[OK] Get Card ID", 0);
+      ui.printMsg("\t\t[OK] Get Card ID", 0);
       nfc.readCard();
       sleep(1);
     }

@@ -38,9 +38,18 @@ void    AccountInfo::printInfo(sf::Event event, UI &ui)
   std::string   		cardId;
   std::string			balance;
   std::string			privilege;
-  std::size_t 			pos;
   ErrorType 			error;
 
+  if ((error = nfc.initNfcReader()) != ErrorType::NONE)
+    {
+      ui.printError(error, "\t\tCard Reader no init");
+      return ;
+    }
+  else
+    {
+      ui.printMsg("\t\t\tReading Card", 2);
+      nfc.readCard();
+    }
   if ((error = api.get(nfc.getIdCard())) == ErrorType::NONE)
     json = api.getJson();
   else
