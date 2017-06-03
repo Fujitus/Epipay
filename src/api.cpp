@@ -31,6 +31,8 @@ ErrorType 	api::get(std::string card_id)
   std::cout << "ID = " << card_id << std::endl;
   url = this->apiUrl + "api/people/" + card_id;
   std::cout << "URL = " << url << std::endl;
+  if ((system((this->cmd + this->dns).c_str())) == 512)
+    return (ErrorType::API);
   if (curl_easy_setopt(curl, CURLOPT_URL, url.c_str()) != CURLE_OK)
     return (ErrorType::API);
   if (curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, getResponse) != CURLE_OK)
@@ -57,6 +59,8 @@ ErrorType	     api::put(std::string card_id)
   std::cout << "URL = " << url << std::endl;
   json_struct = curl_slist_append(json_struct, "Content-Type: application/json");
   curl = curl_easy_init();
+  if ((system((this->cmd + this->dns).c_str())) == 512)
+    return (ErrorType::API);
   if (!curl)
     return (ErrorType::API);
   if (curl_easy_setopt(curl, CURLOPT_URL, url.c_str()) != CURLE_OK)
@@ -92,6 +96,8 @@ ErrorType 	    api::post()
   std::cout << "URL = " << url << std::endl;
   json_struct = curl_slist_append(json_struct, "Content-Type: application/json");
   curl = curl_easy_init();
+  if ((system((this->cmd + this->dns).c_str())) == 512)
+    return (ErrorType::API);
   if (!curl)
     return (ErrorType::API);
   if (curl_easy_setopt(curl, CURLOPT_URL, url.c_str()) != CURLE_OK)

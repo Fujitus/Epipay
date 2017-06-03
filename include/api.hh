@@ -5,18 +5,22 @@
 #ifndef EPIPAY_API_HH
 # define EPIPAY_API_HH
 
-#include <curl/curl.h>
-#include <string>
-#include <ostream>
-#include <iostream>
-#include <vector>
-#include <cstring>
-#include "IKey.hh"
+# include <curl/curl.h>
+# include <string>
+# include <ostream>
+# include <iostream>
+# include <vector>
+# include <cstring>
+# include "IKey.hh"
+
+# define APIURL "http://epipay.eu-3.evennode.com/"
 
 class api
 {
   std::string	apiUrl;
   std::string 	json;
+  std::string	cmd = "ping -c 1 ";
+  std::string	dns = "epipay.eu-3.evennode.com";
  public:
   api(std::string);
   ~api();

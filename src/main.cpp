@@ -10,6 +10,7 @@
 
 #include <net.hh>
 #include <RegisterUi.hh>
+#include <AccountInfo.hh>
 #include "Ui.hh"
 #include "keypad.hh"
 #include "ActionButton.hh"
@@ -22,9 +23,10 @@ int	main(int ac, char **av, char **ae)
       return (-1);
     }
   UI            ui;
-  RegisterUi	RegUi("img/beta_photo.png");
+  RegisterUi	RegUi("https://cdn.local.epitech.eu/userprofil/profilview/");
   Keypad        keypad;
   ActionButton  actionButton;
+  AccountInfo	accountInfo;
   sf::Event     event;
   Button	tmp;
 
@@ -51,6 +53,8 @@ int	main(int ac, char **av, char **ae)
 	    system("poweroff");
 	  else if (tmp.type == TileType::BUTTON && tmp.c == "Reboot")
 	      system("reboot");
+	  if (tmp.type == TileType::BUTTON && tmp.c == "Account\n\tInfo")
+	    accountInfo.printInfo(event, ui);
 	  else if (tmp.type == TileType::BUTTON && tmp.c != "Stock Mod" && tmp.c != "Add Card")
 	    ui.actionView(tmp, ui.getPrice());
 	  else if (tmp.type == TileType::BUTTON && tmp.c == "Add Card")

@@ -11,7 +11,6 @@
 #include <iomanip>
 #include "Ui.hh"
 #include "net.hh"
-//#include "RegisterUi.hh"
 #include "NfcReader.hh"
 #include "api.hh"
 
@@ -231,7 +230,6 @@ Position	UI::getClickPos(sf::Event e) const
 {
   Position pos = Position();
 
-
   pos.x = -1;
   pos.y = -1;
   if (e.type == sf::Event::MouseButtonPressed)
@@ -283,6 +281,7 @@ Button 	UI::isClickable(Position mouse, std::vector<Button> tmpButton)
                   this->price += (*it).c;
               }
           }
+	std::cout << "{CLICK FUNC} Click on " << (*it).c << std::endl;
         this->printButton(*it, (*it).hover);
         this->display();
         usleep(30000);
@@ -332,7 +331,7 @@ void    UI::actionView(Button button, std::string price)
 {
   ErrorType		error;
   NfcReader		nfc;
-  api 			api("http://192.168.43.26:3000/");
+  api 			api(APIURL);
   double 		balance;
 
   balance = std::atof(this->price.c_str());
@@ -351,18 +350,19 @@ void    UI::actionView(Button button, std::string price)
     }
   else
     {
-      this->printMsg("Waiting API for update acount", 0);
+      this->printMsg("\t\t\tReading Card", 2);
       nfc.readCard();
     }
-  if ((error == api.get(nfc.getIdCard())) == ErrorType::NONE)
+  if ((error = api.get(nfc.getIdCard())) == ErrorType::NONE)
     {
+      this->printMsg("Waiting API for update acount", 0);
     if (api.updateAccount(button, balance, nfc.getIdCard()) != ErrorType::NONE)
       this->printError(error, "API not responding\n Or not find user");
     else
       this->printMsg("Account updated\n\t\t\tsuccessfully", 2);
     }
   else
-    this->printError(ErrorType::API, "API not responding\n Or not find user");
+    this->printError(error, "API not responding\n Or not find user");
   this->setPrice("0.0");
   this->clean = 0;
   return ;

@@ -55,7 +55,7 @@ void	NfcReader::toHex(const uint8_t *pbtData, const size_t szBytes)
       	ss << ":";
     }
   this->cardId = ss.str();
-  std::cout << "NFCFUNCK "<< ss.str() << std::endl;
+  std::cout << "NFC "<< ss.str() << std::endl;
 }
 
 ErrorType 	NfcReader::readCard()

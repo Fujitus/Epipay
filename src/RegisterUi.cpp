@@ -11,13 +11,13 @@
 RegisterUi::RegisterUi(std::string _photoPath)
 {
   this->photoPath = _photoPath;
-  this->creatKeypad();
+  this->creatForm();
 }
 
 RegisterUi::~RegisterUi()
 {}
 
-void 	RegisterUi::creatKeypad()
+void 	RegisterUi::creatForm()
 {
   this->form.push_back(this->creatKey(546, 121, "price", 143, 70, "./img/money-cadre.png", "", 0, 650, 115,  TileType::INPUT));
   this->form.push_back(this->creatKey(31, 256, "sep", 737, 3, "./img/barre_separation_gris-fonce.png", "", 0, 0, 0,  TileType::NONE));
@@ -40,7 +40,7 @@ void    RegisterUi::newUser(sf::Event event, UI &ui)
 {
   Keypad	keypad;
   Keyboard	keyboard;
-  api		api("http://192.168.43.26:3000/");
+  api		api(APIURL);
   std::string   email = "";
   std::string   cardId = "<Get Card ID>";
   std::string	balance = "0.0";
@@ -63,6 +63,7 @@ void    RegisterUi::newUser(sf::Event event, UI &ui)
       ui.printDefaultText(this->getForm()[3].textPos.x, this->getForm()[3].textPos.y, email, 18, sf::Color::White);
       while (ui.window.pollEvent(event))
 	{
+//	  this->printPhotoIntra(this->photoPath + email + ".jpg", ui);
 	  if (atof(balance.c_str()) > 100)
 	    {
 	      ui.printError(ErrorType::PRICELEN, "\t\tInvalide input price");
@@ -169,4 +170,17 @@ std::string	RegisterUi::updatePrivilege(UI &ui, Button select)
       this->form[7].sprite = "./img/statut-on.png";
     }
   return (select.c);
+}
+
+int		RegisterUi::printPhotoIntra(const std::string file, UI &ui)
+{
+  sf::Sprite    		sprite;
+  sf::Texture   		texture;
+
+  if (!texture.loadFromFile(file.c_str(), sf::IntRect(0, 0, 160, 190)))
+    return (-1);
+  sprite.setTexture(texture);
+  sprite.setPosition(111, 90);
+  ui.window.draw(sprite);
+  return (0);
 }

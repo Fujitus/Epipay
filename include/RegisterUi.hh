@@ -8,19 +8,20 @@
 # include <Key.hh>
 # include "Ui.hh"
 
-class RegisterUi : public Key
+class 	RegisterUi : public Key
 {
-  std::string	photoPath;
+  std::string		photoPath;
+  std::vector<Button>	form;
  public:
   RegisterUi(std::string);
   ~RegisterUi();
-  std::vector<Button>	form;
- public:
-  void			creatKeypad();
+  void			creatForm();
   std::vector<Button> 	getForm() const;
+  void			setPhoto(std::string);
   void			newUser(sf::Event, UI &);
   std::string   	cardManager(UI &);
   std::string		updatePrivilege(UI &, Button);
+  int			printPhotoIntra(const std::string file, UI &);
 };
 
 #endif /* EPIPAY_REGISTERUI_HH */

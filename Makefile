@@ -30,7 +30,8 @@ SRCS                = main.cpp          \
                       Keyboard.cpp      \
                       RegisterUi.cpp    \
                       NfcReader.cpp     \
-                      api.cpp
+                      api.cpp           \
+                      AccountInfo.cpp
 
 OBJS			    = $(addprefix $(OBJDIR), $(SRCS:.cpp=.o))
 
