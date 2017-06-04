@@ -405,7 +405,7 @@ void 		UI::systemExec(std::string cmd)
     }
   if (cmd == "reboot")
     {
-      this->printMsg("\t\tRebooting Off Epipay", 2);
+      this->printMsg("\t\t\tRebooting Epipay", 2);
       system("sudo reboot");
     }
 }
