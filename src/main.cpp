@@ -38,9 +38,9 @@ int	main_loop()
 	{
 	  ui.isClickable(ui.getClickPos(event), keypad.getKeypad());
 	  tmp = ui.isClickable(ui.getClickPos(event), actionButton.getKeypad());
-	  if (tmp.type == TileType::BUTTON && tmp.c == "Poweroff")
+	  if (tmp.type == TileType::CMD && tmp.c == "Poweroff")
 	    system("poweroff");
-	  else if (tmp.type == TileType::BUTTON && tmp.c == "Reboot")
+	  else if (tmp.type == TileType::CMD && tmp.c == "Reboot")
 	    system("reboot");
 	  if (atof(ui.getPrice().c_str()) > 100)
 	    {

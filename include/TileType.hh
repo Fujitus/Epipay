@@ -19,6 +19,7 @@ enum class TileType : uint16_t
   EXIT = 3,
   INPUT = 4,
   SELECTE = 5,
+  CMD = 6
 };
 
 enum ErrorType : uint16_t
