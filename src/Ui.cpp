@@ -379,7 +379,7 @@ void		UI::printError(ErrorType type, std::string errorMsg)
   this->window.draw(rectangle);
   this->printDefaultText(270, 138, msg.str(), 20);
   this->display();
-  sleep(2);
+  sleep(1);
   return ;
 }
 
