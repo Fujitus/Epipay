@@ -400,5 +400,5 @@ void 		UI::systemExec(std::string cmd)
 {
   std::string sudo = "sudo ";
 
-  system(sudo + cmd.c_str());
+  system((sudo + cmd).c_str());
 }
