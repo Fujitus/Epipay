@@ -36,21 +36,21 @@ int	main_loop()
       ui.printPrice(460, 72, ui.getPrice(), 64);
       while (ui.window.pollEvent(event))
 	{
+	  ui.isClickable(ui.getClickPos(event), keypad.getKeypad());
+	  tmp = ui.isClickable(ui.getClickPos(event), actionButton.getKeypad());
+	  if (tmp.type == TileType::BUTTON && tmp.c == "Poweroff")
+	    system("poweroff");
+	  else if (tmp.type == TileType::BUTTON && tmp.c == "Reboot")
+	    system("reboot");
 	  if (atof(ui.getPrice().c_str()) > 100)
 	    {
 	      ui.printError(ErrorType::PRICELEN, "\t\tInvalide input price");
 	      ui.setPrice("0.0");
 	      ui.setClean();
 	    }
-	  ui.isClickable(ui.getClickPos(event), keypad.getKeypad());
-	  tmp = ui.isClickable(ui.getClickPos(event), actionButton.getKeypad());
-	  if (tmp.type == TileType::BUTTON && tmp.c == "Poweroff")
-	    system("poweroff");
-	  else if (tmp.type == TileType::BUTTON && tmp.c == "Reboot")
-	      system("reboot");
 	  if (tmp.type == TileType::BUTTON && tmp.c == "Account\n\tInfo")
 	    accountInfo.printInfo(event, ui);
-	  if (tmp.type == TileType::BUTTON && tmp.c == "Reset")
+	  else if (tmp.type == TileType::BUTTON && tmp.c == "Reset")
 	    {
 	      ui.setClean();
 	      ui.setPrice("0.0");
