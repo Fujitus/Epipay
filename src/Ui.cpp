@@ -398,7 +398,14 @@ void		UI::printMsg(std::string msg, unsigned int nbSleep)
 
 void 		UI::systemExec(std::string cmd)
 {
-  std::string sudo = "sudo ";
-
-  system((sudo + cmd).c_str());
+  if (cmd == "poweroff")
+    {
+      this->printMsg("\t\tPowering Off Epipay", 2);
+      system("sudo poweroff");
+    }
+  if (cmd == "reboot")
+    {
+      this->printMsg("\t\tRebooting Off Epipay", 2);
+      system("sudo reboot");
+    }
 }
