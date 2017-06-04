@@ -61,6 +61,7 @@ class 	UI
   void 		actionView(Button, std::string);
   void		printError(ErrorType, std::string);
   void		printMsg(std::string, unsigned int);
+  void 		systemExec(std::string);
 };
 
 #endif /* EPIPAY_UI_HH */

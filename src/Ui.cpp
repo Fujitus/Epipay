@@ -395,3 +395,10 @@ void		UI::printMsg(std::string msg, unsigned int nbSleep)
   sleep(nbSleep);
   return ;
 }
+
+void 		UI::systemExec(std::string cmd)
+{
+  std::string sudo = "sudo ";
+
+  system(sudo + cmd.c_str());
+}
