@@ -70,11 +70,11 @@ int	main_loop()
 	  else if (tmp.type == TileType::BUTTON && tmp.c == "Stock Mod")
 	    ui.printMsg("\t\t\t\t\tStock Mod\n\t\t\tWork in progress", 2);
 	  ui.display();
-	  usleep(5000);
+	  usleep(500);
 	  ui.clear();
     	}
       if (tmp.c == "")
-      	usleep(5000);
+      	usleep(500);
     }
 }
 
