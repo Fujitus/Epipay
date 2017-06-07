@@ -9,6 +9,8 @@
 //
 
 #include <iomanip>
+#include <chrono>
+#include <thread>
 #include "Ui.hh"
 #include "net.hh"
 #include "NfcReader.hh"
@@ -284,7 +286,7 @@ Button 	UI::isClickable(Position mouse, std::vector<Button> tmpButton)
 	std::cout << "{CLICK FUNC} Click on " << (*it).c << std::endl;
         this->printButton(*it, (*it).hover);
         this->display();
-        usleep(30000);
+        std::this_thread::sleep_for(std::chrono::microseconds(300));
         return ((*it));
     }
     --it;
@@ -379,7 +381,7 @@ void		UI::printError(ErrorType type, std::string errorMsg)
   this->window.draw(rectangle);
   this->printDefaultText(270, 138, msg.str(), 20);
   this->display();
-  sleep(1);
+  std::this_thread::sleep_for(std::chrono::seconds(1));
   return ;
 }
 
@@ -392,7 +394,7 @@ void		UI::printMsg(std::string msg, unsigned int nbSleep)
   this->window.draw(rectangle);
   this->printDefaultText(270, 138, msg, 20);
   this->display();
-  sleep(nbSleep);
+  std::this_thread::sleep_for(std::chrono::seconds(nbSleep));
   return ;
 }
 

@@ -3,6 +3,8 @@
 //
 
 #include <keypad.hh>
+#include <chrono>
+#include <thread>
 #include "net.hh"
 #include "NfcReader.hh"
 #include "api.hh"
@@ -124,7 +126,7 @@ void    RegisterUi::newUser(sf::Event event, UI &ui)
 	    }
 	}
       ui.display();
-      usleep(5000);
+      std::this_thread::sleep_for(std::chrono::microseconds(5000));
       ui.clear();
     }
 }
