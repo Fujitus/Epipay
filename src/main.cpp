@@ -64,7 +64,7 @@ int	main_loop()
 	  else if (tmp.type == TileType::BUTTON && tmp.c == "Add Card")
 	    RegUi.newUser(event, ui);
 	  else if (tmp.type == TileType::BUTTON && tmp.c == "Stock Mod")
-	    ui.printMsg("\t\t\t\t\tStock Mod\n\t\t\tWork in progress", 2);
+	    ui.printMsg("\t\t\t\t\tStock Mod\n\t\t\tWork in progress", 1);
 	  ui.display();
 	  std::this_thread::sleep_for(std::chrono::microseconds(5000));
 	  ui.clear();

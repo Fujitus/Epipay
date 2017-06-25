@@ -104,7 +104,7 @@ void    RegisterUi::newUser(sf::Event event, UI &ui)
 		    {
 		      api.post();
 		      ui.setPrice("0.0");
-		      ui.printMsg("Account registered\n\t\t\tsuccessfully", 2);
+		      ui.printMsg("Account registered\n\t\t\tsuccessfully", 0);
 		      return ;
 		    }
 		  ui.setPrice("0.0");

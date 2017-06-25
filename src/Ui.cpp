@@ -11,6 +11,7 @@
 #include <iomanip>
 #include <chrono>
 #include <thread>
+#include <netdb.h>
 #include "Ui.hh"
 #include "net.hh"
 #include "NfcReader.hh"
@@ -316,10 +317,22 @@ void	UI::ip()
 {
   int fd;
   struct ifreq ifr;
+  struct protoent       *pe;
 
-  fd = socket(AF_INET, SOCK_DGRAM, 0);
+  if (!(pe = getprotobyname("TCP")))
+    return ;
+  fd = socket(AF_INET, SOCK_STREAM, pe->p_proto);
+  if (fd == -1)
+    {
+      this->printUiElem(this->creatElem(760, 35, 31, 25,"./img/wifi_no.png"));
+      return ;
+    }
   ifr.ifr_addr.sa_family = AF_INET;
-  strncpy(ifr.ifr_name, "wlo1", IFNAMSIZ-1);
+  if (strncpy(ifr.ifr_name, "wlo1", IFNAMSIZ-1) == NULL)
+    {
+      this->printUiElem(this->creatElem(760, 35, 31, 25,"./img/wifi_no.png"));
+      return ;
+    }
   ioctl(fd, SIOCGIFADDR, &ifr);
   close(fd);
   std::string ip(inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr));
@@ -361,7 +374,7 @@ void    UI::actionView(Button button, std::string price)
     if (api.updateAccount(button, balance, nfc.getIdCard()) != ErrorType::NONE)
       this->printError(error, "API not responding\n Or not find user");
     else
-      this->printMsg("\t\t\t\tAccount updated\n\t\t\tsuccessfully", 2);
+      this->printMsg("\t\t\t\tAccount updated\n\t\t\tsuccessfully", 0);
     }
   else
     this->printError(error, "API not responding\n Or not find user");
