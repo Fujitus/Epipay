@@ -328,7 +328,7 @@ void	UI::ip()
       return ;
     }
   ifr.ifr_addr.sa_family = AF_INET;
-  if (strncpy(ifr.ifr_name, "wlo1", IFNAMSIZ-1) == NULL)
+  if (strncpy(ifr.ifr_name, "wlan0", IFNAMSIZ-1) == NULL)
     {
       this->printUiElem(this->creatElem(760, 35, 31, 25,"./img/wifi_no.png"));
       return ;

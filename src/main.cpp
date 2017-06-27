@@ -59,7 +59,8 @@ int	main_loop()
 	      ui.setClean();
 	      ui.setPrice("0.0");
 	    }
-	  else if (tmp.type == TileType::BUTTON && tmp.c != "Stock Mod" && tmp.c != "Add Card")
+	  else if (tmp.type == TileType::BUTTON && tmp.c != "Stock Mod" &&
+		   tmp.c != "Add Card")
 	    ui.actionView(tmp, ui.getPrice());
 	  else if (tmp.type == TileType::BUTTON && tmp.c == "Add Card")
 	    RegUi.newUser(event, ui);
@@ -83,7 +84,8 @@ int	main(int ac, char **av, char **ae)
 {
   if (std::getenv("DISPLAY") == NULL || ae == NULL)
     {
-      std::cerr << "[ERROR] Make sure the environment is set correctly or the DISPLAY environment variable is set correctly"<< std::endl;
+      std::cerr << "[ERROR] Make sure the environment is set correctly or the"
+       " DISPLAY environment variable is set correctly"<< std::endl;
       return (-1);
     }
   main_loop();
