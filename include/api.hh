@@ -13,14 +13,14 @@
 # include <cstring>
 # include "IKey.hh"
 
-# define APIURL "http://epipayv2.eu-2.evennode.com/"
+# define APIURL "http://epipayv4.eu-3.evennode.com/"
 
 class api
 {
   std::string	apiUrl;
   std::string 	json;
   std::string	cmd = "ping -c 1 ";
-  std::string	dns = "epipayv2.eu-2.evennode.com";
+  std::string	dns = "epipayv4.eu-3.evennode.com";
  public:
   api(std::string);
   ~api();
