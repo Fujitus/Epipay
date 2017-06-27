@@ -67,7 +67,7 @@ int	main_loop()
 	  else if (tmp.type == TileType::BUTTON && tmp.c == "Stock Mod")
 	    ui.printMsg("\t\t\t\t\tStock Mod\n\t\t\tWork in progress", 1);
 	  ui.display();
-	  std::this_thread::sleep_for(std::chrono::microseconds(1000));
+	  std::this_thread::sleep_for(std::chrono::microseconds(500));
 	  ui.clear();
 	}
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
@@ -75,7 +75,7 @@ int	main_loop()
 	  ui.closewin();
 	  return (0);
 	}
-      std::this_thread::sleep_for(std::chrono::microseconds(1000));
+      std::this_thread::sleep_for(std::chrono::microseconds(500));
     }
   return (0);
 }
