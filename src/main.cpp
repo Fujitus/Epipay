@@ -36,12 +36,12 @@ int	main_loop()
   ui.display();
   while (ui.window.isOpen())
     {
+      ui.printUiList(ui.getUiList());
+      ui.printButtonList(keypad.getKeypad());
+      ui.printButtonList(actionButton.getKeypad());
+      ui.printPrice(460, 72, ui.getPrice(), 64);
       while (ui.window.pollEvent(event))
 	{
-	  ui.printUiList(ui.getUiList());
-	  ui.printButtonList(keypad.getKeypad());
-	  ui.printButtonList(actionButton.getKeypad());
-	  ui.printPrice(460, 72, ui.getPrice(), 64);
 	  ui.isClickable(ui.getClickPos(event), keypad.getKeypad());
 	  tmp = ui.isClickable(ui.getClickPos(event), actionButton.getKeypad());
 	  if (tmp.type == TileType::CMD)
@@ -66,16 +66,15 @@ int	main_loop()
 	    RegUi.newUser(event, ui);
 	  else if (tmp.type == TileType::BUTTON && tmp.c == "Stock Mod")
 	    ui.printMsg("\t\t\t\t\tStock Mod\n\t\t\tWork in progress", 1);
-	  ui.display();
-	  std::this_thread::sleep_for(std::chrono::microseconds(50));
-	  ui.clear();
 	}
+      ui.display();
+      std::this_thread::sleep_for(std::chrono::microseconds(50));
+      ui.clear();
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 	{
 	  ui.closewin();
 	  return (0);
 	}
-      std::this_thread::sleep_for(std::chrono::microseconds(50));
     }
   return (0);
 }
