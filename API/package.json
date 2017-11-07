@@ -4,7 +4,7 @@
   "description": "Payment API for BDE EPITECH",
   "main": "app.js",
   "scripts": {
-      "start": "node app.js"
+      "test": "nodemon app.js"
   },
   "dependencies":{
     "express":"*",

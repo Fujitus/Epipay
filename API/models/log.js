@@ -15,24 +15,21 @@ var logSchema = mongoose.Schema({
     },
     card_id:{
       type: String,
-      required: false
     },
     price:{
       type: Number,
-      default: 0
     },
     type:{
       type: String,
-      enum: ['BUY', 'STOCK','RESTOCK', 'DELSTOCK','ADDMONEY'],
+      enum: ['BUY', 'STOCK','RESTOCK', 'DELSTOCK','ADDMONEY', 'NEWUSER'],
       required: true
     },
     nombre:{
       type: Number,
-      required: true
     },
     date:{
       type: Date,
-      default: Date.now
+      default: Date.now()
     }
   },
 {
@@ -47,12 +44,6 @@ module.exports.getLog = function(callback, limit){
 }
 
 //Add Log
-module.exports.addLog = function(log){
-  Log.create(log);
-}
-
-//Delet Log
-module.exports.removeLog = function(id, callback){
-  let query = {_id: id};
-  Log.remove(query, callback);
+module.exports.addLog = function(newLog){
+  Log.create(newLog);
 }
