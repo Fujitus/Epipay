@@ -10,11 +10,12 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(require('connect-logger')({/* options */}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Connect to MongooseDB
-mongoose.createConnection('mongodb://epipay:epipay@ds127341.mlab.com:27341/epipay');
+mongoose.connect('mongodb://epipay:epipay@ds127341.mlab.com:27341/epipay');
 
 require('./route/stocks')(app);
 require('./route/people')(app);

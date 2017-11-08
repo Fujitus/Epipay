@@ -4,12 +4,14 @@
   "description": "Payment API for BDE EPITECH",
   "main": "app.js",
   "scripts": {
-      "test": "nodemon app.js"
+    "test": "nodemon app.js"
   },
-  "dependencies":{
-    "express":"*",
-    "body-parser":"*",
-    "mongoose":"*"
+  "dependencies": {
+    "body-parser": "*",
+    "connect": "^3.6.5",
+    "connect-logger": "0.0.1",
+    "express": "*",
+    "mongoose": "*"
   },
   "author": "arnaud.costa@epitech.eu",
   "license": "ISC"

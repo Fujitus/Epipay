@@ -56,12 +56,17 @@ module.exports.updatePeople = function(card_id, price, action_type, user, callba
     balance: tmp_price,
     last_transaction: Date.now(),
   }
-  People.findOneAndUpdate({"card_id" : card_id}, update, {upsert:true},function(err, doc){
-    if (err)
-    callback({"Error" : err});
-    else {
-      Log.addLog(updatePeople);
-      callback({"Ok" : user.email + " transaction"});
-    }
-  });
+  if (update.balance < 0.0) {
+    callback({"Error" : user.email + " transaction fail balance is or will be at 0", balance : 0});
+  }
+  else {
+    People.findOneAndUpdate({"card_id" : card_id}, update, {upsert:true},function(err, doc){
+      if (err)
+      callback({"Error" : err});
+      else {
+        Log.addLog(updatePeople);
+        callback({"Ok" : user.email + " transaction"});
+      }
+    });
+  }
 }
