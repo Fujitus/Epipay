@@ -1,6 +1,6 @@
-const People = require('../models/people');
 const PeopleRules = require('../config/peopleRules');
-
+const StockRules = require('../config/stocksRules');
+const People =require('../models/people');
 /*
 // ----------------------------------------------------------------------------
 // ############################# - People rules - #############################
@@ -38,20 +38,32 @@ app.post('/api/people', function(req, res){
 
 // Post People by card id
 app.post('/api/people/:card_id', function(req, res){
-  People.findOne({"card_id" : req.params.card_id}, function (err, user) {
-    if (err || user == null)
-      res.json({"Error" : "No user find"});
-    else {
-      PeopleRules.updatePeople(req.params.card_id, req.body.price, req.body.action_type, user, function(err, people){
-        if (err){
-          res.json({"Error" : err});
-        }
-        else {
-          res.json(people);
-        }
-      });
-    }
-  })
+  if (req.body.codebar_array == null)
+    res.json({"Error" : "codebar_array is not set corectli"});
+  else {
+    let codebarArray = req.body.codebar_array;
+    People.findOne({"card_id" : req.params.card_id}, function (err, user) {
+      if (err || user == null)
+        res.json({"Error" : "No user find"});
+      else {
+        PeopleRules.updatePeople(req.params.card_id, req.body.price, req.body.action_type, user, function(err, people){
+          if (err){
+            res.json({"Error" : err});
+          }
+          else {
+            for (var i = 0; i < codebarArray.length; i++) {
+              console.log(codebarArray[i].codebar);
+              StockRules.deStock(codebarArray[i].codebar, function(err, stock){
+                if (err)
+                  res.json(stock);
+              });
+            }
+            res.json(people);
+          }
+        });
+      }
+    })
+  }
 });
 
 }

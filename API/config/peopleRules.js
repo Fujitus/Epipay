@@ -44,7 +44,7 @@ module.exports.updatePeople = function(card_id, price, action_type, user, callba
   if (action_type == "BUY") {
     tmp_price = user.balance - price;
   }
-  else if (action == "ADDMONEY") {
+  else if (action_type == "ADDMONEY") {
     tmp_price = user.balance + price;
   }
   let updatePeople = {
@@ -62,10 +62,10 @@ module.exports.updatePeople = function(card_id, price, action_type, user, callba
   else {
     People.findOneAndUpdate({"card_id" : card_id}, update, {upsert:true},function(err, doc){
       if (err)
-      callback({"Error" : err});
+      callback(true , err);
       else {
         Log.addLog(updatePeople);
-        callback({"Ok" : user.email + " transaction"});
+        callback(false, {"Ok" : user.email + " transaction"});
       }
     });
   }

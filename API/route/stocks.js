@@ -29,15 +29,15 @@ app.post('/api/stock/:codebar', function(req, res){
     if (err)
       res.json({"Error" : err});
     else if (item == null)
-      StockRules.addStock(req.body, function(err, done){
+      StockRules.addStock(req.body, req.params.codebar, function(err, done){
     if (err)
-      res.json({"Error" : err});
+      res.json({"Error" : done});
     res.json(done);
     })
     else {
       StockRules.updateStock(req.params.codebar, req.body, function(err, done){
         if (err)
-          res.json({"Error" : err});
+          res.json({"Error" : done});
         res.json(done);
       })
     }
